@@ -46,3 +46,6 @@ ENV PATH      $NVM_DIR/v20.8.0/bin:$PATH
 
 # Install Postgresql client
 RUN apt-get install -qy postgresql-client
+
+# Make sure Git doesn't mark all files as dirty when in the container
+RUN git config --global core.autocrlf input
