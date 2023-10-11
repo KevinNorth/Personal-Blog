@@ -47,9 +47,7 @@ ENV PATH      $NVM_DIR/v20.8.0/bin:$PATH
 # Install Postgresql client and dev libraries
 RUN apt-get install -qy postgresql-client libpq-dev
 
-# Make sure Git doesn't mark all files as dirty when in the container
-RUN git config --global core.autocrlf input
-
+# Create non-root user
 RUN adduser kevin
 RUN usermod -aG sudo kevin
 RUN usermod -aG postgres kevin
@@ -57,3 +55,6 @@ RUN usermod -aG postgres kevin
 USER kevin
 RUN mkdir ~/.gems
 RUN bundle config path ~/.gems
+
+# Make sure Git doesn't mark all files as dirty when in the container
+RUN git config --global core.autocrlf input
