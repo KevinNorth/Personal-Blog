@@ -43,3 +43,6 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash 
 
 ENV NODE_PATH $NVM_DIR/v20.8.0/lib/node_modules
 ENV PATH      $NVM_DIR/v20.8.0/bin:$PATH
+
+# Install Postgresql client
+RUN apt-get install -qy postgresql-client
