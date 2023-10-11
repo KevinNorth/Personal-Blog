@@ -44,8 +44,16 @@ RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash 
 ENV NODE_PATH $NVM_DIR/v20.8.0/lib/node_modules
 ENV PATH      $NVM_DIR/v20.8.0/bin:$PATH
 
-# Install Postgresql client
-RUN apt-get install -qy postgresql-client
+# Install Postgresql client and dev libraries
+RUN apt-get install -qy postgresql-client libpq-dev
 
 # Make sure Git doesn't mark all files as dirty when in the container
 RUN git config --global core.autocrlf input
+
+RUN adduser kevin
+RUN usermod -aG sudo kevin
+RUN usermod -aG postgres kevin
+
+USER kevin
+RUN mkdir ~/.gems
+RUN bundle config path ~/.gems
