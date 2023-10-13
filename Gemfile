@@ -5,6 +5,9 @@ ruby "3.2.2"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.0"
 
+# GraphQL
+gem 'graphql', "~> 2.1.3"
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -50,6 +53,8 @@ group :development, :test do
 end
 
 group :development do
+  gem "graphiql-rails"
+
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
