@@ -1,4 +1,4 @@
-FROM ubuntu/postgres:14-22.04_beta
+FROM ubuntu:22.04
 
 # Install RVM
 # Borrowed from https://github.com/ms-ati/docker-rvm/blob/master/Dockerfile
@@ -50,11 +50,9 @@ RUN apt-get install -qy postgresql-client libpq-dev
 # Create non-root user
 RUN adduser kevin
 RUN usermod -aG sudo kevin
-RUN usermod -aG postgres kevin
+RUN usermod -aG root kevin
 
 USER kevin
-RUN mkdir ~/.gems
-RUN bundle config path ~/.gems
 
 # Make sure Git doesn't mark all files as dirty when in the container
 RUN git config --global core.autocrlf input

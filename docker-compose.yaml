@@ -15,14 +15,13 @@ services:
       - "5432:5432"
   myapp-web:
     build: .
-    command: "bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       DB_HOST: db
       DB_NAME: blogdb
       DB_USERNAME: admin
       DB_PASSWORD: 0b0e55e3-9ea7-408c-a506-862956f4a5d7
     volumes:
-      - .:/app:cached
+      - .:/~
     ports:
       - "3000:3000"
     depends_on:
