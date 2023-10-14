@@ -8,7 +8,7 @@ module Types
     field :category_id, Integer, null: false, description: 'ID of the category under which this post will appear'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'When this object was added to the database'
-    field :header_image, Types::BinaryType, description: 'Image to show at the top of the page'
+    field :header_image, string, description: 'URL of image to show at the top of the page'
     field :id, ID, null: false, description: 'Unique database ID'
     field :markdown, String, description: 'Contents of the post as Markdown'
     field :order, Integer, description: 'Order in which to show posts within a category. Lowest number appears first.'
