@@ -22,7 +22,7 @@
 #
 class Page < ApplicationRecord
   belongs_to :category
-  has_many :posts, dependent: nullify
+  has_many :posts, dependent: :nullify
 
   validates :order, uniqueness: true
 end
