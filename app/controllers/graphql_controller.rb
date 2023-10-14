@@ -14,10 +14,12 @@ class GraphqlController < ApplicationController
       # Query context goes here, for example:
       # current_user: current_user,
     }
-    result = PersonalRailsBlogSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+    result = PersonalRailsBlogSchema.execute(query, variables:, context:,
+                                                    operation_name:)
     render json: result
   rescue StandardError => e
     raise e unless Rails.env.development?
+
     handle_error_in_development(e)
   end
 
@@ -47,6 +49,6 @@ class GraphqlController < ApplicationController
     logger.error e.message
     logger.error e.backtrace.join("\n")
 
-    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+    render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: :internal_server_error
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreatePosts < ActiveRecord::Migration[7.1]
   def change
     create_table :posts do |t|
@@ -8,7 +10,7 @@ class CreatePosts < ActiveRecord::Migration[7.1]
       t.binary :header_image
       t.integer :order
       t.references :page, null: false, foreign_key: true, index: true
-      t.references :author, null: false, foreign_key: ({ to_table: :users })
+      t.references :author, null: false, foreign_key: { to_table: :users }
 
       t.timestamps
     end

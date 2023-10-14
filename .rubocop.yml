@@ -22,6 +22,7 @@ AllCops:
 GraphQL/ObjectDescription:
   Exclude:
     - app/graphql/mutations/base_mutation.rb
+    - app/graphql/personal_rails_blog_schema.rb
     - app/graphql/types/base_argument.rb
     - app/graphql/types/base_connection.rb
     - app/graphql/types/base_edge.rb

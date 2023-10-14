@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: pages
@@ -18,7 +20,7 @@
 #
 #  fk_rails_...  (category_id => categories.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class PageTest < ActiveSupport::TestCase
   # test "the truth" do

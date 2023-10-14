@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -26,5 +28,5 @@
 #
 class Post < ApplicationRecord
   belongs_to :page
-  belongs_to :author, class_name: "User", inverse_of: :posts
+  belongs_to :author, class_name: 'User', inverse_of: :posts
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: posts
@@ -24,7 +26,7 @@
 #  fk_rails_...  (author_id => users.id)
 #  fk_rails_...  (page_id => pages.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
   # test "the truth" do
