@@ -1,0 +1,4 @@
+{
+    "ruby.rubocop.executePath": "/home/kevin/.gems/ruby/3.2.0/bin/",
+    "ruby.rubocop.configFilePath": "/workspaces/Personal Rails blog/.rubocop.yml",
+}
