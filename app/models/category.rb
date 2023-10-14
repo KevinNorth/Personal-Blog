@@ -1,3 +1,5 @@
 class Category < ApplicationRecord
-    validates :order, unique: true
+    has_many :pages
+
+    validates :order, uniqueness: true
 end
