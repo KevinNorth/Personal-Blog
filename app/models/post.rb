@@ -14,17 +14,17 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  author_id    :bigint           not null
-#  page_id      :bigint           not null
+#  category_id  :bigint           not null
 #
 # Indexes
 #
-#  index_posts_on_author_id  (author_id)
-#  index_posts_on_page_id    (page_id)
+#  index_posts_on_author_id    (author_id)
+#  index_posts_on_category_id  (category_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (author_id => users.id)
-#  fk_rails_...  (page_id => pages.id)
+#  fk_rails_...  (category_id => categories.id)
 #
 class Post < ApplicationRecord
   belongs_to :page
