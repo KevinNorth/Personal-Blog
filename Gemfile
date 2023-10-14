@@ -69,6 +69,9 @@ group :development do
   # TODO: Uncomment when adding RSpec tests
   # gem 'rubocop-rspec', require: false
 
+  gem 'brakeman', '~> 6.0', '>= 6.0.1'
+  gem 'bundler-audit', '~> 0.9.1'
+
   # Model annotation
   gem 'annotate'
 
