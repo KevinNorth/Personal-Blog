@@ -7,6 +7,13 @@ class RefactorPagesIntoCategories < ActiveRecord::Migration[7.1]
       t.references :category, null: false, foreign_key: true, index: true
     end
 
+    change_table :categories do |t|
+      t.references :parent,
+                   null: true,
+                   foreign_key: { to_table: :categories },
+                   index: true
+    end
+
     drop_table :pages do |t|
       t.string :name, null: false
       t.integer :order, null: false

@@ -66,6 +66,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_14_222513) do
     t.integer "order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "parent_id"
+    t.index ["parent_id"], name: "index_categories_on_parent_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -93,6 +95,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_14_222513) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "categories", "categories", column: "parent_id"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "users", column: "author_id"
 end

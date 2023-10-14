@@ -27,6 +27,6 @@
 #  fk_rails_...  (category_id => categories.id)
 #
 class Post < ApplicationRecord
-  belongs_to :page
+  belongs_to :category
   belongs_to :author, class_name: 'User', inverse_of: :posts
 end
