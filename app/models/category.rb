@@ -21,8 +21,8 @@
 #
 class Category < ApplicationRecord
   has_many :posts, dependent: :destroy
-  has_many :categories, foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
-  belongs_to :parent, class_name: 'Category', inverse_of: :parent
+  has_many :children, class_name: 'Category', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
+  belongs_to :parent, class_name: 'Category', inverse_of: :children, optional: true
 
   validates :order, uniqueness: { scope: :parent_id }
 end

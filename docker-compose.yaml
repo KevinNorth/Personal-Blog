@@ -1,4 +1,5 @@
 # Adapted from https://www.knowbe4.com/careers/blogs/engineering/railspostgresqldocker
+# bundle exec rails s -p 3000 -b '0.0.0.0'
 version: '3'
 services:
   db:
