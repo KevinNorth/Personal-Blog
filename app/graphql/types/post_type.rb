@@ -12,10 +12,16 @@ module Types
     field :id, ID, null: false, description: 'Unique database ID'
     field :markdown, String, description: 'Contents of the post as Markdown'
     field :order, Integer, description: 'Order in which to show posts within a category. Lowest number appears first.'
+    field :published, Boolean, description: 'Whether this post should be visible to non-admin users'
+    field :slug, String, null: false, description: 'The slug to use in the URL to this post'
     field :subtitle, String, description: 'Subtitle of the post'
     field :summary, String, description: 'Summary to appear in list on category page'
-    field :title, String, description: 'Subtitle of the post'
+    field :title, String, description: 'Title of the post'
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'When this object was last updated in the database'
+
+    def header_image
+      nil
+    end
   end
 end

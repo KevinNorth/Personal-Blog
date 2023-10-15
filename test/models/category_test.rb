@@ -9,6 +9,7 @@
 #  markdown     :text
 #  name         :string
 #  order        :integer
+#  published    :boolean          default(FALSE), not null
 #  slug         :string           not null
 #  subtitle     :string
 #  summary      :string
