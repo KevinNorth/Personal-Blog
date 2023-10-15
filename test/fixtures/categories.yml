@@ -2,12 +2,19 @@
 #
 # Table name: categories
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  order      :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  parent_id  :bigint
+#  id           :bigint           not null, primary key
+#  header_image :binary
+#  markdown     :text
+#  name         :string
+#  order        :integer
+#  published    :boolean          default(FALSE), not null
+#  slug         :string           not null
+#  subtitle     :string
+#  summary      :string
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  parent_id    :bigint
 #
 # Indexes
 #

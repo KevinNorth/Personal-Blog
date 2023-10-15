@@ -4,12 +4,19 @@
 #
 # Table name: categories
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  order      :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  parent_id  :bigint
+#  id           :bigint           not null, primary key
+#  header_image :binary
+#  markdown     :text
+#  name         :string
+#  order        :integer
+#  published    :boolean          default(FALSE), not null
+#  slug         :string           not null
+#  subtitle     :string
+#  summary      :string
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  parent_id    :bigint
 #
 # Indexes
 #
@@ -21,8 +28,8 @@
 #
 class Category < ApplicationRecord
   has_many :posts, dependent: :destroy
-  has_many :categories, foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
-  belongs_to :parent, class_name: 'Category', inverse_of: :parent
+  has_many :children, class_name: 'Category', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
+  belongs_to :parent, class_name: 'Category', inverse_of: :children, optional: true
 
   validates :order, uniqueness: { scope: :parent_id }
 end
