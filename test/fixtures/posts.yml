@@ -28,21 +28,23 @@
 #
 
 one:
-  title: MyString
-  subtitle: MyString
-  summary: MyString
-  markdown: MyText
+  title: One
+  subtitle: One
+  summary: One
+  markdown: One
+  slug: one
   header_image: 
   order: 1
-  page: one
-  user: one
+  author: one
+  category: two
 
 two:
-  title: MyString
-  subtitle: MyString
-  summary: MyString
-  markdown: MyText
+  title: Two
+  subtitle: Two
+  summary: Two
+  markdown: Two
+  slug: two
   header_image: 
-  order: 1
-  page: two
-  user: two
+  order: 2
+  author: two
+  category: two

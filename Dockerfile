@@ -33,16 +33,6 @@ RUN rvm get stable
 RUN rvm install 3.2.2
 RUN gem install bundler
 
-# Install NVM and NodeJS
-RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
-    && export NVM_DIR="$HOME/.nvm" \
-    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-    && nvm install 20.8.0 \
-    && nvm alias default 20.8.0 \
-    && nvm use default
-
-ENV NODE_PATH $NVM_DIR/v20.8.0/lib/node_modules
-ENV PATH      $NVM_DIR/v20.8.0/bin:$PATH
 
 # Install Postgresql client and dev libraries
 RUN apt-get install -qy postgresql-client libpq-dev
@@ -53,6 +43,17 @@ RUN usermod -aG sudo kevin
 RUN usermod -aG root kevin
 
 USER kevin
+
+# Install NVM and NodeJS
+RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
+    && export NVM_DIR="$HOME/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && nvm install 20.8.0 \
+    && nvm alias default 20.8.0 \
+    && nvm use default
+
+ENV NODE_PATH $NVM_DIR/v20.8.0/lib/node_modules
+ENV PATH      $NVM_DIR/v20.8.0/bin:$PATH
 
 # Make sure Git doesn't mark all files as dirty when in the container
 RUN git config --global core.autocrlf input
