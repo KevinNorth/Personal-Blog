@@ -26,9 +26,19 @@
 #
 
 one:
-  name: MyString
+  name: Home
+  title: Home
+  subtitle: Home
+  summary: Home
+  markdown: Home
+  slug: home
   order: 1
 
 two:
-  name: MyString
-  order: 1
+  name: Blog
+  title: Blog
+  subtitle: Blog
+  summary: Blog
+  markdown: Blog
+  slug: blog
+  order: 2
