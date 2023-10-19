@@ -1,5 +1,7 @@
-const path = require("path")
-const webpack = require("webpack")
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
+const webpack = require('webpack');
 
 // Extracts CSS into .css file
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -7,8 +9,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 module.exports = {
-  mode: "production",
-  devtool: "source-map",
+  mode: 'production',
+  devtool: 'source-map',
   entry: {
     blog: [
       './app/javascript/blog.tsx',
@@ -29,9 +31,9 @@ module.exports = {
     ],
   },
   output: {
-    filename: "[name].js",
-    sourceMapFilename: "[file].map",
-    path: path.resolve(__dirname, "app/assets/builds"),
+    filename: '[name].js',
+    sourceMapFilename: '[file].map',
+    path: path.resolve(__dirname, 'app/assets/builds'),
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss', '.css'],
@@ -41,6 +43,6 @@ module.exports = {
       maxChunks: 1
     }),
     new RemoveEmptyScriptsPlugin(),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin()
   ]
-}
+};

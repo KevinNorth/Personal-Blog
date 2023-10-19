@@ -2,7 +2,8 @@
   "name": "app",
   "private": "true",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "lint": "eslint app/javascript/**  -c .eslintrc.js --ext .tsx"
   },
   "dependencies": {
     "@babel/core": "^7.23.2",
@@ -48,7 +49,6 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-security": "^1.7.1",
     "eslint-plugin-xss": "^0.1.12",
-    "eslint-webpack-plugin": "^4.0.1",
     "webpack-cli": "^5.1.4"
   }
 }
