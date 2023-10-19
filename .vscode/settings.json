@@ -1,4 +1,9 @@
 {
     "ruby.rubocop.executePath": "/home/kevin/.gems/ruby/3.2.0/bin/",
     "ruby.rubocop.configFilePath": "/workspaces/Personal Rails blog/.rubocop.yml",
+    "editor.tabSize": 2,
+    "javascript.format.enable": false,
+    "typescript.format.enable": false,
+    "eslint.format.enable": true,
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
 }
