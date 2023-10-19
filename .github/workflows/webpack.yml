@@ -1,34 +1,26 @@
 name: Webpack
-
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
 jobs:
- 
-  build:
+  build-and-lint:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-
+        node-version: [20.8.0]
     steps:
     - uses: actions/checkout@v3
-
     - uses: mskelton/setup-yarn@v1.6.0
       with:
         # Additional flags to pass to the install command.
         # Node version to use, defaults to the current LTS version.
         node-version: 20.8.0
         cache: yarn
-
     - name: Build
       run: |
         yarn install
         yarn build
-
     - name: Lint
       run: yarn run lint
