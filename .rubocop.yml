@@ -3,6 +3,8 @@ require:
   - rubocop-rake
   - rubocop-performance
   - rubocop-graphql
+  - rubocop-rspec
+  - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
@@ -67,8 +69,19 @@ Metrics/PerceivedComplexity:
 Naming/MethodParameterName:
   MinNameLength: 1
 
+Rails/FilePath:
+  Exclude:
+    - spec/rails_helper.rb
+
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/RedundantConstantBase:
+  Exclude:
+    - spec/rails_helper.rb
 
 Style/Documentation:
   Enabled: false
