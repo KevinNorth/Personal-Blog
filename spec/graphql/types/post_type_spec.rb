@@ -2,6 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.describe 'category', type: :request do
+RSpec.describe 'post', type: :request do
   pending 'needs tests'
 end
