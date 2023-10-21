@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :user do
     admin { true }
     sequence(:login) { |n| "user#{n}" }
-    squence(:name) { |n| "User #{n}"}
+    sequence(:name) { |n| "User #{n}" }
   end
 end
