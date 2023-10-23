@@ -66,3 +66,11 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+# Borrowed from https://stackoverflow.com/questions/30108194/rails-4-compare-datetimes-without-milliseconds
+# Rails' created_at and updated_at columns have millisecond precision, but the dates
+# that GraphQL responds with drop the fraction of a second. So this helper function
+# will make it easier to compare those dates in GraphQL tests.
+def strip_milliseconds(datetime)
+  datetime.change sec: datetime.sec
+end

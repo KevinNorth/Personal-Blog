@@ -9,7 +9,7 @@ RSpec.describe Post do
   describe 'uniqueness validations' do
     # In a separate describe block so the subject can be set
     # See https://matchers.shoulda.io/docs/v5.3.0/Shoulda/Matchers/ActiveRecord.html#validate_uniqueness_of-instance_method
-    subject { build(:post) }
+    subject { build(:post, author: create(:user), category: create(:category)) }
 
     it { should validate_uniqueness_of(:order).scoped_to(:category_id) }
   end

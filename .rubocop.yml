@@ -21,6 +21,10 @@ AllCops:
     - tmp/**/*
     - vendor/**/*
 
+GraphQL/ExtractType:
+  Exclude:
+    - app/graphql/types/query_type.rb
+
 GraphQL/ObjectDescription:
   Exclude:
     # Types that came out of the box when GraphQL was installed
@@ -82,6 +86,9 @@ Rails/FilePath:
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
+RSpec/ExampleLength:
+  Enabled: false
+
 RSpec/ImplicitExpect:
   EnforcedStyle: should
 
@@ -89,6 +96,14 @@ RSpec/ImplicitSubject:
   Exclude:
     # Makes Shoulda matchers easier to write on multiple lines
     - spec/models/*_spec.rb
+
+# I like to use let! to be sure that FactoryBot create() puts
+# records in the database before the test runs.
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
 
 Style/BlockComments:
   Enabled: false

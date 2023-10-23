@@ -2,6 +2,6 @@
 
 require 'rails_helper'
 
-RSpec.describe 'user', type: :request do
+RSpec.describe 'post_by_id', type: :request do
   pending 'needs tests'
 end
