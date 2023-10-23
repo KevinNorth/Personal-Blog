@@ -87,7 +87,7 @@ module Types
       if include_unpublished
         Category.all
       else
-        Category.where(published: true)
+        Category.includes(:posts).where(published: true, posts: { published: true })
       end
     end
 
