@@ -78,41 +78,37 @@ RSpec.describe 'post_by_id', type: :request do
   end
 
   describe 'when given id argument for a post that exists' do
-    describe 'when include_unpublished is false' do
-      describe 'when the post is published' do
-        let(:author) { create(:user) }
-        let(:category) { create(:category) }
-        let!(:db_post) { create(:post, author:, category:, published: true) }
+    describe 'when the post is published' do
+      let(:author) { create(:user) }
+      let(:category) { create(:category) }
+      let!(:db_post) { create(:post, author:, category:, published: true) }
+
+      describe 'when include_unpublished is false' do
         let(:include_unpublished) { false }
 
         include_examples 'responds with post'
       end
 
-      describe 'when the post is not published' do
-        let(:author) { create(:user) }
-        let(:category) { create(:category) }
-        let!(:db_post) { create(:post, author:, category:, published: false) }
+      describe 'when include_unpublished is true' do
+        let(:include_unpublished) { true }
+
+        include_examples 'responds with post'
+      end
+    end
+
+    describe 'when the post is not published' do
+      let(:author) { create(:user) }
+      let(:category) { create(:category) }
+      let!(:db_post) { create(:post, author:, category:, published: false) }
+
+      describe 'when include_unpublished is false' do
         let(:include_unpublished) { false }
         let(:id) { db_post.id }
 
         include_examples 'responds with null'
       end
-    end
 
-    describe 'when include_unpublished is true' do
-      describe 'when the post is published' do
-        let(:author) { create(:user) }
-        let(:category) { create(:category) }
-        let!(:db_post) { create(:post, author:, category:, published: true) }
-        let(:include_unpublished) { true }
-
-        include_examples 'responds with post'
-      end
-
-      describe 'when the post is not published' do
-        let(:author) { create(:user) }
-        let(:category) { create(:category) }
-        let!(:db_post) { create(:post, author:, category:, published: false) }
+      describe 'when include_unpublished is true' do
         let(:include_unpublished) { true }
 
         include_examples 'responds with post'
@@ -121,7 +117,7 @@ RSpec.describe 'post_by_id', type: :request do
   end
 
   describe 'when given id argument that does not match a post' do
-    let(:id) { Post.count == 0 ? 1 : Post.maximum(id) }
+    let(:id) { Post.count == 0 ? 1 : Post.maximum(id) + 1 }
 
     describe 'when include_unpublished is false' do
       let(:include_unpublished) { false }

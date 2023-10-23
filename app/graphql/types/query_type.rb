@@ -26,7 +26,7 @@ module Types
                description: 'whether to include categories that have not yet been published'
     end
 
-    field :category_by_id, [CategoryType], description: 'Fetches a category by its ID.' do
+    field :category_by_id, CategoryType, description: 'Fetches a category by its ID.' do
       argument :id, ID, required: true, description: 'ID to query'
       argument :include_unpublished, Boolean,
                required: false,

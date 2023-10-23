@@ -46,7 +46,7 @@ RSpec.describe 'user_by_id', type: :request do
   end
 
   describe 'when given id argument that does not match a user' do
-    let(:invalid_id) { User.count == 0 ? 1 : User.maximum(:id) }
+    let(:invalid_id) { User.count == 0 ? 1 : User.maximum(:id) + 1 }
 
     it 'responds with null' do
       query = <<~GQL
