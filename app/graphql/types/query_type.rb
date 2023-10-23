@@ -95,7 +95,7 @@ module Types
       if include_unpublished
         Category.find_by(id:)
       else
-        Category.where(published: true).find_by(id:)
+        Category.includes(:posts).where(published: true, posts: { published: true }).find_by(id:)
       end
     end
 
@@ -103,7 +103,7 @@ module Types
       if include_unpublished
         Category.find_by(slug:)
       else
-        Category.where(published: true).find_by(slug:)
+        Category.includes(:posts).where(published: true, posts: { published: true }).find_by(slug:)
       end
     end
 

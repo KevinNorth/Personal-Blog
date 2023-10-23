@@ -101,31 +101,47 @@ RSpec.describe 'category_by_id', type: :request do
   end
 
   describe 'when given id argument for a category that exists' do
-    describe 'when the post is published' do
+    describe 'when the category is published' do
       let(:parent) { create(:category) }
       let(:category) { create(:category, parent:, published: true) }
       let(:author) { create(:user) }
-      let!(:posts_in_category) { create_list(:post, 3, category:, author:) }
+      let!(:posts_in_category) { create_list(:post, 3, category:, author:, published: true) }
       let!(:children_categories) { create_list(:category, 3, parent: category) }
 
       describe 'when include_unpublished is false' do
+        before do
+          # Unpublished posts should not appear in the query response.
+          # Since these posts aren't in posts_in_category, the shared example
+          # won't be expecting them in its assertions.
+          create_list(:post, 3, category:, author:, published: false)
+        end
+
         let(:include_unpublished) { false }
 
         include_examples 'responds with category'
       end
 
       describe 'when include_unpublished is true' do
+        # Unpublished posts should appear in the query response.
+        # Since these posts are added to posts_in_category, the
+        # shared example will expect them in its assertions.
+        let!(:posts_in_category) do
+          published_posts = create_list(:post, 3, category:, author:, published: true)
+          unpublished_posts = create_list(:post, 3, category:, author:, published: false)
+          published_posts + unpublished_posts
+        end
+
         let(:include_unpublished) { true }
 
         include_examples 'responds with category'
       end
     end
 
-    describe 'when the post is not published' do
+    describe 'when the category is not published' do
       let(:parent) { create(:category) }
       let(:category) { create(:category, parent:, published: false) }
       let(:author) { create(:user) }
-      let!(:posts_in_category) { create_list(:post, 3, category:, author:) }
+      let!(:posts_in_category) { create_list(:post, 3, category:, author:, published: true) }
       let!(:children_categories) { create_list(:category, 3, parent: category) }
 
       describe 'when include_unpublished is false' do
@@ -143,7 +159,7 @@ RSpec.describe 'category_by_id', type: :request do
     end
   end
 
-  describe 'when given id argument that does not match a post' do
+  describe 'when given id argument that does not match a category' do
     let(:id) { Category.count == 0 ? 1 : Category.maximum(id) + 1 }
 
     describe 'when include_unpublished is false' do
