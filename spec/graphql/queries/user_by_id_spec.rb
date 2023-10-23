@@ -53,21 +53,21 @@ RSpec.describe 'user_by_id', type: :request do
         query {
           userById(id: #{invalid_id}) {
             admin
-            created_at
+            createdAt
             id
             login
             name
             posts {
               id
             }
-            updated_at
+            updatedAt
           }
         }
       GQL
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
-      result = json['data']
+      result = json['data']['userById']
 
       expect(result).to be_nil
     end

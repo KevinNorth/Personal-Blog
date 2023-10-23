@@ -56,22 +56,29 @@ RSpec.describe 'post_by_id', type: :request do
       query = <<~GQL
         query {
           postById(id: #{id}, includeUnpublished: #{include_unpublished}) {
-            admin
-            created_at
-            id
-            login
-            name
-            posts {
+            author {
               id
             }
-            updated_at
+            category {
+              id
+            }
+            createdAt
+            id
+            markdown
+            order
+            published
+            slug
+            subtitle
+            summary
+            title
+            updatedAt
           }
         }
       GQL
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
-      result = json['data']
+      result = json['data']['postById']
 
       expect(result).to be_nil
     end

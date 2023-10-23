@@ -64,22 +64,29 @@ RSpec.describe 'post_by_slug', type: :request do
             categorySlug: "#{category_slug}"
             includeUnpublished: #{include_unpublished}
           ) {
-            admin
-            created_at
-            id
-            login
-            name
-            posts {
+            author {
               id
             }
-            updated_at
+            category {
+              id
+            }
+            createdAt
+            id
+            markdown
+            order
+            published
+            slug
+            subtitle
+            summary
+            title
+            updatedAt
           }
         }
       GQL
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
-      result = json['data']
+      result = json['data']['postBySlug']
 
       expect(result).to be_nil
     end

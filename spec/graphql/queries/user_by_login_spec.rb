@@ -52,23 +52,23 @@ RSpec.describe 'user_by_login', type: :request do
     it 'responds with null' do
       query = <<~GQL
         query {
-          userByLogin(login: #{invalid_login}) {
+          userByLogin(login: "#{invalid_login}") {
             admin
-            created_at
+            createdAt
             id
             login
             name
             posts {
               id
             }
-            updated_at
+            updatedAt
           }
         }
       GQL
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
-      result = json['data']
+      result = json['data']['userByLogin']
 
       expect(result).to be_nil
     end
