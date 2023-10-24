@@ -14,7 +14,7 @@ RSpec.describe 'categories', type: :request do
         }
       }
     GQL
-  end  
+  end
 
   let!(:published_categories) { create_list(:category, 3, parent: nil, published: true) }
   let!(:unpublished_categories) { create_list(:category, 3, parent: nil, published: false) }

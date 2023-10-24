@@ -125,17 +125,6 @@ def seed
     published: true,
     parent: categories[:applied_systems]
   )
-  categories[:commercial_lines] = Category.create(
-    name: 'Commercial Lines',
-    title: 'Commercial Lines',
-    subtitle: 'An Apollo and React project',
-    summary: 'Assisting the creation of a new product on a new tech stack.',
-    markdown: 'Lorem Ipsum',
-    order: 3,
-    slug: 'commercial-lines',
-    published: false,
-    parent: categories[:applied_systems]
-  )
 
   categories[:website] = Category.create(
     name: 'This Website',
@@ -205,18 +194,6 @@ def seed
     published: true,
     author: user,
     category: categories[:applied_analytics]
-  )
-
-  Post.create(
-    title: 'Picking up GraphQL',
-    subtitle: 'A new week, a new technology',
-    summary: 'I created this website within two weeks of touching my first GraphQL.',
-    markdown: 'Lorem Ipsum',
-    order: 1,
-    slug: 'picking-up-graphql',
-    published: false,
-    author: user,
-    category: categories[:commercial_lines]
   )
 
   Post.create(
