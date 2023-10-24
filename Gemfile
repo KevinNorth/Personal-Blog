@@ -76,5 +76,6 @@ group :development do
 end
 
 group :test do
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers', '~> 5.0'
 end

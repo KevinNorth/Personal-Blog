@@ -2,6 +2,9 @@
 
 Rails.application.routes.draw do
   root 'index#index'
+  get 'index' => 'index#index'
+  get 'blog' => 'index#index'
+
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
   post '/graphql', to: 'graphql#execute', as: :graphql
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
