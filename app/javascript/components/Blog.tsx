@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import ApolloClient from 'apollo-boost';
@@ -7,16 +6,16 @@ const client = new ApolloClient({
   uri: '/graphql',
 });
 
-function App() {
+function Blog() {
   return (
     <ApolloProvider client={client}>
       <div>
         <header>
-          <h1>Test</h1>
+          <h1>Blog Test</h1>
         </header>
       </div>
     </ApolloProvider>
   );
 }
 
-export default App;
+export default Blog;

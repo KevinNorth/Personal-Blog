@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Kevin North</title>
+    <title><%= yield :title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "blog" %>
-    <%= javascript_include_tag "blog" %>
+    <%= yield :javascript_and_styling %>
   </head>
 
   <body>

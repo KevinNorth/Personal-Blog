@@ -16,6 +16,10 @@ module.exports = {
       './app/javascript/blog.tsx',
       './app/assets/stylesheets/blog.scss',
     ],
+    admin: [
+      './app/javascript/admin.tsx',
+      './app/assets/stylesheets/admin.scss',
+    ],
   },
   module: {
     rules: [
