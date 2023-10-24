@@ -3,6 +3,8 @@ require:
   - rubocop-rake
   - rubocop-performance
   - rubocop-graphql
+  - rubocop-rspec
+  - rubocop-factory_bot
 
 AllCops:
   NewCops: enable
@@ -19,8 +21,13 @@ AllCops:
     - tmp/**/*
     - vendor/**/*
 
+GraphQL/ExtractType:
+  Exclude:
+    - app/graphql/types/query_type.rb
+
 GraphQL/ObjectDescription:
   Exclude:
+    # Types that came out of the box when GraphQL was installed
     - app/graphql/mutations/base_mutation.rb
     - app/graphql/personal_rails_blog_schema.rb
     - app/graphql/types/base_argument.rb
@@ -65,10 +72,55 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Naming/MethodParameterName:
-  MinNameLength: 1
+  Enabled: false
 
+Rails/FilePath:
+  Exclude:
+    - spec/rails_helper.rb
+
+# I deliberately want to allow post.order and category.order to
+# be set to the same value in the underlying database because
+# I'm thinking through how I'm going to implement reording items
+# and it seems to me the most straightforward approaches require
+# temporarily setting items to the same order.
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ImplicitExpect:
+  EnforcedStyle: should
+
+RSpec/ImplicitSubject:
+  Exclude:
+    # Makes Shoulda matchers easier to write on multiple lines
+    - spec/models/*_spec.rb
+
+# I like to use let! to be sure that FactoryBot create() puts
+# records in the database before the test runs.
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+Style/BlockComments:
+  Enabled: false
+
+Style/RedundantConstantBase:
+  Exclude:
+    # This comes up on some auto-generated code
+    - spec/rails_helper.rb
+
+# Wants me to put top-level comments on everything, including
+# a large volume of auto-generated boilerplate. I find this
+# creates a lot of noise instead of documenting what's valuable.
 Style/Documentation:
   Enabled: false

@@ -11,7 +11,7 @@ module Types
       argument :ids, [ID], required: true, description: 'IDs of the objects.'
     end
 
-    field :user, UserType, null: true, description: 'Fetches a user by ID' do
+    field :user_by_id, UserType, null: true, description: 'Fetches a user by ID' do
       argument :id, ID, required: true, description: 'ID to query'
     end
 
@@ -26,7 +26,7 @@ module Types
                description: 'whether to include categories that have not yet been published'
     end
 
-    field :category, [CategoryType], description: 'Fetches a category by its ID.' do
+    field :category_by_id, CategoryType, description: 'Fetches a category by its ID.' do
       argument :id, ID, required: true, description: 'ID to query'
       argument :include_unpublished, Boolean,
                required: false,
@@ -50,7 +50,7 @@ module Types
                description: 'whether to include categories and posts that have not yet been published'
     end
 
-    field :post, PostType, null: true, description: 'Fetches a Post by ID' do
+    field :post_by_id, PostType, null: true, description: 'Fetches a Post by ID' do
       argument :id, ID, required: true, description: 'ID to query'
       argument :include_unpublished, Boolean,
                required: false,
@@ -75,7 +75,7 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    def user(id:)
+    def user_by_id(id:)
       User.find_by(id:)
     end
 
@@ -87,15 +87,15 @@ module Types
       if include_unpublished
         Category.all
       else
-        Category.where(published: true)
+        Category.includes(:posts).where(published: true, posts: { published: true })
       end
     end
 
-    def category(id:, include_unpublished:)
+    def category_by_id(id:, include_unpublished:)
       if include_unpublished
         Category.find_by(id:)
       else
-        Category.where(published: true).find_by(id:)
+        Category.includes(:posts).where(published: true, posts: { published: true }).find_by(id:)
       end
     end
 
@@ -103,7 +103,7 @@ module Types
       if include_unpublished
         Category.find_by(slug:)
       else
-        Category.where(published: true).find_by(slug:)
+        Category.includes(:posts).where(published: true, posts: { published: true }).find_by(slug:)
       end
     end
 
@@ -115,7 +115,7 @@ module Types
       end
     end
 
-    def post(id:, include_unpublished:)
+    def post_by_id(id:, include_unpublished:)
       if include_unpublished
         Post.find_by(id:)
       else
