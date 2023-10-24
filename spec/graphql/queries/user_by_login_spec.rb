@@ -3,6 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe 'user_by_login', type: :request do
+  def get_query(login:)
+    <<~GQL
+      query {
+        userByLogin(login: "#{login}") {
+          admin
+          createdAt
+          id
+          login
+          name
+          posts {
+            id
+          }
+          updatedAt
+        }
+      }
+    GQL
+  end
+
   describe 'when given login argument for a user that exists' do
     let(:login) { 'test' }
     let!(:user) { create(:user, login:) }
@@ -10,21 +28,7 @@ RSpec.describe 'user_by_login', type: :request do
     let!(:posts_by_user) { create_list(:post, 3, author: user, category:) }
 
     it 'responds with the corresponding user' do
-      query = <<~GQL
-        query {
-          userByLogin(login: "#{login}") {
-            admin
-            createdAt
-            id
-            login
-            name
-            posts {
-              id
-            }
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(login:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -50,21 +54,7 @@ RSpec.describe 'user_by_login', type: :request do
     let(:invalid_login) { 'This is not in the database' }
 
     it 'responds with null' do
-      query = <<~GQL
-        query {
-          userByLogin(login: "#{invalid_login}") {
-            admin
-            createdAt
-            id
-            login
-            name
-            posts {
-              id
-            }
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(login: invalid_login)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)

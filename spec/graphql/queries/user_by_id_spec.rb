@@ -3,27 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe 'user_by_id', type: :request do
+  def get_query(id:)
+    <<~GQL
+      query {
+        userById(id: #{id}) {
+          admin
+          createdAt
+          id
+          login
+          name
+          posts {
+            id
+          }
+          updatedAt
+        }
+      }
+    GQL
+  end
+
   describe 'when given id argument for a user that exists' do
     let!(:user) { create(:user) }
     let(:category) { create(:category) }
     let!(:posts_by_user) { create_list(:post, 3, author: user, category:) }
 
     it 'responds with the corresponding user' do
-      query = <<~GQL
-        query {
-          userById(id: #{user.id}) {
-            admin
-            createdAt
-            id
-            login
-            name
-            posts {
-              id
-            }
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(id: user.id)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -49,21 +53,7 @@ RSpec.describe 'user_by_id', type: :request do
     let(:invalid_id) { User.count == 0 ? 1 : User.maximum(:id) + 1 }
 
     it 'responds with null' do
-      query = <<~GQL
-        query {
-          userById(id: #{invalid_id}) {
-            admin
-            createdAt
-            id
-            login
-            name
-            posts {
-              id
-            }
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(id: invalid_id)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)

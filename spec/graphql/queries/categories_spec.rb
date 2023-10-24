@@ -3,6 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe 'categories', type: :request do
+  def get_query(include_unpublished:)
+    <<~GQL
+      query {
+        categories(includeUnpublished: #{include_unpublished}) {
+          id
+          posts {
+            id
+          }
+        }
+      }
+    GQL
+  end  
+
   let!(:published_categories) { create_list(:category, 3, parent: nil, published: true) }
   let!(:unpublished_categories) { create_list(:category, 3, parent: nil, published: false) }
   let(:all_categories) { published_categories + unpublished_categories }
@@ -33,16 +46,7 @@ RSpec.describe 'categories', type: :request do
 
   describe 'when include_unpublished is true' do
     it 'responds with all categories' do
-      query = <<~GQL
-        query {
-          categories(includeUnpublished: true) {
-            id
-            posts {
-              id
-            }
-          }
-        }
-      GQL
+      query = get_query(include_unpublished: true)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -64,16 +68,7 @@ RSpec.describe 'categories', type: :request do
 
   describe 'when include_unpublished is false' do
     it 'responds only with published categories and published posts' do
-      query = <<~GQL
-        query {
-          categories(includeUnpublished: false) {
-            id
-            posts {
-              id
-            }
-          }
-        }
-      GQL
+      query = get_query(include_unpublished: false)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)

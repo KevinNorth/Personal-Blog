@@ -3,30 +3,34 @@
 require 'rails_helper'
 
 RSpec.describe 'post_by_id', type: :request do
+  def get_query(id:, include_unpublished:)
+    <<~GQL
+      query {
+        postById(id: #{id}, includeUnpublished: #{include_unpublished}) {
+          author {
+            id
+          }
+          category {
+            id
+          }
+          createdAt
+          id
+          markdown
+          order
+          published
+          slug
+          subtitle
+          summary
+          title
+          updatedAt
+        }
+      }
+    GQL
+  end
+
   shared_examples 'responds with post' do
     it 'responds with the corresponding post' do
-      query = <<~GQL
-        query {
-          postById(id: #{db_post.id}, includeUnpublished: #{include_unpublished}) {
-            author {
-              id
-            }
-            category {
-              id
-            }
-            createdAt
-            id
-            markdown
-            order
-            published
-            slug
-            subtitle
-            summary
-            title
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(id: db_post.id, include_unpublished:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -53,28 +57,7 @@ RSpec.describe 'post_by_id', type: :request do
 
   shared_examples 'responds with null' do
     it 'responds with null' do
-      query = <<~GQL
-        query {
-          postById(id: #{id}, includeUnpublished: #{include_unpublished}) {
-            author {
-              id
-            }
-            category {
-              id
-            }
-            createdAt
-            id
-            markdown
-            order
-            published
-            slug
-            subtitle
-            summary
-            title
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(id:, include_unpublished:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)

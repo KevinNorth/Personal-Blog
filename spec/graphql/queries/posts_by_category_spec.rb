@@ -2,20 +2,20 @@
 
 require 'rails_helper'
 
-def get_query(category_id:, include_unpublished:)
-  <<~GQL
-    query {
-      postsByCategory(
-        categoryId: #{category_id}
-        includeUnpublished: #{include_unpublished}
-      ) {
-        id
-      }
-    }
-  GQL
-end
-
 RSpec.describe 'post_by_category', type: :request do
+  def get_query(category_id:, include_unpublished:)
+    <<~GQL
+      query {
+        postsByCategory(
+          categoryId: #{category_id}
+          includeUnpublished: #{include_unpublished}
+        ) {
+          id
+        }
+      }
+    GQL
+  end
+
   let(:author) { create(:user) }
 
   shared_examples 'responds with empty array' do

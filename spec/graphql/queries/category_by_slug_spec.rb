@@ -3,34 +3,38 @@
 require 'rails_helper'
 
 RSpec.describe 'category_by_slug', type: :request do
+  def get_query(slug:, include_unpublished:)
+    <<~GQL
+      query {
+        categoryBySlug(slug: "#{slug}", includeUnpublished: #{include_unpublished}) {
+          children {
+            id
+          }
+          createdAt
+          id
+          markdown
+          name
+          order
+          parent {
+            id
+          }
+          posts {
+            id
+          }
+          published
+          slug
+          subtitle
+          summary
+          title
+          updatedAt
+        }
+      }
+    GQL
+  end
+
   shared_examples 'responds with category' do
     it 'responds with the corresponding category' do
-      query = <<~GQL
-        query {
-          categoryBySlug(slug: "#{category.slug}", includeUnpublished: #{include_unpublished}) {
-            children {
-              id
-            }
-            createdAt
-            id
-            markdown
-            name
-            order
-            parent {
-              id
-            }
-            posts {
-              id
-            }
-            published
-            slug
-            subtitle
-            summary
-            title
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(slug: category.slug, include_unpublished:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -65,32 +69,7 @@ RSpec.describe 'category_by_slug', type: :request do
 
   shared_examples 'responds with null' do
     it 'responds with null' do
-      query = <<~GQL
-        query {
-          categoryBySlug(slug: "#{slug}", includeUnpublished: #{include_unpublished}) {
-            children {
-              id
-            }
-            createdAt
-            id
-            markdown
-            name
-            order
-            parent {
-              id
-            }
-            posts {
-              id
-            }
-            published
-            slug
-            subtitle
-            summary
-            title
-            updatedAt
-          }
-        }
-      GQL
+      query = get_query(slug:, include_unpublished:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
