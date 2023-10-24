@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'admin requests' do
-  describe '/blog' do
-    it 'opens the blog React app' do
+  describe '/admin' do
+    it 'opens the admin React app' do
       get '/admin'
 
       expect(response).to render_template :admin
