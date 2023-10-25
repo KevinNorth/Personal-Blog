@@ -9,5 +9,12 @@ RSpec.describe 'admin requests' do
 
       expect(response).to render_template :admin
     end
+
+    describe 'when React Router bits appear in the URL' do
+      it 'still renders the admin app' do
+        get '/admin/category/post'
+        expect(response).to render_template :admin
+      end
+    end
   end
 end

@@ -3,29 +3,31 @@
 require 'rails_helper'
 
 RSpec.describe 'blog requests' do
-  shared_examples 'opens the blog React app' do
-    it 'opens the blog React app' do
-      get endpoint
-
-      expect(response).to render_template :index
+  describe 'root endpoint' do
+    it 'redirects to /blog' do
+      get '/'
+      expect(response).to redirect_to(blog_path)
     end
   end
 
-  describe 'root endpoint' do
-    let(:endpoint) { '' }
-
-    include_examples 'opens the blog React app'
+  describe '/index' do
+    it 'redirects to /blog' do
+      get '/index'
+      expect(response).to redirect_to(blog_path)
+    end
   end
 
   describe '/blog' do
-    let(:endpoint) { '/blog' }
+    it 'renders the blog app' do
+      get '/blog'
+      expect(response).to render_template :blog
+    end
 
-    include_examples 'opens the blog React app'
-  end
-
-  describe '/index' do
-    let(:endpoint) { '/index' }
-
-    include_examples 'opens the blog React app'
+    describe 'when React Router bits appear in the URL' do
+      it 'still renders the blog app' do
+        get '/blog/category/post'
+        expect(response).to render_template :blog
+      end
+    end
   end
 end
