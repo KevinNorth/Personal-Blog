@@ -1,0 +1,313 @@
+"""
+A collection of posts, used to organize the nav header
+"""
+type Category {
+  """
+  The children categories that appear nested under this one in the nav header
+  """
+  children: [Category!]
+
+  """
+  When this object was added to the database
+  """
+  createdAt: ISO8601DateTime!
+
+  """
+  URL of image to show at the top of the page
+  """
+  headerImage: String
+
+  """
+  Unique database ID
+  """
+  id: ID!
+
+  """
+  Contents of the category's page as Markdown
+  """
+  markdown: String
+
+  """
+  Name as it should appear in the nav header
+  """
+  name: String
+
+  """
+  Order in which to show categories within nav header. Lowest number appears first.
+  """
+  order: Int
+
+  """
+  The parent category. nil if this category should appear at the top-level nav header.
+  """
+  parent: Category
+
+  """
+  The posts to show under this category
+  """
+  posts: [Post!]
+
+  """
+  Whether this category should be visible to non-admin users
+  """
+  published: Boolean
+
+  """
+  The slug to use in the URL to this category
+  """
+  slug: String!
+
+  """
+  Subtitle on the category's page
+  """
+  subtitle: String
+
+  """
+  Summary to appear in list on parent category's page
+  """
+  summary: String
+
+  """
+  Title on the header of the category's page
+  """
+  title: String
+
+  """
+  When this object was last updated in the database
+  """
+  updatedAt: ISO8601DateTime!
+}
+
+"""
+An ISO 8601-encoded datetime
+"""
+scalar ISO8601DateTime @specifiedBy(url: "https://tools.ietf.org/html/rfc3339")
+
+type Mutation {
+  """
+  An example field added by the generator
+  """
+  testField: String!
+}
+
+"""
+A blog post
+"""
+type Post {
+  """
+  The user who wrote the post
+  """
+  author: User!
+
+  """
+  The category under which this post will appear
+  """
+  category: Category!
+
+  """
+  When this object was added to the database
+  """
+  createdAt: ISO8601DateTime!
+
+  """
+  URL of image to show at the top of the page
+  """
+  headerImage: String
+
+  """
+  Unique database ID
+  """
+  id: ID!
+
+  """
+  Contents of the post as Markdown
+  """
+  markdown: String
+
+  """
+  Order in which to show posts within a category. Lowest number appears first.
+  """
+  order: Int
+
+  """
+  Whether this post should be visible to non-admin users
+  """
+  published: Boolean
+
+  """
+  The slug to use in the URL to this post
+  """
+  slug: String!
+
+  """
+  Subtitle of the post
+  """
+  subtitle: String
+
+  """
+  Summary to appear in list on category page
+  """
+  summary: String
+
+  """
+  Title of the post
+  """
+  title: String
+
+  """
+  When this object was last updated in the database
+  """
+  updatedAt: ISO8601DateTime!
+}
+
+type Query {
+  """
+  Fetches all Categories
+  """
+  categories(
+    """
+    whether to include categories that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+  ): [Category!]!
+
+  """
+  Fetches a category by its ID.
+  """
+  categoryById(
+    """
+    ID to query
+    """
+    id: ID!
+
+    """
+    whether to include categories that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+  ): Category
+
+  """
+  Fetches a category by its URL slug.
+  """
+  categoryBySlug(
+    """
+    whether to include categories that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+
+    """
+    the slug to look up
+    """
+    slug: String!
+  ): Category
+
+  """
+  Fetches a Post by ID
+  """
+  postById(
+    """
+    ID to query
+    """
+    id: ID!
+
+    """
+    whether to include categories and posts that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+  ): Post
+
+  """
+  Fetches a Post by URL slug
+  """
+  postBySlug(
+    """
+    the slug of the post's category
+    """
+    categorySlug: String!
+
+    """
+    whether to include categories and posts that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+
+    """
+    the post's slug
+    """
+    postSlug: String!
+  ): Post
+
+  """
+  Fetches all Posts that belong to a Category
+  """
+  postsByCategory(
+    """
+    ID of the category to query
+    """
+    categoryId: ID!
+
+    """
+    whether to include categories and posts that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+  ): [Post!]
+
+  """
+  Fetches a user by ID
+  """
+  userById(
+    """
+    ID to query
+    """
+    id: ID!
+  ): User
+
+  """
+  Fetches a user by login
+  """
+  userByLogin(
+    """
+    login to look up
+    """
+    login: String!
+  ): User
+}
+
+"""
+A user who maintains the website
+"""
+type User {
+  """
+  Whether this user can write posts
+  """
+  admin: Boolean!
+
+  """
+  When this object was added to the database
+  """
+  createdAt: ISO8601DateTime!
+
+  """
+  Unique database ID
+  """
+  id: ID!
+
+  """
+  Username used for logging in
+  """
+  login: String
+
+  """
+  Full name as it should appear under posts
+  """
+  name: String
+
+  """
+  The posts created by this user
+  """
+  posts: [Post!]
+
+  """
+  When this object was last updated in the database
+  """
+  updatedAt: ISO8601DateTime!
+}

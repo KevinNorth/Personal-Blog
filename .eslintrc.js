@@ -23,6 +23,14 @@ module.exports =	{
       'parserOptions': {
         'sourceType': 'script'
       }
+    },
+    {
+      'files': ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      'processor': '@graphql-eslint/graphql'
+    },
+    {
+      'files': ['*.graphql'],
+      'extends': 'plugin:@graphql-eslint/operations-recommended',
     }
   ],
   'parser': '@typescript-eslint/parser',
@@ -32,7 +40,6 @@ module.exports =	{
   },
   'plugins': [
     '@typescript-eslint',
-    'graphql',
     'jsx-a11y',
     'no-secrets',
     'no-unsanitized',
@@ -58,13 +65,6 @@ module.exports =	{
       'error',
       'always'
     ],
-    // TODO: Automatically dump GraphQL schema as part of the Webpack build process
-    // 'graphql/template-strings': [
-    // 	'error',
-    // 	{
-    // 		env: 'apollo'
-    // 	}
-    // ],
     'no-secrets/no-secrets': [
       'error',
       'always'
