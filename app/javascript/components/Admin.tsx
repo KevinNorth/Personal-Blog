@@ -1,6 +1,5 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CategoryEditor from './admin/CategoryEditor/CategoryEditor';
 import Layout from './admin/Layout';
@@ -9,6 +8,7 @@ import Root from './admin/Root/Root';
 
 const client = new ApolloClient({
   uri: '/graphql',
+  cache: new InMemoryCache()
 });
 
 function Admin() {
