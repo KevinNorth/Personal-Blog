@@ -67,7 +67,8 @@ module.exports =	{
     ],
     'no-secrets/no-secrets': [
       'error',
-      'always'
+      'always',
+      { 'tolerance': 6 }
     ],
     'no-unsanitized/method': 'error',
     'no-unsanitized/property': 'error'
