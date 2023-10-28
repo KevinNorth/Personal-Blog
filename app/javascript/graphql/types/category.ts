@@ -1,21 +1,25 @@
 import Post from './post';
 
-interface Category {
-  children: Category[];
+export interface CategoryWithoutRelationships {
+  __typename: 'Category',
   createdAt: string;
   headerImage: string | null;
   id: NonNullable<string>;
   markdown: string;
   name: string;
   order: number;
-  parent: Category | null;
-  posts: Post[];
   published: boolean;
   slug: string;
   subtitle: string;
   summary: string;
   title: string;
   updatedAt: string;
+}
+
+interface Category extends CategoryWithoutRelationships {
+  parent: Partial<Category> | null;
+  posts: Partial<Post>[];
+  children: Partial<Category>[];
 }
 
 export default Category;

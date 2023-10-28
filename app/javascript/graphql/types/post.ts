@@ -1,9 +1,8 @@
 import Category from './category';
 import User from './user';
 
-interface Post {
-  author: User;
-  category: Category;
+export interface PostWithoutRelationships {
+  __typename: 'Post',
   createdAt: string;
   headerImage: string | null;
   id: NonNullable<string>;
@@ -15,6 +14,11 @@ interface Post {
   summary: string;
   title: string;
   updatedAt: string;
+}
+
+interface Post extends PostWithoutRelationships {
+  author: Partial<User>;
+  category: Partial<Category>;
 }
 
 export default Post;

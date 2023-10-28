@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 const USER_FRAGMENT =
   gql`
-    fragment UserFragment on Category {
+    fragment UserFragment on User {
       admin
       createdAt
       id

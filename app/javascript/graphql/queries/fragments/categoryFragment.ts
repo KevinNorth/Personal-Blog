@@ -9,8 +9,6 @@ const CATEGORY_FRAGMENT =
       markdown
       name
       order
-      parent
-      posts
       published
       slug
       subtitle

@@ -1,9 +1,13 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import getCRSFToken from '../lib/getCRSFToken';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  link: new HttpLink({
+    uri: '/graphql',
+    headers: { 'X-CSRF-Token': getCRSFToken() || '' },
+  }),
+  cache: new InMemoryCache()
 });
 
 function Blog() {

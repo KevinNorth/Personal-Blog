@@ -1,18 +1,22 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
-import allCategoriesAndPostsQuery from '../../../graphql/queries/allCategoriesAndPostsQuery';
+import React, { useMemo } from 'react';
+import getAllCategoriesAndPostsQuery from '../../../graphql/queries/allCategoriesAndPosts';
+import organizeCategoriesAndPostsIntoArboristTree from '../../../transforms/organizeCategoriesAndPostsIntoTree';
 
 export default function Root(): React.ReactElement {
-  const { data, loading } = useQuery(
-    allCategoriesAndPostsQuery, 
-    {
-      variables: { 'includeUnpublished': true }
-    }
-  );
+  const { data, loading } = getAllCategoriesAndPostsQuery(true);
 
-  if (loading) {
+  const tree = useMemo(() => {
+    if (loading || !data?.categories) {
+      return [];
+    }
+
+    return organizeCategoriesAndPostsIntoArboristTree(data.categories);
+  }, [data]);
+
+
+  if (loading || !data) {
     return <>Root</>;
   } else {
-    return <>{JSON.stringify(data)}</>;
+    return <>{JSON.stringify(tree)}</>;
   }
 }

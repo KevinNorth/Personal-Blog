@@ -1,13 +1,17 @@
 import Post from './post';
 
-interface User {
+export interface UserWithoutRelationships {
+  __typename: 'User',
   admin: boolean;
   createdAt: string;
   id: NonNullable<string>;
   login: string;
   name: string;
-  posts: Post[];
   updatedAt: string;
+}
+
+interface User extends UserWithoutRelationships {
+  posts: Partial<Post>[];
 }
 
 export default User;

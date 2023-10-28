@@ -1,13 +1,17 @@
 import React from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CategoryEditor from './admin/CategoryEditor/CategoryEditor';
+import getCRSFToken from '../lib/getCRSFToken';
 import Layout from './admin/Layout';
 import PostEditor from './admin/PostEditor/PostEditor';
 import Root from './admin/Root/Root';
 
 const client = new ApolloClient({
-  uri: '/graphql',
+  link: new HttpLink({
+    uri: '/graphql',
+    headers: { 'X-CSRF-Token': getCRSFToken() || '' },
+  }),
   cache: new InMemoryCache()
 });
 

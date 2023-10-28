@@ -1,15 +1,21 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import CATEGORY_FRAGMENT from './fragments/categoryFragment';
 import POST_FRAGMENT from './fragments/postFragment';
 import USER_FRAGMENT from './fragments/userFragment';
+import Category from '../types/category';
+import QueryResult from '../types/queryResult';
 
 const allCategoriesAndPostsQuery = 
   gql`
     query allCategoriesAndPostsQuery($includeUnpublished: Boolean) {
       categories(includeUnpublished: $includeUnpublished) {
         ...CategoryFragment
-        parent
-        children
+        parent {
+          id
+        }
+        children {
+          id
+        }
         posts {
           ...PostFragment
           author {
@@ -23,4 +29,15 @@ const allCategoriesAndPostsQuery =
     ${USER_FRAGMENT}
   `;
 
-export default allCategoriesAndPostsQuery;
+function getAllCategoriesAndPosts(
+  includeUnpublished: boolean = false
+): QueryResult<{ categories: Partial<Category>[] }> {
+  return useQuery(
+    allCategoriesAndPostsQuery, 
+    {
+      variables: { includeUnpublished }
+    }
+  );
+}
+
+export default getAllCategoriesAndPosts;

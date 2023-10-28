@@ -6,7 +6,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const domNode = document.createElement('div');
   document.body.appendChild(domNode);
   const root = createRoot(domNode);
-  root.render(
-    <Admin />
-  );
+  root.render(<Admin />);
 });
