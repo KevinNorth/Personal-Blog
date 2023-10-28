@@ -89,9 +89,9 @@ Rails.application.configure do
 
   codespace_name = ENV.fetch('CODESPACE_NAME', nil)
   if pf_domain && codespace_name
-    pf_host = "#{}-3000.#{pf_domain}"
+    pf_host = "#{codespace_name}-3000.#{pf_domain}"
     config.hosts << pf_host
 
-    config.action_cable.allowed_request_origins = ['https://#{pf_host}']
+    config.action_cable.allowed_request_origins = ["https://#{pf_host}"]
   end
 end
