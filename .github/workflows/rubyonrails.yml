@@ -35,7 +35,7 @@ jobs:
       - name: Set up database schema
         run: bundle exec rails db:schema:load
       - name: Install node (for asset compilation)
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: '20.8.0'
       - name: Install pnpm (for asset compilation)
