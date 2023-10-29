@@ -15,3 +15,41 @@
  */
 
  @import '~bootstrap/scss/bootstrap';
+
+ .admin-tree {
+  .category-node, .post-node {
+    border-bottom-color: grey;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 3px;
+
+    .title {
+      .value {
+        font-weight: bold;
+      }
+    }
+
+    .published {
+      font-weight: bold;
+    }
+
+    :not(:last-child) {
+      margin-bottom: 3px;
+    }
+  }
+
+  .category-node {
+    .open-toggle {
+      border: none;
+      background: none;
+      width: 20px;
+      height: 20px;
+      --bs-btn-padding-x: 0;
+      --bs-btn-padding-y: 0;
+
+      img, svg {
+        vertical-align: baseline;
+      }
+    }
+  }
+ }

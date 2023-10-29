@@ -18,7 +18,7 @@ function AdminTree({ tree }: AdminTreeProps): React.ReactElement {
         width="100%"
         height={1000}
         indent={24}
-        rowHeight={36}
+        rowHeight={45}
       >
         {AdminTreeNode}
       </Tree>

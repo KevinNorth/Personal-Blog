@@ -30,7 +30,7 @@ function PostNode(props: PostNodeProps) {
         {published ? 'Published' : 'Draft' }
       </Col>
       <Col xs='auto'>
-        <Button href={editURL} className='edit-button'>Edit</Button>
+        <Button size="sm" href={editURL} className='edit-button'>Edit</Button>
       </Col>
     </Row>
   );
