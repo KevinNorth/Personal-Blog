@@ -9,4 +9,6 @@
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
+    "typescript.tsdk": "/workspaces/Personal-Blog/node_modules/typescript/lib",
+    "typescript.preferences.includePackageJsonAutoImports": "on",
 }
