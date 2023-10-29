@@ -536,7 +536,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '1',
                 title: 'Parent/Child Agency Refactoring',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {
@@ -565,7 +565,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '2',
                 title: 'Copy Quote Algorithm',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {
@@ -669,7 +669,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '3',
                 title: 'Team Quarterback',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {
@@ -782,7 +782,7 @@ export const categoriesAndPostsAsArboristTree = [
             id: '4',
             title: 'GitVS',
             type: 'Post',
-            children: [],
+            children: null,
             graphqlObject: {
               __typename: 'Post',
               author: {
@@ -811,7 +811,7 @@ export const categoriesAndPostsAsArboristTree = [
             id: '5',
             title: 'Presentation at ESEC/FSE 2015',
             type: 'Post',
-            children: [],
+            children: null,
             graphqlObject: {
               __typename: 'Post',
               author: {
@@ -947,7 +947,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '6',
                 title: 'Purchasing New Equipment',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {
@@ -976,7 +976,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '7',
                 title: 'Security Training',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {
@@ -1080,7 +1080,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '8',
                 title: 'Your Hope is Unforgivable: a deckbuilding rougelike',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {
@@ -1109,7 +1109,7 @@ export const categoriesAndPostsAsArboristTree = [
                 id: '9',
                 title: 'The Halting Problem: a rhythm game twin-stick shooter',
                 type: 'Post',
-                children: [],
+                children: null,
                 graphqlObject: {
                   __typename: 'Post',
                   author: {

@@ -1,27 +1,14 @@
+import { AdminTreeVertex, AdminTreeCategoryVertex, AdminTreePostVertex } from '../components/admin/Root/types';
 import Category from '../graphql/types/category';
 import Post from '../graphql/types/post';
 import sortByOrder from '../lib/sortByOrder';
 
-export type ArboristTreeVertex = {
-  id?: string,
-  title?: string,
-  type: 'Category',
-  children: ArboristTreeVertex[],
-  graphqlObject?: Partial<Category>
-} | {
-  id?: string,
-  title?: string,
-  type: 'Post',
-  children: [],
-  graphqlObject?: Partial<Post>
-};
-
-function buildPostTreeVertex(post: Partial<Post>): ArboristTreeVertex {
+function buildPostTreeVertex(post: Partial<Post>): AdminTreePostVertex {
   return {
     id: post.id,
     title: post.title,
     type: 'Post',
-    children: [],
+    children: null,
     graphqlObject: post
   };
 }
@@ -33,11 +20,11 @@ function buildCategoryTreeVertex({category, children, posts, categoryIdToChildre
   posts?: Partial<Post>[],
   categoryIdToChildrenMap: Map<string, Partial<Category>[]>,
   categoryIdToPostsMap: Map<string, Partial<Post>[]>
-}): ArboristTreeVertex {
+}): AdminTreeCategoryVertex {
   const sortedChildren = children?.slice().sort(sortByOrder);
   const sortedPosts = posts?.slice().sort(sortByOrder);
 
-  let childVerticies: ArboristTreeVertex[] = [];
+  let childVerticies: AdminTreeVertex[] = [];
   if (sortedChildren) {
     childVerticies = childVerticies.concat(sortedChildren.map((child) => buildCategoryTreeVertex({
       category: child,
@@ -69,7 +56,7 @@ function buildCategoryTreeVertex({category, children, posts, categoryIdToChildre
  * @returns A tree that can be dropped directly into React Arborist's
  * Tree component as the id prop.
  */
-function organizeCategoriesAndPostsIntoArboristTree(categoriesAndPosts: Partial<Category>[]): ArboristTreeVertex[] {
+function organizeCategoriesAndPostsIntoArboristTree(categoriesAndPosts: Partial<Category>[]): AdminTreeVertex[] {
   const categoryIdToChildrenMap = new Map<string, Partial<Category>[]>();
   const categoryIdToPostsMap = new Map<string, Partial<Post>[]>();
   const rootCategories: Partial<Category>[] = [];

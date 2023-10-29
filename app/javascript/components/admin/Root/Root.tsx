@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
+import AdminTree from './AdminTree';
 import getAllCategoriesAndPostsQuery from '../../../graphql/queries/allCategoriesAndPosts';
-import organizeCategoriesAndPostsIntoArboristTree from '../../../transforms/organizeCategoriesAndPostsIntoTree';
+import organizeCategoriesAndPostsIntoArboristTree from '../../../transforms/organizeCategoriesAndPostsIntoArboristTree';
 
 export default function Root(): React.ReactElement {
   const { data, loading } = getAllCategoriesAndPostsQuery(true);
@@ -17,6 +18,6 @@ export default function Root(): React.ReactElement {
   if (loading || !data) {
     return <>Root</>;
   } else {
-    return <>{JSON.stringify(tree)}</>;
+    return <AdminTree tree={tree} />;
   }
 }

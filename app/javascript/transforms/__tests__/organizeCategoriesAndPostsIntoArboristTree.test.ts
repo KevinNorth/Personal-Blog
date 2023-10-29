@@ -1,6 +1,7 @@
 import organizeCategoriesAndPostsIntoArboristTree from '../organizeCategoriesAndPostsIntoArboristTree';
 import { mockCategoriesAndPosts, categoriesAndPostsAsArboristTree } from './fixtures/allCategoriesAndPosts';
 import Category from '../../graphql/types/category';
+import { AdminTreeVertex } from '../../components/admin/Root/types';
 
 describe('test', () => {
   describe('when given an empty array', () => {
@@ -68,7 +69,7 @@ describe('test', () => {
         },
       ];
 
-      const expectedTree = categories.map((category): ArboristTreeVertex => ({
+      const expectedTree = categories.map((category): AdminTreeVertex => ({
         id: category.id,
         title: category.title,
         type: 'Category',
@@ -183,15 +184,15 @@ describe('test', () => {
         },
       ];
 
-      const expectedTree = categories.map((category): ArboristTreeVertex => ({
+      const expectedTree = categories.map((category): AdminTreeVertex => ({
         id: category.id,
         title: category.title,
         type: 'Category',
-        children: category.posts.map((post): ArboristTreeVertex => ({
+        children: category.posts.map((post): AdminTreeVertex => ({
           id: post.id,
           title: post.title,
           type: 'Post',
-          children: [],
+          children: null,
           graphqlObject: post,
         })),
         graphqlObject: category,    
@@ -474,7 +475,7 @@ describe('test', () => {
         ...category9Children,
       ];
 
-      const expectedTree: ArboristTreeVertex[] = [
+      const expectedTree: AdminTreeVertex[] = [
         {
           id: rootCategories[0].id,
           title: rootCategories[0].title,
