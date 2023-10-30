@@ -71,6 +71,13 @@ module.exports =	{
       { 'tolerance': 6 }
     ],
     'no-unsanitized/method': 'error',
-    'no-unsanitized/property': 'error'
+    'no-unsanitized/property': 'error',
+    'security/detect-unsafe-regex': [
+      // This rule is concerned with avoiding regexes that can
+      // DDoS a server when given hairy inputs. In this app, though,
+      // anything written in JS only runs client-side, so the risks
+      // are minimal.
+      'off'
+    ]
   }
 };

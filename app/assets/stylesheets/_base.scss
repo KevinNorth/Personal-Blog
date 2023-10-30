@@ -1,0 +1,96 @@
+$body-font: Telex, Arial, Helvetica, sans-serif;
+$title-font: Inter, Arial, Helvetica, sans-serif;
+$code-font: 'Fira Code', 'Courier New', Courier, monospace;
+
+$body-font-size: 1rem;
+
+$body-color: white;
+$body-background-color: black;
+$container-background-color: #141414;
+
+@mixin body-text {
+  font-family: $body-font;
+  font-size: $body-font-size;
+}
+
+@mixin title-text {
+  font-family: $title-font;
+  font-weight: 300;
+
+  strong, b {
+    font-family: normal;
+  }
+}
+
+@mixin code-text {
+  font-family: $code-font;
+}
+
+body {
+  @include body-text;
+  color: $body-color;
+  background-color: $body-background-color;
+  font-size: 20px; // 1rem is relative to this, so we have to set it explicitly
+}
+
+%header {
+  @include title-text;
+}
+
+h1 {
+  @extend %header;
+  font-size: 2.5rem;
+  font-weight: normal;
+  text-transform: uppercase;
+
+  strong, b {
+    font-weight: bold;
+  }
+}
+
+h2 {
+  @extend %header;
+  font-size: 2rem;
+  font-weight: normal;
+
+  strong, b {
+    font-weight: bold;
+  }
+}
+
+h3 {
+  @extend %header;
+  font-size: 1.7rem;
+  font-weight: normal;
+
+  strong, b {
+    font-weight: bold;
+  }
+}
+
+h4 {
+  @extend %header;
+  font-size: 1.7rem;
+}
+
+h5 {
+  @extend %header;
+  font-size: 1.5rem;
+}
+
+h6 {
+  @extend %header;
+  font-size: $body-font-size;
+}
+
+.container, .container-fluid {
+  background-color: $container-background-color;
+}
+
+.title-text {
+  @include title-text;
+}
+
+.code {
+  @include code-text;
+}

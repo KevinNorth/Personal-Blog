@@ -15,22 +15,38 @@
  */
 
  @import '~bootstrap/scss/bootstrap';
+ @import './base';
 
  .admin-tree {
+  max-width: 800px;
+  margin: 0 auto;
+  text-overflow: ellipsis;
+
   .category-node, .post-node {
     border-bottom-color: grey;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    padding: 3px;
+    padding: 3px 15px;
+
+    [class^='col'], [class*=' col'] {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+
+    .label {
+      padding-left: 12px;
+    }
 
     .title {
       .value {
-        font-weight: bold;
+        @include title-text;
       }
     }
 
     .published {
-      font-weight: bold;
+      @include title-text;
     }
 
     :not(:last-child) {

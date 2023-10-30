@@ -4,7 +4,9 @@ import { AdminTreeVertex } from './types';
 import CategoryNode from './CategoryNode';
 import PostNode from './PostNode';
 
-export type AdminTreeNodeProps = NodeRendererProps<AdminTreeVertex>;
+export interface AdminTreeNodeProps extends NodeRendererProps<AdminTreeVertex> {
+  indentSize: number;
+}
 
 function AdminTreeNode(props: AdminTreeNodeProps) {
   switch(props.node.data.type) {

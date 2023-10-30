@@ -3,23 +3,29 @@ import { Button, Col, Row } from 'react-bootstrap';
 import { ChevronDown, ChevronRight } from 'react-bootstrap-icons';
 import { NodeRendererProps } from 'react-arborist';
 import { AdminTreeCategoryVertex } from './types';
+import Spacer from '../../common/Spacer';
 
-export type CategoryNodeProps = NodeRendererProps<AdminTreeCategoryVertex>;
+export interface CategoryNodeProps extends NodeRendererProps<AdminTreeCategoryVertex> {
+  indentSize: number;
+}
 
 function CategoryNode(props: CategoryNodeProps) {
   const { data } = props.node;
 
   const { editURL, published, title } = useMemo(() => {
     return {
-      editUrl: `/admin/category/${encodeURIComponent(data.id)}`,
+      editURL: `/admin/category/${encodeURIComponent(data.id)}`,
       published: data.graphqlObject?.published || false,
       title: data.title
     };
   }, data);
 
+  const indent = `${props.node.level * props.indentSize}px`;
+
   return (
     <Row ref={props.dragHandle} style={props.style} className='category-node' >
-      <Col xs='auto'>
+      <Col xs='8'>
+        <Spacer indent={indent} />
         <Button
           onClick={(e) => {
             e.stopPropagation();
@@ -31,15 +37,13 @@ function CategoryNode(props: CategoryNodeProps) {
         >
           {props.node.isOpen ? <ChevronDown /> : <ChevronRight /> }
         </Button>
+        <span className='label'>Category:</span> <strong className='value'>{title}</strong>
       </Col>
-      <Col className='title'>
-        <span className='label'>Category:</span> <span className='value'>{title}</span>
-      </Col>
-      <Col className='published'>
+      <Col xs='2' className='published'>
         {published ? 'Published' : 'Draft' }
       </Col>
-      <Col xs='auto'>
-        <Button size="sm" href={editURL} className='edit-button'>Edit</Button>
+      <Col xs='2'>
+        <Button as='a' size='sm' href={editURL}>Edit</Button>
       </Col>
     </Row>);
 }
