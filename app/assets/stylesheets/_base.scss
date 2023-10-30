@@ -1,3 +1,5 @@
+@import '~bootstrap/scss/bootstrap';
+
 $body-font: Telex, Arial, Helvetica, sans-serif;
 $title-font: Inter, Arial, Helvetica, sans-serif;
 $code-font: 'Fira Code', 'Courier New', Courier, monospace;
@@ -7,6 +9,11 @@ $body-font-size: 1rem;
 $body-color: white;
 $body-background-color: black;
 $container-background-color: #141414;
+
+:root {
+  --font-family-sans-serif: $body-font;
+  --font-family-monospace: $code-font;
+}
 
 @mixin body-text {
   font-family: $body-font;
@@ -91,6 +98,6 @@ h6 {
   @include title-text;
 }
 
-.code {
+.code, code, pre {
   @include code-text;
 }

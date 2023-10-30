@@ -14,10 +14,9 @@
  *= require_self
  */
 
- @import '~bootstrap/scss/bootstrap';
- @import './base';
+@import './base';
 
- .admin-tree {
+.admin-tree {
   max-width: 800px;
   margin: 0 auto;
   text-overflow: ellipsis;
@@ -68,4 +67,17 @@
       }
     }
   }
- }
+}
+
+.category-editor {
+  height: 100%;
+
+  .category-editor-input, .category-editor-preview {
+    height: 100%;
+    padding: 10px;
+  }
+
+  .category-editor-input textarea {
+    font-family: $code-font;
+  }
+}
