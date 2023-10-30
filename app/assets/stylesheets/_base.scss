@@ -6,13 +6,25 @@ $code-font: 'Fira Code', 'Courier New', Courier, monospace;
 
 $body-font-size: 1rem;
 
-$body-color: white;
-$body-background-color: black;
-$container-background-color: #141414;
+$body-color: #FFFFFFFF;
+$link-color: #9ab0ea;
+$link-color-hover: #7f9de8;
+$code-color: #cdcddc;
+
+$body-background-color: #000000FF;
+$container-background-color: #141414FF;
 
 :root {
-  --font-family-sans-serif: $body-font;
-  --font-family-monospace: $code-font;
+  --bs-body-bg: #{$body-background-color};
+  --bs-body-color: #{$body-color};
+  --bs-code-color: #{$code-color};
+  --bs-font-monospace: #{$code-font};
+  --bs-font-sans-serif: #{$body-font};
+  --bs-link-color-rgb: #{$link-color};
+  --bs-link-hover-color-rgb: #{$link-color-hover};
+  --bs-secondary-bg: #{$container-background-color};
+  --font-family-monospace: #{$code-font};
+  --font-family-sans-serif: #{$body-font};
 }
 
 @mixin body-text {
@@ -38,6 +50,14 @@ body {
   color: $body-color;
   background-color: $body-background-color;
   font-size: 20px; // 1rem is relative to this, so we have to set it explicitly
+}
+
+a {
+  color: $link-color;
+}
+
+a:hover {
+  color: $link-color-hover;
 }
 
 %header {
@@ -100,4 +120,15 @@ h6 {
 
 .code, code, pre {
   @include code-text;
+}
+
+%transparent-button {
+  --bs-btn-padding-x: 0;
+  --bs-btn-padding-y: 0;
+  background: none;
+  border: none;
+
+  img, svg {
+    vertical-align: baseline;
+  }
 }

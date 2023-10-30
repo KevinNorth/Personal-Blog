@@ -55,29 +55,45 @@
 
   .category-node {
     .open-toggle {
-      border: none;
-      background: none;
+      @extend %transparent-button;
       width: 20px;
       height: 20px;
-      --bs-btn-padding-x: 0;
-      --bs-btn-padding-y: 0;
-
-      img, svg {
-        vertical-align: baseline;
-      }
     }
   }
 }
 
 .category-editor {
   height: 100%;
+  max-height: 100vh;
+
+  .row {
+    max-height: inherit;
+  }
 
   .category-editor-input, .category-editor-preview {
     height: 100%;
+    max-height: inherit;
     padding: 10px;
+    overflow-y: scroll;
   }
 
-  .category-editor-input textarea {
-    font-family: $code-font;
+  .category-editor-input {
+    .editor-syntax-help-button {
+      @extend %transparent-button;
+      height: 2.5rem;
+      width: 1.5rem;
+    }
+
+    textarea {
+      font-family: $code-font;
+    }
   }
+}
+
+#editor-syntax-help {
+  --bs-popover-border-color: white;
+  --bs-popover-font-size: 0.8rem;
+  --bs-popover-header-font-size: 1rem;
+  --bs-popover-max-width: 33vw;
+  font-family: $body-font;
 }
