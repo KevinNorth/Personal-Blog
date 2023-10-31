@@ -36,16 +36,6 @@ RUN gem install bundler
 # Install Postgresql client and dev libraries
 RUN apt-get install -qy postgresql-client libpq-dev
 
-# Create non-root user
-RUN adduser kevin
-RUN usermod -aG sudo kevin
-RUN usermod -aG root kevin
-
-USER kevin
-
-RUN mkdir ~/.gems
-RUN bundle config path ~/.gems
-
 # Install NVM and NodeJS
 RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
     && export NVM_DIR="$HOME/.nvm" \
