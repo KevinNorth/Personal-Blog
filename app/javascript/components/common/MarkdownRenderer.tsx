@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
-import Icon, { iconNames } from './Icon';
+import Icon, { isIconName } from './Icon';
 import 'highlight.js/styles/github.css';
 
 export interface MarkdownRendererProps {
@@ -18,7 +18,7 @@ const iconComponentsConfig: Components = {
   img: (props) => {
     const { src } = props;
 
-    if (src && iconNames.has(src)) {
+    if (src && isIconName(src)) {
       return <Icon iconName={src} />;
     }
 

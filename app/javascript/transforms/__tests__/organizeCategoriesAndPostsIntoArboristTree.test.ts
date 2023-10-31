@@ -18,7 +18,7 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 1,
+          id: '1',
           markdown: 'Lorem Ipsum',
           name: 'Test 1',
           order: 1,
@@ -36,7 +36,7 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 2,
+          id: '2',
           markdown: 'Lorem Ipsum',
           name: 'Test 2',
           order: 2,
@@ -54,7 +54,7 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 3,
+          id: '3',
           markdown: 'Lorem Ipsum',
           name: 'Test 3',
           order: 3,
@@ -89,7 +89,7 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 1,
+          id: '1',
           markdown: 'Lorem Ipsum',
           name: 'Test 1',
           order: 1,
@@ -99,7 +99,7 @@ describe('test', () => {
               __typename: 'Post',
               createdAt: '2023-10-28',
               headerImage: null,
-              id: 1,
+              id: '1',
               markdown: 'Lorem Ipsum',
               order: 1,
               published: true,
@@ -113,7 +113,7 @@ describe('test', () => {
               __typename: 'Post',
               createdAt: '2023-10-28',
               headerImage: null,
-              id: 2,
+              id: '2',
               markdown: 'Lorem Ipsum',
               order: 2,
               published: true,
@@ -136,7 +136,7 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 2,
+          id: '2',
           markdown: 'Lorem Ipsum',
           name: 'Test 2',
           order: 2,
@@ -154,7 +154,7 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 3,
+          id: '3',
           markdown: 'Lorem Ipsum',
           name: 'Test 3',
           order: 3,
@@ -164,7 +164,7 @@ describe('test', () => {
               __typename: 'Post',
               createdAt: '2023-10-28',
               headerImage: null,
-              id: 3,
+              id: '3',
               markdown: 'Lorem Ipsum',
               order: 1, // Posts in different categories can have the same order
               published: true,
@@ -209,10 +209,10 @@ describe('test', () => {
       const rootCategories: Category[] = [
         {
           __typename: 'Category',
-          children: [{ id: 4 }, { id: 5 }],
+          children: [{ id: '4' }, { id: '5' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 1,
+          id: '1',
           markdown: 'Lorem Ipsum',
           name: 'Test 1',
           order: 1,
@@ -227,10 +227,10 @@ describe('test', () => {
         },
         {
           __typename: 'Category',
-          children: [{ id: 6 }],
+          children: [{ id: '6' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 2,
+          id: '2',
           markdown: 'Lorem Ipsum',
           name: 'Test 2',
           order: 2,
@@ -245,10 +245,10 @@ describe('test', () => {
         },
         {
           __typename: 'Category',
-          children: [{ id: 7 }, { id: 8 }],
+          children: [{ id: '7' }, { id: '8' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 3,
+          id: '3',
           markdown: 'Lorem Ipsum',
           name: 'Test 3',
           order: 3,
@@ -263,17 +263,17 @@ describe('test', () => {
         },
       ];
 
-      const category1Children: Categories[] = [
+      const category1Children: Category[] = [
         {
           __typename: 'Category',
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 4,
+          id: '4',
           markdown: 'Lorem Ipsum',
           name: 'Test 1-4',
           order: 1,
-          parent: { id: 1 },
+          parent: { id: '1' },
           posts: [],
           published: true,
           slug: 'test-4',
@@ -287,11 +287,11 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 5,
+          id: '5',
           markdown: 'Lorem Ipsum',
           name: 'Test 1-5',
           order: 2,
-          parent: { id: 1 },
+          parent: { id: '1' },
           posts: [],
           published: true,
           slug: 'test-5',
@@ -302,17 +302,17 @@ describe('test', () => {
         },
       ];
 
-      const category2Children: Categories[] = [
+      const category2Children: Category[] = [
         {
           __typename: 'Category',
-          children: [{ id: 9 }],
+          children: [{ id: '9' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 6,
+          id: '6',
           markdown: 'Lorem Ipsum',
           name: 'Test 2-6',
           order: 1,
-          parent: { id: 2 },
+          parent: { id: '2' },
           posts: [],
           published: true,
           slug: 'test-6',
@@ -323,17 +323,17 @@ describe('test', () => {
         },
       ];
 
-      const category3Children: Categories[] = [
+      const category3Children: Category[] = [
         {
           __typename: 'Category',
-          children: [{ id: 10 }, { id: 11 }],
+          children: [{ id: '10' }, { id: '11' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 7,
+          id: '7',
           markdown: 'Lorem Ipsum',
           name: 'Test 3-7',
           order: 1,
-          parent: { id: 3 },
+          parent: { id: '3' },
           posts: [],
           published: true,
           slug: 'test-7',
@@ -344,14 +344,14 @@ describe('test', () => {
         },
         {
           __typename: 'Category',
-          children: [{ id: 12 }],
+          children: [{ id: '12' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 8,
+          id: '8',
           markdown: 'Lorem Ipsum',
           name: 'Test 3-8',
           order: 2,
-          parent: { id: 3 },
+          parent: { id: '3' },
           posts: [],
           published: true,
           slug: 'test-8',
@@ -362,17 +362,17 @@ describe('test', () => {
         },
       ];
 
-      const category6Children: Categories[] = [
+      const category6Children: Category[] = [
         {
           __typename: 'Category',
-          children: [{ id: 13 }],
+          children: [{ id: '13' }],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 9,
+          id: '9',
           markdown: 'Lorem Ipsum',
           name: 'Test 2-6-9',
           order: 1,
-          parent: { id: 6 },
+          parent: { id: '6' },
           posts: [],
           published: true,
           slug: 'test-9',
@@ -383,17 +383,17 @@ describe('test', () => {
         },
       ];
 
-      const category7Children: Categories[] = [
+      const category7Children: Category[] = [
         {
           __typename: 'Category',
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 10,
+          id: '10',
           markdown: 'Lorem Ipsum',
           name: 'Test 3-7-10',
           order: 1,
-          parent: { id: 7 },
+          parent: { id: '7' },
           posts: [],
           published: true,
           slug: 'test-10',
@@ -407,11 +407,11 @@ describe('test', () => {
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 11,
+          id: '11',
           markdown: 'Lorem Ipsum',
           name: 'Test 3-7-11',
           order: 2,
-          parent: { id: 7 },
+          parent: { id: '7' },
           posts: [],
           published: true,
           slug: 'test-11',
@@ -422,17 +422,17 @@ describe('test', () => {
         },
       ];
 
-      const category8Children: Categories[] = [
+      const category8Children: Category[] = [
         {
           __typename: 'Category',
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 12,
+          id: '12',
           markdown: 'Lorem Ipsum',
           name: 'Test 3-8-12',
           order: 1,
-          parent: { id: 8 },
+          parent: { id: '8' },
           posts: [],
           published: true,
           slug: 'test-9',
@@ -443,17 +443,17 @@ describe('test', () => {
         },
       ];
 
-      const category9Children: Categories[] = [
+      const category9Children: Category[] = [
         {
           __typename: 'Category',
           children: [],
           createdAt: '2023-10-28',
           headerImage: null,
-          id: 13,
+          id: '13',
           markdown: 'Lorem Ipsum',
           name: 'Test 2-6-9-13',
           order: 1,
-          parent: { id: 9 },
+          parent: { id: '9' },
           posts: [],
           published: true,
           slug: 'test-13',
@@ -583,7 +583,7 @@ describe('test', () => {
   describe('when given a realistic input', () => {
     it('produces the correct tree', () => {
       expect(
-        organizeCategoriesAndPostsIntoArboristTree(mockCategoriesAndPosts.data.categories)
+        organizeCategoriesAndPostsIntoArboristTree(mockCategoriesAndPosts)
       ).toEqual(categoriesAndPostsAsArboristTree);
     });
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import Admin from './components/Admin';
 
 document.addEventListener('DOMContentLoaded', () => {

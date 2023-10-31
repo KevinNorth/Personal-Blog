@@ -5,6 +5,7 @@ import { JournalRichtext } from 'react-bootstrap-icons';
 import { NodeRendererProps } from 'react-arborist';
 import { AdminTreePostVertex } from './types';
 import Spacer from '../../common/Spacer';
+import { CSSLength } from 'types/cssLength';
 
 export interface PostNodeProps extends NodeRendererProps<AdminTreePostVertex> {
   indentSize: number;
@@ -19,9 +20,9 @@ function PostNode(props: PostNodeProps) {
       published: data.graphqlObject?.published || false,
       title: data.title
     };
-  }, data);
+  }, [data]);
 
-  const indent = `${props.node.level * props.indentSize}px`;
+  const indent = `${props.node.level * props.indentSize}px` as CSSLength;
 
   return (
     <Row ref={props.dragHandle} style={props.style} className='post-node'>

@@ -1,5 +1,5 @@
-import Category from '../graphql/types/category';
-import Post from '../graphql/types/post';
+import Category from '../../../graphql/types/category';
+import Post from '../../../graphql/types/post';
 
 export interface AdminTreeCategoryVertex {
   id?: string,

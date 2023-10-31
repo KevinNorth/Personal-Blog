@@ -1,3 +1,6 @@
 {
-  "schema": "schema.graphql"
+  "schema": "schema.graphql",
+  "documents": [
+    ".app/javascript/graphql/queries/**/*.ts"
+  ]
 }

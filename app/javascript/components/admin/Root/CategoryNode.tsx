@@ -4,6 +4,7 @@ import { ChevronDown, ChevronRight } from 'react-bootstrap-icons';
 import { NodeRendererProps } from 'react-arborist';
 import { AdminTreeCategoryVertex } from './types';
 import Spacer from '../../common/Spacer';
+import { CSSLength } from 'types/cssLength';
 
 export interface CategoryNodeProps extends NodeRendererProps<AdminTreeCategoryVertex> {
   indentSize: number;
@@ -18,9 +19,9 @@ function CategoryNode(props: CategoryNodeProps) {
       published: data.graphqlObject?.published || false,
       title: data.title
     };
-  }, data);
+  }, [data]);
 
-  const indent = `${props.node.level * props.indentSize}px`;
+  const indent = `${props.node.level * props.indentSize}px` as CSSLength;
 
   return (
     <Row ref={props.dragHandle} style={props.style} className='category-node' >

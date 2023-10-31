@@ -121,6 +121,9 @@ devDependencies:
   '@types/eslint':
     specifier: ^8.44.6
     version: 8.44.6
+  '@types/jest':
+    specifier: ^29.5.7
+    version: 29.5.7
   '@types/sass-loader':
     specifier: ^8.0.7
     version: 8.0.7
@@ -2330,6 +2333,13 @@ packages:
     resolution: {integrity: sha512-1nESsePMBlf0RPRffLZi5ujYh7IH1BWL4y9pr+Bn3cJBdxz+RTP8bUFljLz9HvzhhOSWKdyBZ4DIivdL6rvgZg==}
     dependencies:
       '@types/istanbul-lib-report': 3.0.2
+    dev: true
+
+  /@types/jest@29.5.7:
+    resolution: {integrity: sha512-HLyetab6KVPSiF+7pFcUyMeLsx25LDNDemw9mGsJBkai/oouwrjTycocSDYopMEwFhN2Y4s9oPyOCZNofgSt2g==}
+    dependencies:
+      expect: 29.7.0
+      pretty-format: 29.7.0
     dev: true
 
   /@types/json-schema@7.0.14:

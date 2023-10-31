@@ -42,7 +42,7 @@ const popover = (
 
 function Editor({ markdown, onChange, className, editorClassName, previewClassName }: EditorProps): React.ReactElement {
   return (
-    <Container fluid className={[className]}>
+    <Container fluid className={className}>
       <Row>
         <Col xs='6' className={editorClassName}>
           <h2>
