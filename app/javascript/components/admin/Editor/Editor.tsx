@@ -40,11 +40,11 @@ const popover = (
   </Popover>
 );
 
-function Editor({ markdown, onChange, className, editorClassName, previewClassName }: EditorProps): React.ReactElement {
+function Editor({ markdown, onChange, className }: EditorProps): React.ReactElement {
   return (
     <Container fluid className={className}>
       <Row>
-        <Col xs='6' className={editorClassName}>
+        <Col xs='6' className='editor-input'>
           <h2>
             Editor
             <Spacer indent='10px' />
@@ -56,7 +56,7 @@ function Editor({ markdown, onChange, className, editorClassName, previewClassNa
             <Form.Control as='textarea' onChange={(event) => onChange(event.target.value)} value={markdown} />
           </Form>
         </Col>
-        <Col xs='6' className={previewClassName}>
+        <Col xs='6' className='editor-preview'>
           <h2>Preview</h2>
           <MarkdownRenderer markdown={markdown} />
         </Col>

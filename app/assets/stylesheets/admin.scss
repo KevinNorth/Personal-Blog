@@ -62,7 +62,7 @@
   }
 }
 
-.category-editor {
+.category-editor, .post-editor {
   height: 100%;
   max-height: 100vh;
 
@@ -70,14 +70,14 @@
     max-height: inherit;
   }
 
-  .category-editor-input, .category-editor-preview {
+  .editor-input, .editor-preview {
     height: 100%;
     max-height: inherit;
     padding: 10px;
     overflow-y: scroll;
   }
 
-  .category-editor-input {
+  .editor-input {
     .editor-syntax-help-button {
       @extend %transparent-button;
       height: 2.5rem;
