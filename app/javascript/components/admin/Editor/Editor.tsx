@@ -5,6 +5,7 @@ import MarkdownRenderer from '../../common/MarkdownRenderer';
 import Spacer from '../../common/Spacer';
 
 export interface EditorProps {
+  alreadyInsideForm: boolean;
   markdown: string;
   onChange: (string) => void;
   className?: string;
@@ -40,7 +41,21 @@ const popover = (
   </Popover>
 );
 
-function Editor({ markdown, onChange, className }: EditorProps): React.ReactElement {
+function Editor({ alreadyInsideForm, markdown, onChange, className }: EditorProps): React.ReactElement {
+  let editorInsideForm = null;
+
+  if (alreadyInsideForm) {
+    editorInsideForm = (<>
+      <Form.Control as='textarea' onChange={(event) => onChange(event.target.value)} value={markdown} />
+    </>);
+  } else {
+    editorInsideForm = (
+      <Form>
+        <Form.Control as='textarea' onChange={(event) => onChange(event.target.value)} value={markdown} />
+      </Form>
+    );
+  }
+
   return (
     <Container fluid className={className}>
       <Row>
@@ -52,9 +67,7 @@ function Editor({ markdown, onChange, className }: EditorProps): React.ReactElem
               <Button className='editor-syntax-help-button'><InfoCircle /></Button>
             </OverlayTrigger>
           </h2>
-          <Form>
-            <Form.Control as='textarea' onChange={(event) => onChange(event.target.value)} value={markdown} />
-          </Form>
+          { editorInsideForm }
         </Col>
         <Col xs='6' className='editor-preview'>
           <h2>Preview</h2>

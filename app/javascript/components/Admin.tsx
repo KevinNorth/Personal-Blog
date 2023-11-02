@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CategoryEditor from './admin/CategoryEditor/CategoryEditor';
 import getCRSFToken from '../lib/getCRSFToken';
 import Layout from './admin/Layout';
-import PostEditor from './admin/PostEditor/PostEditor';
 import Root from './admin/Root/Root';
+import ExistingPostEditor from './admin/PostEditor/ExistingPostEditor';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -21,7 +21,7 @@ function Admin() {
       <Layout>
         <BrowserRouter basename="/admin">
           <Routes>
-            <Route path="/post/:id" element={<PostEditor />} />
+            <Route path="/post/:id" element={<ExistingPostEditor />} />
             <Route path="/category/:id" element={<CategoryEditor />} />
             <Route path="/" element={<Root />} />
           </Routes>
