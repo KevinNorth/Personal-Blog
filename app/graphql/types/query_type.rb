@@ -87,7 +87,7 @@ module Types
       if include_unpublished
         Category.all
       else
-        Category.includes(:posts).where(published: true, posts: { published: true })
+        Category.eager_load(:posts).joins('AND posts.published = true').where(published: true)
       end
     end
 
@@ -95,7 +95,7 @@ module Types
       if include_unpublished
         Category.find_by(id:)
       else
-        Category.includes(:posts).where(published: true, posts: { published: true }).find_by(id:)
+        Category.eager_load(:posts).joins('AND posts.published = true').find_by(id:, published: true)
       end
     end
 
@@ -103,7 +103,7 @@ module Types
       if include_unpublished
         Category.find_by(slug:)
       else
-        Category.includes(:posts).where(published: true, posts: { published: true }).find_by(slug:)
+        Category.eager_load(:posts).joins('AND posts.published = true').find_by(slug:, published: true)
       end
     end
 

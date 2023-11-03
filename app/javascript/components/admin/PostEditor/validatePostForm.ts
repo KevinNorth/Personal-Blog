@@ -75,10 +75,10 @@ function validatePostForm({
       isValid: false,
       invalidReason: 'Order must not be blank.'
     };
-  } else if (isNaN(+order)) {
+  } else if (!/^\d+$/.test(order)) {
     validationResults.order = {
       isValid: false,
-      invalidReason: 'Order must be a number.'
+      invalidReason: 'Order must be an integer.'
     };
   } else if (usedOrders.includes(Number(order))) {
     validationResults.order = {
