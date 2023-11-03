@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
-import CATEGORY_FRAGMENT from './fragments/categoryFragment';
-import POST_FRAGMENT from './fragments/postFragment';
-import USER_FRAGMENT from './fragments/userFragment';
+import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
+import POST_FRAGMENT from '../fragments/postFragment';
+import USER_FRAGMENT from '../fragments/userFragment';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
 

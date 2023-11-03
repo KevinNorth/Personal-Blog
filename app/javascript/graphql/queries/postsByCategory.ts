@@ -1,6 +1,6 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
-import POST_FRAGMENT from './fragments/postFragment';
-import USER_FRAGMENT from './fragments/userFragment';
+import POST_FRAGMENT from '../fragments/postFragment';
+import USER_FRAGMENT from '../fragments/userFragment';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
 import LazyQueryResult from 'graphql/types/lazyQueryResult';

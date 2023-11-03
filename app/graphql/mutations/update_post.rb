@@ -29,7 +29,7 @@ module Mutations
         slug: post_attributes.slug,
         subtitle: post_attributes.subtitle,
         summary: post_attributes.summary,
-        title: post_attributes.title,
+        title: post_attributes.title
       )
 
       if post.save
