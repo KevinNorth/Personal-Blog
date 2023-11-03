@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import getPostById from '../../../graphql/queries/postById';
 import PostEditor from './PostEditor';
-import { PostWithoutRelationships } from '../../../graphql/types/post';
 
 function ExistingPostEditor(): React.ReactElement {
   const { id } = useParams();
@@ -17,6 +16,7 @@ function ExistingPostEditor(): React.ReactElement {
   const [slug, setSlug] = useState('');
   const [published, setPublished] = useState(false);
   const [markdown, setMarkdown] = useState('');
+  const [order, setOrder] = useState('0');
 
   if(!loading && !hasSetInitialValues) {
     indicateHasSetInitialValues(true);
@@ -26,29 +26,22 @@ function ExistingPostEditor(): React.ReactElement {
     setSlug(post.slug);
     setPublished(post.published);
     setMarkdown(post.markdown);
+    setOrder(String(post.order));
   }
 
-  const mutatedPost: PostWithoutRelationships =
-  {
-    __typename: 'Post',
-    createdAt: post?.createdAt || '',
-    headerImage: post?.headerImage || null,
-    id: post?.id || '',
-    markdown,
-    order: post?.order || 0,
-    published,
-    slug,
-    subtitle,
-    summary,
-    title,
-    updatedAt: post?.updatedAt || '',
-  };
-
   return <PostEditor
-    post={mutatedPost}
     loading={loading}
+    id={post?.id || ''}
     categoryId={post?.category?.id || ''}
+    markdown={markdown}
+    order={order}
+    published={published}
+    slug={slug}
+    subtitle={subtitle}
+    summary={summary}
+    title={title}
     onMarkdownChange={setMarkdown}
+    onOrderChange={setOrder}
     onPublishedChange={setPublished}
     onSlugChange={setSlug}
     onSubtitleChange={setSubtitle}

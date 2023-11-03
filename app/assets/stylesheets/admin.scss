@@ -97,3 +97,14 @@
   --bs-popover-max-width: 33vw;
   font-family: $body-font;
 }
+
+.invalid-icon {
+  color: red;
+}
+
+.invalid-reason {
+  --bs-tooltip-color: #{$body-color};
+  --bs-tooltip-bg: #{$body-background-color};
+  font-family: $body-font;
+  color: $body-color;
+}

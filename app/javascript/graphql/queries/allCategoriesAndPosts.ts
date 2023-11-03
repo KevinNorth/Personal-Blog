@@ -1,9 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import CATEGORY_FRAGMENT from './fragments/categoryFragment';
 import POST_FRAGMENT from './fragments/postFragment';
 import USER_FRAGMENT from './fragments/userFragment';
 import Category from '../types/category';
 import QueryResult from '../types/queryResult';
+import LazyQueryResult from '../types/lazyQueryResult';
 
 const allCategoriesAndPostsQuery = 
   gql`
@@ -34,6 +35,21 @@ function getAllCategoriesAndPosts(
 ): QueryResult<{ categories: Partial<Category>[] }> {
   return useQuery(
     allCategoriesAndPostsQuery, 
+    {
+      variables: { includeUnpublished }
+    }
+  );
+}
+
+export function lazyGetAllCategoriesAndPosts(
+  categoryId: NonNullable<string>,
+  includeUnpublished: boolean = false
+): [
+  queryFunction: () => void,
+  LazyQueryResult<{ postsByCategory: Partial<Category>[] }>
+] {
+  return useLazyQuery(
+    allCategoriesAndPostsQuery,
     {
       variables: { includeUnpublished }
     }

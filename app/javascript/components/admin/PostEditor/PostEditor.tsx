@@ -1,15 +1,24 @@
 import React from 'react';
 import { ButtonGroup, Container, Col, Form, FormControl, FormGroup, FormLabel, Placeholder, Row, ToggleButton } from 'react-bootstrap';
 import Editor from '../Editor/Editor';
-import { PostWithoutRelationships } from '../../../graphql/types/post';
 import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
 import LoadingEditor from './LoadingEditor';
+import validatePostForm from './validatePostForm';
+import InvalidIcon from '../../common/InvalidIcon';
 
 export interface PostEditorProps {
   loading: boolean;
-  post: PostWithoutRelationships;
+  id: string;
   categoryId: string;
+  markdown: string;
+  order: string;
+  published: boolean;
+  slug: string;
+  subtitle: string;
+  summary: string;
+  title: string;
   onMarkdownChange: (value: string) => void;
+  onOrderChange: (value: string) => void;
   onPublishedChange: (value: boolean) => void;
   onSlugChange: (value: string) => void;
   onSubtitleChange: (value: string) => void;
@@ -17,65 +26,19 @@ export interface PostEditorProps {
   onTitleChange: (value: string) => void;
 }
 
-type Validation = {
-  isValid: false;
-  invalidReason: string;
-} | {
-  isValid: true;
-}
-
-type ValidationResults = { [Property in keyof PostWithoutRelationships]: Validation };
-
-function validateForm(post: PostWithoutRelationships, usedSlugs: string[]): ValidationResults {
-  const validationResults: ValidationResults = Object.keys(post).reduce(
-    (allResults: Partial<ValidationResults>, key: string) => ({
-      ...allResults,
-      [key]: { isValid: true }
-    }),
-    {}
-  ) as ValidationResults;
-
-  if (post.title === '') {
-    validationResults.title = {
-      isValid: false,
-      invalidReason: 'Title must not be blank.'
-    };
-  }
-
-  if (post.subtitle === '') {
-    validationResults.subtitle = {
-      isValid: false,
-      invalidReason: 'Subtitle must not be blank.'
-    };
-  }
-
-  if (post.summary === '') {
-    validationResults.summary = {
-      isValid: false,
-      invalidReason: 'Summary must not be blank.'
-    };
-  }
-
-  if (post.slug === '') {
-    validationResults.slug = {
-      isValid: false,
-      invalidReason: 'Slug must not be blank.'
-    };
-  } else if (usedSlugs.includes(post.slug)) {
-    validationResults.slug = {
-      isValid: false,
-      invalidReason: 'Slug is already used by another post in this category.'
-    };
-  }
-  
-  return validationResults;
-}
-
 export default function PostEditor({
   loading,
-  post,
+  id,
+  markdown,
+  order,
+  published,
+  slug,
+  subtitle,
+  summary,
+  title,
   categoryId,
   onMarkdownChange,
+  onOrderChange,
   onPublishedChange,
   onSlugChange,
   onSubtitleChange,
@@ -95,15 +58,26 @@ export default function PostEditor({
     getPostsByCategory();
   }
 
-  const siblingSlugs = (loadingSiblingPosts || !calledGetPostsByCategory) ? [] :
+  const otherSiblingPosts = (loadingSiblingPosts || !calledGetPostsByCategory) ? [] :
     siblingPosts.postsByCategory
-      .filter((p) => p.id !== post.id)
-      .map((p) => p.slug);
+      .filter((p) => p.id !== id);
+  const usedSlugs = otherSiblingPosts.map((p) => p.slug);
+  const usedOrders = otherSiblingPosts.map((p) => p.order);
 
-  const validationResults = validateForm(post, siblingSlugs);
+  const validationResults = validatePostForm({
+    markdown,
+    order,
+    published,
+    slug,
+    subtitle,
+    summary,
+    title,
+    usedOrders,
+    usedSlugs
+  });
 
   return (
-    <Container fluid>
+    <Container fluid className='post-editor'>
       <Form>
         <Row>
           <Col xs={12}>
@@ -111,10 +85,16 @@ export default function PostEditor({
               <Form.Label size="lg">Title</Form.Label>
               <Form.Control
                 isValid={validationResults.title.isValid}
+                isInvalid={!validationResults.title.isValid}
                 size="lg"
                 type='text'
-                value={post.title}
+                value={title}
                 onChange={(event) => onTitleChange(event.target.value)}
+              />
+              <InvalidIcon
+                id='post-title-invalid'
+                isInvalid={!validationResults.title.isValid}
+                invalidReason={validationResults.title.invalidReason}
               />
             </Form.Group>
           </Col>
@@ -125,9 +105,15 @@ export default function PostEditor({
               <Form.Label>Subtitle</Form.Label>
               <Form.Control
                 isValid={validationResults.subtitle.isValid}
+                isInvalid={!validationResults.subtitle.isValid}
                 type='text'
-                value={post.subtitle}
+                value={subtitle}
                 onChange={(event) => onSubtitleChange(event.target.value)}
+              />
+              <InvalidIcon
+                id='post-subtitle-invalid'
+                isInvalid={!validationResults.subtitle.isValid}
+                invalidReason={validationResults.subtitle.invalidReason}
               />
             </Form.Group>
           </Col>
@@ -138,15 +124,21 @@ export default function PostEditor({
               <Form.Label>Summary</Form.Label>
               <Form.Control
                 isValid={validationResults.summary.isValid}
+                isInvalid={!validationResults.summary.isValid}
                 type='text'
-                value={post.summary}
+                value={summary}
                 onChange={(event) => onSummaryChange(event.target.value)}
+              />
+              <InvalidIcon
+                id='post-summary-invalid'
+                isInvalid={!validationResults.summary.isValid}
+                invalidReason={validationResults.summary.invalidReason}
               />
             </Form.Group>
           </Col>
         </Row>
         <Row>
-          <Col xs={4}>
+          <Col xs={3}>
             <Form.Group className="post-published" controlId="post-published">
               <ButtonGroup>
                 <ToggleButton
@@ -155,7 +147,7 @@ export default function PostEditor({
                   type="radio"
                   name="unpublished"
                   value="false"
-                  checked={!post.published}
+                  checked={!published}
                   onChange={() => onPublishedChange(false)}
                 >
                   Unpublished
@@ -166,7 +158,7 @@ export default function PostEditor({
                   type="radio"
                   name="published"
                   value="false"
-                  checked={post.published}
+                  checked={published}
                   onChange={() => onPublishedChange(true)}
                 >
                   Published
@@ -174,18 +166,50 @@ export default function PostEditor({
               </ButtonGroup>
             </Form.Group>
           </Col>
-          <Col xs={8}>
+          <Col xs={3}>
+            <FormGroup className="post-order" controlId="post-order">
+              <FormLabel>Order in Navbar</FormLabel>
+              {
+                (loadingSiblingPosts || !calledGetPostsByCategory) ?
+                  <Placeholder animation="glow" className="w-100" /> :
+                  <>
+                    <FormControl
+                      isValid={validationResults.order.isValid}
+                      isInvalid={!validationResults.order.isValid}
+                      type='number'
+                      value={order}
+                      onChange={(event) => onOrderChange(event.target.value)}
+                      inputMode='numeric'
+                    />
+                    <InvalidIcon
+                      id='post-order-invalid'
+                      isInvalid={!validationResults.order.isValid}
+                      invalidReason={validationResults.order.invalidReason}
+                    />
+                  </>
+              }
+            </FormGroup>
+          </Col>
+          <Col xs={6}>
             <FormGroup className="post-slug" controlId="post-slug">
               <FormLabel>Slug</FormLabel>
               {
                 (loadingSiblingPosts || !calledGetPostsByCategory) ?
                   <Placeholder animation="glow" className="w-100" /> :
-                  <FormControl
-                    isValid={validationResults.slug.isValid}
-                    type='text'
-                    value={post.slug}
-                    onChange={(event) => onSlugChange(event.target.value)}
-                  />
+                  <>
+                    <FormControl
+                      isValid={validationResults.slug.isValid}
+                      isInvalid={!validationResults.slug.isValid}
+                      type='text'
+                      value={slug}
+                      onChange={(event) => onSlugChange(event.target.value)}
+                    />
+                    <InvalidIcon
+                      id='post-slug-invalid'
+                      isInvalid={!validationResults.slug.isValid}
+                      invalidReason={validationResults.slug.invalidReason}
+                    />
+                  </>
               }
             </FormGroup>
           </Col>
@@ -195,7 +219,7 @@ export default function PostEditor({
             <Form.Group className="post-body" controlId="post-body">
               <Editor
                 alreadyInsideForm
-                markdown={post.markdown}
+                markdown={markdown}
                 onChange={onMarkdownChange}
                 className='post-editor'
               />
