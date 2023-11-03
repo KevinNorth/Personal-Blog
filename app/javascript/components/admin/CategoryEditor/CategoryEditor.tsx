@@ -1,16 +1,26 @@
 import React from 'react';
 import { ButtonGroup, Container, Col, Form, FormControl, FormGroup, FormLabel, Placeholder, Row, ToggleButton } from 'react-bootstrap';
 import Editor from '../Editor/Editor';
-import { CategoryWithoutRelationships } from '../../../graphql/types/category';
-import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
+import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCategoriesAndPosts';
 import LoadingEditor from './LoadingEditor';
+import validateCategoryForm from './validateCategoryForm';
+import InvalidIcon from '../../common/InvalidIcon';
 
 export interface CategoryEditorProps {
   loading: boolean;
-  post: CategoryWithoutRelationships;
-  categoryId: string;
-  onNameChange: (value: string) => void;
+  id: string;
+  parentId: string | null;
+  markdown: string;
+  name: string;
+  order: string;
+  published: boolean;
+  slug: string;
+  subtitle: string;
+  summary: string;
+  title: string;
   onMarkdownChange: (value: string) => void;
+  onNameChange: (value: string) => void;
+  onOrderChange: (value: string) => void;
   onPublishedChange: (value: boolean) => void;
   onSlugChange: (value: string) => void;
   onSubtitleChange: (value: string) => void;
@@ -18,72 +28,21 @@ export interface CategoryEditorProps {
   onTitleChange: (value: string) => void;
 }
 
-type Validation = {
-  isValid: false;
-  invalidReason: string;
-} | {
-  isValid: true;
-}
-
-type ValidationResults = { [Property in keyof CategoryWithoutRelationships]: Validation };
-
-function validateForm(category: CategoryWithoutRelationships, usedSlugs: string[]): ValidationResults {
-  const validationResults: ValidationResults = Object.keys(category).reduce(
-    (allResults: Partial<ValidationResults>, key: string) => ({
-      ...allResults,
-      [key]: { isValid: true }
-    }),
-    {}
-  ) as ValidationResults;
-
-  if (category.title === '') {
-    validationResults.title = {
-      isValid: false,
-      invalidReason: 'Title must not be blank.'
-    };
-  }
-
-  if (category.name === '') {
-    validationResults.name = {
-      isValid: false,
-      invalidReason: 'Name must not be blank.'
-    };
-  }
-
-  if (category.subtitle === '') {
-    validationResults.subtitle = {
-      isValid: false,
-      invalidReason: 'Subtitle must not be blank.'
-    };
-  }
-
-  if (category.summary === '') {
-    validationResults.summary = {
-      isValid: false,
-      invalidReason: 'Summary must not be blank.'
-    };
-  }
-
-  if (category.slug === '') {
-    validationResults.slug = {
-      isValid: false,
-      invalidReason: 'Slug must not be blank.'
-    };
-  } else if (usedSlugs.includes(category.slug)) {
-    validationResults.slug = {
-      isValid: false,
-      invalidReason: 'Slug is already used by another category.'
-    };
-  }
-  
-  return validationResults;
-}
-
-export default function PostEditor({
+export default function CategoryEditor({
   loading,
-  post,
-  categoryId,
+  id,
+  parentId,
+  markdown,
+  name,
+  order,
+  published,
+  slug,
+  subtitle,
+  summary,
+  title,
   onMarkdownChange,
+  onNameChange,
+  onOrderChange,
   onPublishedChange,
   onSlugChange,
   onSubtitleChange,
@@ -91,90 +50,121 @@ export default function PostEditor({
   onTitleChange
 }: CategoryEditorProps): React.ReactElement {
   const [
-    getPostsByCategory,
-    { data: siblingPosts, loading: loadingSiblingPosts, called: calledGetPostsByCategory }
-  ] = lazyGetPostsByCategory(categoryId, true);
+    getAllCategoriesAndPosts,
+    { data: allCategories, loading: loadingAllCategories, called: calledGetAllCategoriesAndPosts }
+  ] = lazyGetAllCategoriesAndPosts(true);
 
   if (loading) {
     return <LoadingEditor />;
   }
 
-  if (!calledGetPostsByCategory) {
-    getPostsByCategory();
+  if (!calledGetAllCategoriesAndPosts) {
+    getAllCategoriesAndPosts();
   }
 
-  const siblingSlugs = (loadingSiblingPosts || !calledGetPostsByCategory) ? [] :
-    siblingPosts.postsByCategory
-      .filter((p) => p.id !== post.id)
-      .map((p) => p.slug);
+  const otherCategories = (loadingAllCategories || !calledGetAllCategoriesAndPosts) ? [] :
+    allCategories.categories
+      .filter((c) => c.id !== id);
+  const siblingCategories = otherCategories.filter((c) => (c.parent?.id || null) === parentId);
+  const usedSlugs = otherCategories.map((c) => c.slug);
+  const usedOrders = siblingCategories.map((c) => c.order);
 
-  const validationResults = validateForm(post, siblingSlugs);
+  const validationResults = validateCategoryForm({
+    markdown,
+    name,
+    order,
+    published,
+    slug,
+    subtitle,
+    summary,
+    title,
+    usedOrders,
+    usedSlugs
+  });
 
   return (
-    <Container fluid className='post-editor'>
+    <Container fluid className='category-editor'>
       <Form>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-title" controlId="post-title">
+            <Form.Group className="category-title" controlId="category-title">
               <Form.Label size="lg">Title</Form.Label>
               <Form.Control
                 isValid={validationResults.title.isValid}
+                isInvalid={!validationResults.title.isValid}
                 size="lg"
                 type='text'
-                value={post.title}
+                value={title}
                 onChange={(event) => onTitleChange(event.target.value)}
+              />
+              <InvalidIcon
+                id='category-title-invalid'
+                isInvalid={!validationResults.title.isValid}
+                invalidReason={validationResults.title.invalidReason}
               />
             </Form.Group>
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-subtitle" controlId="post-subtitle">
+            <Form.Group className="category-subtitle" controlId="category-subtitle">
               <Form.Label>Subtitle</Form.Label>
               <Form.Control
                 isValid={validationResults.subtitle.isValid}
+                isInvalid={!validationResults.subtitle.isValid}
                 type='text'
-                value={post.subtitle}
+                value={subtitle}
                 onChange={(event) => onSubtitleChange(event.target.value)}
+              />
+              <InvalidIcon
+                id='category-subtitle-invalid'
+                isInvalid={!validationResults.subtitle.isValid}
+                invalidReason={validationResults.subtitle.invalidReason}
               />
             </Form.Group>
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-summary" controlId="post-summary">
+            <Form.Group className="category-summary" controlId="category-summary">
               <Form.Label>Summary</Form.Label>
               <Form.Control
                 isValid={validationResults.summary.isValid}
+                isInvalid={!validationResults.summary.isValid}
                 type='text'
-                value={post.summary}
+                value={summary}
                 onChange={(event) => onSummaryChange(event.target.value)}
+              />
+              <InvalidIcon
+                id='category-summary-invalid'
+                isInvalid={!validationResults.summary.isValid}
+                invalidReason={validationResults.summary.invalidReason}
               />
             </Form.Group>
           </Col>
         </Row>
         <Row>
-          <Col xs={4}>
-            <Form.Group className="post-published" controlId="post-published">
+          <Col xs={6}>
+            <Form.Group className="category-published" controlId="category-published">
               <ButtonGroup>
                 <ToggleButton
                   key="unpublished"
-                  id="post-unpublished-button"
+                  id="category-unpublished-button"
                   type="radio"
                   name="unpublished"
                   value="false"
-                  checked={!post.published}
+                  checked={!published}
                   onChange={() => onPublishedChange(false)}
                 >
                   Unpublished
                 </ToggleButton>
                 <ToggleButton
                   key="published"
-                  id="post-published-button"
+                  id="category-published-button"
                   type="radio"
                   name="published"
                   value="false"
-                  checked={post.published}
+                  checked={published}
                   onChange={() => onPublishedChange(true)}
                 >
                   Published
@@ -182,30 +172,81 @@ export default function PostEditor({
               </ButtonGroup>
             </Form.Group>
           </Col>
-          <Col xs={8}>
-            <FormGroup className="post-slug" controlId="post-slug">
+          <Col xs={6}>
+            <FormGroup className="category-slug" controlId="category-slug">
               <FormLabel>Slug</FormLabel>
               {
-                (loadingSiblingPosts || !calledGetPostsByCategory) ?
+                (loadingAllCategories || !calledGetAllCategoriesAndPosts) ?
                   <Placeholder animation="glow" className="w-100" /> :
-                  <FormControl
-                    isValid={validationResults.slug.isValid}
-                    type='text'
-                    value={post.slug}
-                    onChange={(event) => onSlugChange(event.target.value)}
-                  />
+                  <>
+                    <FormControl
+                      isValid={validationResults.slug.isValid}
+                      isInvalid={!validationResults.slug.isValid}
+                      type='text'
+                      value={slug}
+                      onChange={(event) => onSlugChange(event.target.value)}
+                    />
+                    <InvalidIcon
+                      id='category-slug-invalid'
+                      isInvalid={!validationResults.slug.isValid}
+                      invalidReason={validationResults.slug.invalidReason}
+                    />
+                  </>
+              }
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={6}>
+            <FormGroup className='category-name' controlId='category-name'>
+              <FormLabel>Name in Navbar</FormLabel>
+              <FormControl
+                isValid={validationResults.name.isValid}
+                isInvalid={!validationResults.name.isValid}
+                type='text'
+                value={name}
+                onChange={(event) => onNameChange(event.target.value)}                
+              />
+              <InvalidIcon
+                id='category-name-invalid'
+                isInvalid={!validationResults.name.isValid}
+                invalidReason={validationResults.name.invalidReason}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={6}>
+            <FormGroup className="category-order" controlId="category-order">
+              <FormLabel>Order in Navbar</FormLabel>
+              {
+                (loadingAllCategories || !calledGetAllCategoriesAndPosts) ?
+                  <Placeholder animation="glow" className="w-100" /> :
+                  <>
+                    <FormControl
+                      isValid={validationResults.order.isValid}
+                      isInvalid={!validationResults.order.isValid}
+                      type='number'
+                      value={order}
+                      onChange={(event) => onOrderChange(event.target.value)}
+                      inputMode='numeric'
+                    />
+                    <InvalidIcon
+                      id='category-order-invalid'
+                      isInvalid={!validationResults.order.isValid}
+                      invalidReason={validationResults.order.invalidReason}
+                    />
+                  </>
               }
             </FormGroup>
           </Col>
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-body" controlId="post-body">
+            <Form.Group className="category-body" controlId="category-body">
               <Editor
                 alreadyInsideForm
-                markdown={post.markdown}
+                markdown={markdown}
                 onChange={onMarkdownChange}
-                className='post-editor'
+                className='category-editor'
               />
             </Form.Group>
           </Col>

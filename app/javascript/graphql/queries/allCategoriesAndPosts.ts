@@ -42,11 +42,10 @@ function getAllCategoriesAndPosts(
 }
 
 export function lazyGetAllCategoriesAndPosts(
-  categoryId: NonNullable<string>,
   includeUnpublished: boolean = false
 ): [
   queryFunction: () => void,
-  LazyQueryResult<{ postsByCategory: Partial<Category>[] }>
+  LazyQueryResult<{ categories: Partial<Category>[] }>
 ] {
   return useLazyQuery(
     allCategoriesAndPostsQuery,
