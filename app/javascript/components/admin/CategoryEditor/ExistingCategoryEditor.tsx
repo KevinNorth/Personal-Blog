@@ -18,6 +18,7 @@ function ExistingCategoryEditor(): React.ReactElement {
   const [markdown, setMarkdown] = useState('');
   const [name, setName] = useState('');
   const [order, setOrder] = useState('0');
+  const [parentId, setParentId] = useState('');
 
   if(!loading && !hasSetInitialValues) {
     indicateHasSetInitialValues(true);
@@ -29,12 +30,13 @@ function ExistingCategoryEditor(): React.ReactElement {
     setMarkdown(category.markdown);
     setName(category.name);
     setOrder(String(category.order));
+    setParentId(category.parent?.id || null);
   }
 
   return <CategoryEditor
     loading={loading}
     id={category?.id || ''}
-    parentId={category?.parent?.id || null}
+    parentId={parentId}
     markdown={markdown}
     name={name}
     order={order}
@@ -46,6 +48,7 @@ function ExistingCategoryEditor(): React.ReactElement {
     onMarkdownChange={setMarkdown}
     onNameChange={setName}
     onOrderChange={setOrder}
+    onParentIdChange={setParentId}
     onPublishedChange={setPublished}
     onSlugChange={setSlug}
     onSubtitleChange={setSubtitle}

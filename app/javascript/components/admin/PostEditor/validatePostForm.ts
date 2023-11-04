@@ -1,3 +1,5 @@
+import Category from '../../../graphql/types/category';
+
 export type Validation = {
   isValid: false;
   invalidReason: string;
@@ -7,6 +9,7 @@ export type Validation = {
 }
 
 export interface ValidationResults {
+  categoryId: Validation;
   markdown: Validation;
   order: Validation;
   published: Validation;
@@ -17,6 +20,7 @@ export interface ValidationResults {
 }
 
 function validatePostForm({
+  categoryId,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   markdown,
   order,
@@ -27,8 +31,10 @@ function validatePostForm({
   summary,
   title,
   usedSlugs,
-  usedOrders
+  usedOrders,
+  allCategories,
 }: {
+  categoryId: string,
   markdown: string,
   order: string,
   published: boolean,
@@ -37,10 +43,11 @@ function validatePostForm({
   summary: string,
   title: string,
   usedSlugs: string[],
-  usedOrders: number[]
+  usedOrders: number[],
+  allCategories: Partial<Category>[],
 }): ValidationResults {
   const validationResults: ValidationResults =
-    ['markdown', 'order', 'published', 'slug', 'subtitle', 'summary', 'title']
+    ['categoryId', 'markdown', 'order', 'published', 'slug', 'subtitle', 'summary', 'title']
       .reduce(
         (allResults: Partial<ValidationResults>, key: string) => ({
           ...allResults,
@@ -75,7 +82,7 @@ function validatePostForm({
       isValid: false,
       invalidReason: 'Order must not be blank.'
     };
-  } else if (!/^\d+$/.test(order)) {
+  } else if (!/^-?\d+$/.test(order)) {
     validationResults.order = {
       isValid: false,
       invalidReason: 'Order must be an integer.'
@@ -96,6 +103,18 @@ function validatePostForm({
     validationResults.slug = {
       isValid: false,
       invalidReason: 'Slug is already used by another post in this category.'
+    };
+  }
+
+  if (categoryId === '') {
+    validationResults.categoryId = {
+      isValid: false,
+      invalidReason: 'Category must not be blank.'
+    };
+  } else if (!allCategories.map((c) => c.id).includes(categoryId)) {
+    validationResults.categoryId = {
+      isValid: false,
+      invalidReason: 'Selected category does not exist.'
     };
   }
   

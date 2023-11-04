@@ -1,11 +1,11 @@
 import React from 'react';
 import { ButtonGroup, Container, Col, Form, FormControl, FormGroup, FormLabel, Placeholder, Row, ToggleButton } from 'react-bootstrap';
+import Category from '../../../graphql/types/category';
 import Editor from '../Editor/Editor';
+import InvalidIcon from '../../common/InvalidIcon';
 import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCategoriesAndPosts';
 import LoadingEditor from './LoadingEditor';
 import validateCategoryForm from './validateCategoryForm';
-import InvalidIcon from '../../common/InvalidIcon';
-import Category from '../../../graphql/types/category';
 
 export interface CategoryEditorProps {
   loading: boolean;
@@ -22,6 +22,7 @@ export interface CategoryEditorProps {
   onMarkdownChange: (value: string) => void;
   onNameChange: (value: string) => void;
   onOrderChange: (value: string) => void;
+  onParentIdChange: (value: string | null) => void;
   onPublishedChange: (value: boolean) => void;
   onSlugChange: (value: string) => void;
   onSubtitleChange: (value: string) => void;
@@ -44,6 +45,7 @@ export default function CategoryEditor({
   onMarkdownChange,
   onNameChange,
   onOrderChange,
+  onParentIdChange,
   onPublishedChange,
   onSlugChange,
   onSubtitleChange,
@@ -52,8 +54,12 @@ export default function CategoryEditor({
 }: CategoryEditorProps): React.ReactElement {
   const [
     getAllCategoriesAndPosts,
-    { data: allCategories, loading: loadingAllCategories, called: calledGetAllCategoriesAndPosts }
+    { data: allCategoriesData, loading: loadingAllCategories, called: calledGetAllCategoriesAndPosts }
   ] = lazyGetAllCategoriesAndPosts({ includeUnpublished: true });
+  const allCategories =
+    (calledGetAllCategoriesAndPosts && !loadingAllCategories) ?
+      (allCategoriesData as { categories: Partial<Category>[] }).categories :
+      [];
 
   if (loading) {
     return <LoadingEditor />;
@@ -64,8 +70,7 @@ export default function CategoryEditor({
   }
 
   const otherCategories = (loadingAllCategories || !calledGetAllCategoriesAndPosts) ? [] :
-    (allCategories as { categories: Partial<Category>[] }).categories
-      .filter((c) => c.id !== id);
+    allCategories.filter((c) => c.id !== id);
   const siblingCategories = otherCategories.filter((c) => (c.parent?.id || null) === parentId);
   const usedSlugs = otherCategories.map((c) => c.slug);
   const usedOrders = siblingCategories.map((c) => c.order);
@@ -74,13 +79,15 @@ export default function CategoryEditor({
     markdown,
     name,
     order,
+    parentId,
     published,
     slug,
     subtitle,
     summary,
     title,
     usedOrders,
-    usedSlugs
+    usedSlugs,
+    otherCategories,
   });
 
   return (
@@ -141,6 +148,49 @@ export default function CategoryEditor({
                 isInvalid={!validationResults.summary.isValid}
                 invalidReason={validationResults.summary.invalidReason}
               />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Form.Group className="category-parent" controlId="category-parent">
+              <Form.Label>Category</Form.Label>
+              {
+                loadingAllCategories ?
+                  <Placeholder animation='glow' className='w-100' /> :
+                  <>
+                    <Form.Select
+                      aria-label="Select the category's parent"
+                      isValid={validationResults.parentId.isValid}
+                      isInvalid={!validationResults.parentId.isValid}
+                      value={parentId || ''}
+                      onChange={
+                        (event) => {
+                          const newValue = event.target.value;
+                          if (newValue === '') {
+                            // This is how we indicate that the category being edited
+                            // is a top-level category.
+                            onParentIdChange(null);
+                          } else {
+                            onParentIdChange(newValue);
+                          }
+                        }
+                      }
+                    >
+                      <option value=''>No parent</option>
+                      {
+                        otherCategories.map((category: Partial<Category>) =>
+                          <option value={category.id} key={category.id}>{category.name}</option>
+                        )
+                      }
+                    </Form.Select>
+                    <InvalidIcon
+                      id='post-category-invalid'
+                      isInvalid={!validationResults.parentId.isValid}
+                      invalidReason={validationResults.parentId.invalidReason}
+                    />
+                  </>
+              }
             </Form.Group>
           </Col>
         </Row>

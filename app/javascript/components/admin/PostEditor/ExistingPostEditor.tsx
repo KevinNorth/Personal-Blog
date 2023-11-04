@@ -17,6 +17,7 @@ function ExistingPostEditor(): React.ReactElement {
   const [published, setPublished] = useState(false);
   const [markdown, setMarkdown] = useState('');
   const [order, setOrder] = useState('0');
+  const [categoryId, setCategoryId] = useState('');
 
   if(!loading && !hasSetInitialValues) {
     indicateHasSetInitialValues(true);
@@ -27,12 +28,13 @@ function ExistingPostEditor(): React.ReactElement {
     setPublished(post.published);
     setMarkdown(post.markdown);
     setOrder(String(post.order));
+    setCategoryId(post.category?.id || '');
   }
 
   return <PostEditor
     loading={loading}
     id={post?.id || ''}
-    categoryId={post?.category?.id || ''}
+    categoryId={categoryId}
     markdown={markdown}
     order={order}
     published={published}
@@ -40,6 +42,7 @@ function ExistingPostEditor(): React.ReactElement {
     subtitle={subtitle}
     summary={summary}
     title={title}
+    onCategoryIdChange={setCategoryId}
     onMarkdownChange={setMarkdown}
     onOrderChange={setOrder}
     onPublishedChange={setPublished}

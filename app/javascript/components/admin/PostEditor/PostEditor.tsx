@@ -1,11 +1,13 @@
 import React from 'react';
 import { ButtonGroup, Container, Col, Form, FormControl, FormGroup, FormLabel, Placeholder, Row, ToggleButton } from 'react-bootstrap';
+import Category from '../../../graphql/types/category';
 import Editor from '../Editor/Editor';
+import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCategoriesAndPosts';
+import InvalidIcon from '../../common/InvalidIcon';
 import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
 import LoadingEditor from './LoadingEditor';
-import validatePostForm from './validatePostForm';
-import InvalidIcon from '../../common/InvalidIcon';
 import Post from '../../../graphql/types/post';
+import validatePostForm from './validatePostForm';
 
 export interface PostEditorProps {
   loading: boolean;
@@ -18,6 +20,7 @@ export interface PostEditorProps {
   subtitle: string;
   summary: string;
   title: string;
+  onCategoryIdChange: (value: string) => void;
   onMarkdownChange: (value: string) => void;
   onOrderChange: (value: string) => void;
   onPublishedChange: (value: boolean) => void;
@@ -38,6 +41,7 @@ export default function PostEditor({
   summary,
   title,
   categoryId,
+  onCategoryIdChange,
   onMarkdownChange,
   onOrderChange,
   onPublishedChange,
@@ -47,9 +51,22 @@ export default function PostEditor({
   onTitleChange
 }: PostEditorProps): React.ReactElement {
   const [
+    getAllCategoriesAndPosts,
+    { data: allCategoriesAndPostsData, loading: loadingCategories, called: calledGetAllCategoriesAndPosts }
+  ] = lazyGetAllCategoriesAndPosts({ includeUnpublished: true });
+  const categories =
+    (calledGetAllCategoriesAndPosts && !loadingCategories) ?
+      (allCategoriesAndPostsData as { categories: Partial<Category>[] }).categories :
+      [];
+
+  const [
     getPostsByCategory,
-    { data: siblingPosts, loading: loadingSiblingPosts, called: calledGetPostsByCategory }
+    { data: postsByCategoryData, loading: loadingSiblingPosts, called: calledGetPostsByCategory }
   ] = lazyGetPostsByCategory({ categoryId, includeUnpublished: true });
+  const siblingPosts =
+    (calledGetPostsByCategory && !loadingSiblingPosts) ?
+      (postsByCategoryData as { postsByCategory: Partial<Post>[] }).postsByCategory :
+      [];
 
   if (loading) {
     return <LoadingEditor />;
@@ -59,13 +76,17 @@ export default function PostEditor({
     getPostsByCategory();
   }
 
+  if(!calledGetAllCategoriesAndPosts) {
+    getAllCategoriesAndPosts();
+  }
+
   const otherSiblingPosts = (loadingSiblingPosts || !calledGetPostsByCategory) ? [] :
-    (siblingPosts as { postsByCategory: Partial<Post>[] }).postsByCategory
-      .filter((p) => p.id !== id);
+    siblingPosts.filter((p) => p.id !== id);
   const usedSlugs = otherSiblingPosts.map((p) => p.slug);
   const usedOrders = otherSiblingPosts.map((p) => p.order);
 
   const validationResults = validatePostForm({
+    categoryId,
     markdown,
     order,
     published,
@@ -74,7 +95,8 @@ export default function PostEditor({
     summary,
     title,
     usedOrders,
-    usedSlugs
+    usedSlugs,
+    allCategories: categories || [],
   });
 
   return (
@@ -135,6 +157,46 @@ export default function PostEditor({
                 isInvalid={!validationResults.summary.isValid}
                 invalidReason={validationResults.summary.invalidReason}
               />
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <Form.Group className="post-category" controlId="post-category">
+              <Form.Label>Category</Form.Label>
+              {
+                loadingCategories ?
+                  <Placeholder animation='glow' className='w-100' /> :
+                  <>
+                    <Form.Select
+                      aria-label="Select the post's category"
+                      isValid={validationResults.categoryId.isValid}
+                      isInvalid={!validationResults.categoryId.isValid}
+                      value={categoryId}
+                      onChange={
+                        (event) => {
+                          const newValue = event.target.value;
+                          // Update which posts we compare against to make sure
+                          // we properly validate slug and order
+                          getPostsByCategory({ variables: { categoryId: newValue, includeUnplished: true } });
+                          onCategoryIdChange(newValue);
+                        }
+                      }
+                    >
+                      <option value=''>Select Category</option>
+                      {
+                        categories.map((category: Partial<Category>) =>
+                          <option value={category.id} key={category.id}>{category.name}</option>
+                        )
+                      }
+                    </Form.Select>
+                    <InvalidIcon
+                      id='post-category-invalid'
+                      isInvalid={!validationResults.categoryId.isValid}
+                      invalidReason={validationResults.categoryId.invalidReason}
+                    />
+                  </>
+              }
             </Form.Group>
           </Col>
         </Row>

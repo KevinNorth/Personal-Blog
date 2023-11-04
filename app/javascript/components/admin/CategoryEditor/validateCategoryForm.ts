@@ -1,3 +1,5 @@
+import Category from '../../../graphql/types/category';
+
 export type Validation = {
   isValid: false;
   invalidReason: string;
@@ -10,6 +12,7 @@ export interface ValidationResults {
   markdown: Validation;
   name: Validation;
   order: Validation;
+  parentId: Validation;
   published: Validation;
   slug: Validation;
   subtitle: Validation;
@@ -22,6 +25,7 @@ function validateCategoryForm({
   markdown,
   name,
   order,
+  parentId,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   published,
   slug,
@@ -29,21 +33,24 @@ function validateCategoryForm({
   summary,
   title,
   usedSlugs,
-  usedOrders
+  usedOrders,
+  otherCategories,
 }: {
   markdown: string,
   name: string,
   order: string,
+  parentId: string,
   published: boolean,
   slug: string,
   subtitle: string,
   summary: string,
   title: string,
   usedSlugs: string[],
-  usedOrders: number[]
+  usedOrders: number[],
+  otherCategories: Partial<Category>[],
 }): ValidationResults {
   const validationResults: ValidationResults =
-    ['markdown', 'name', 'order', 'published', 'slug', 'subtitle', 'summary', 'title']
+    ['markdown', 'name', 'order', 'parentId', 'published', 'slug', 'subtitle', 'summary', 'title']
       .reduce(
         (allResults: Partial<ValidationResults>, key: string) => ({
           ...allResults,
@@ -85,7 +92,7 @@ function validateCategoryForm({
       isValid: false,
       invalidReason: 'Order must not be blank.'
     };
-  } else if (!/^\d+$/.test(order)) {
+  } else if (!/^-?\d+$/.test(order)) {
     validationResults.order = {
       isValid: false,
       invalidReason: 'Order must be an integer.'
@@ -106,6 +113,13 @@ function validateCategoryForm({
     validationResults.slug = {
       isValid: false,
       invalidReason: 'Slug is already used by another category.'
+    };
+  }
+
+  if (!(parentId === null) && !(otherCategories.map((c) => c.id).includes(parentId))) {
+    validationResults.parentId = {
+      isValid: false,
+      invalidReason: 'Selected parent category does not exist.'
     };
   }
   
