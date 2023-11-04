@@ -1,5 +1,16 @@
 import React from 'react';
-import { ButtonGroup, Container, Col, Form, FormControl, FormGroup, FormLabel, Placeholder, Row, ToggleButton } from 'react-bootstrap';
+import {
+  ButtonGroup,
+  Container,
+  Col,
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  Placeholder,
+  Row,
+  ToggleButton,
+} from 'react-bootstrap';
 import Category from '../../../graphql/types/category';
 import Editor from '../Editor/Editor';
 import InvalidIcon from '../../common/InvalidIcon';
@@ -50,16 +61,24 @@ export default function CategoryEditor({
   onSlugChange,
   onSubtitleChange,
   onSummaryChange,
-  onTitleChange
+  onTitleChange,
 }: CategoryEditorProps): React.ReactElement {
   const [
     getAllCategoriesAndPosts,
-    { data: allCategoriesData, loading: loadingAllCategories, called: calledGetAllCategoriesAndPosts }
+    {
+      data: allCategoriesData,
+      loading: loadingAllCategories,
+      called: calledGetAllCategoriesAndPosts,
+    },
   ] = lazyGetAllCategoriesAndPosts({ includeUnpublished: true });
   const allCategories =
-    (calledGetAllCategoriesAndPosts && !loadingAllCategories) ?
-      (allCategoriesData as { categories: Partial<Category>[] }).categories :
-      [];
+    calledGetAllCategoriesAndPosts && !loadingAllCategories
+      ? (allCategoriesData as { categories: Partial<Category>[] }).categories
+      : [];
+  const otherCategories =
+    loadingAllCategories || !calledGetAllCategoriesAndPosts
+      ? []
+      : allCategories.filter((c) => c.id !== id);
 
   if (loading) {
     return <LoadingEditor />;
@@ -68,12 +87,6 @@ export default function CategoryEditor({
   if (!calledGetAllCategoriesAndPosts) {
     getAllCategoriesAndPosts();
   }
-
-  const otherCategories = (loadingAllCategories || !calledGetAllCategoriesAndPosts) ? [] :
-    allCategories.filter((c) => c.id !== id);
-  const siblingCategories = otherCategories.filter((c) => (c.parent?.id || null) === parentId);
-  const usedSlugs = otherCategories.map((c) => c.slug);
-  const usedOrders = siblingCategories.map((c) => c.order);
 
   const validationResults = validateCategoryForm({
     markdown,
@@ -85,13 +98,11 @@ export default function CategoryEditor({
     subtitle,
     summary,
     title,
-    usedOrders,
-    usedSlugs,
     otherCategories,
   });
 
   return (
-    <Container fluid className='category-editor'>
+    <Container fluid className="category-editor">
       <Form>
         <Row>
           <Col xs={12}>
@@ -101,12 +112,12 @@ export default function CategoryEditor({
                 isValid={validationResults.title.isValid}
                 isInvalid={!validationResults.title.isValid}
                 size="lg"
-                type='text'
+                type="text"
                 value={title}
                 onChange={(event) => onTitleChange(event.target.value)}
               />
               <InvalidIcon
-                id='category-title-invalid'
+                id="category-title-invalid"
                 isInvalid={!validationResults.title.isValid}
                 invalidReason={validationResults.title.invalidReason}
               />
@@ -115,17 +126,20 @@ export default function CategoryEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="category-subtitle" controlId="category-subtitle">
+            <Form.Group
+              className="category-subtitle"
+              controlId="category-subtitle"
+            >
               <Form.Label>Subtitle</Form.Label>
               <Form.Control
                 isValid={validationResults.subtitle.isValid}
                 isInvalid={!validationResults.subtitle.isValid}
-                type='text'
+                type="text"
                 value={subtitle}
                 onChange={(event) => onSubtitleChange(event.target.value)}
               />
               <InvalidIcon
-                id='category-subtitle-invalid'
+                id="category-subtitle-invalid"
                 isInvalid={!validationResults.subtitle.isValid}
                 invalidReason={validationResults.subtitle.invalidReason}
               />
@@ -134,17 +148,20 @@ export default function CategoryEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="category-summary" controlId="category-summary">
+            <Form.Group
+              className="category-summary"
+              controlId="category-summary"
+            >
               <Form.Label>Summary</Form.Label>
               <Form.Control
                 isValid={validationResults.summary.isValid}
                 isInvalid={!validationResults.summary.isValid}
-                type='text'
+                type="text"
                 value={summary}
                 onChange={(event) => onSummaryChange(event.target.value)}
               />
               <InvalidIcon
-                id='category-summary-invalid'
+                id="category-summary-invalid"
                 isInvalid={!validationResults.summary.isValid}
                 invalidReason={validationResults.summary.invalidReason}
               />
@@ -155,48 +172,49 @@ export default function CategoryEditor({
           <Col xs={12}>
             <Form.Group className="category-parent" controlId="category-parent">
               <Form.Label>Category</Form.Label>
-              {
-                loadingAllCategories ?
-                  <Placeholder animation='glow' className='w-100' /> :
-                  <>
-                    <Form.Select
-                      aria-label="Select the category's parent"
-                      isValid={validationResults.parentId.isValid}
-                      isInvalid={!validationResults.parentId.isValid}
-                      value={parentId || ''}
-                      onChange={
-                        (event) => {
-                          const newValue = event.target.value;
-                          if (newValue === '') {
-                            // This is how we indicate that the category being edited
-                            // is a top-level category.
-                            onParentIdChange(null);
-                          } else {
-                            onParentIdChange(newValue);
-                          }
-                        }
+              {loadingAllCategories ? (
+                <Placeholder animation="glow" className="w-100" />
+              ) : (
+                <>
+                  <Form.Select
+                    aria-label="Select the category's parent"
+                    isValid={validationResults.parentId.isValid}
+                    isInvalid={!validationResults.parentId.isValid}
+                    value={parentId || ''}
+                    onChange={(event) => {
+                      const newValue = event.target.value;
+                      if (newValue === '') {
+                        // This is how we indicate that the category being edited
+                        // is a top-level category.
+                        onParentIdChange(null);
+                      } else {
+                        onParentIdChange(newValue);
                       }
-                    >
-                      <option value=''>No parent</option>
-                      {
-                        otherCategories.map((category: Partial<Category>) =>
-                          <option value={category.id} key={category.id}>{category.name}</option>
-                        )
-                      }
-                    </Form.Select>
-                    <InvalidIcon
-                      id='post-category-invalid'
-                      isInvalid={!validationResults.parentId.isValid}
-                      invalidReason={validationResults.parentId.invalidReason}
-                    />
-                  </>
-              }
+                    }}
+                  >
+                    <option value="">No parent</option>
+                    {otherCategories.map((category: Partial<Category>) => (
+                      <option value={category.id} key={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  <InvalidIcon
+                    id="post-category-invalid"
+                    isInvalid={!validationResults.parentId.isValid}
+                    invalidReason={validationResults.parentId.invalidReason}
+                  />
+                </>
+              )}
             </Form.Group>
           </Col>
         </Row>
         <Row>
           <Col xs={6}>
-            <Form.Group className="category-published" controlId="category-published">
+            <Form.Group
+              className="category-published"
+              controlId="category-published"
+            >
               <ButtonGroup>
                 <ToggleButton
                   key="unpublished"
@@ -226,40 +244,40 @@ export default function CategoryEditor({
           <Col xs={6}>
             <FormGroup className="category-slug" controlId="category-slug">
               <FormLabel>Slug</FormLabel>
-              {
-                (loadingAllCategories || !calledGetAllCategoriesAndPosts) ?
-                  <Placeholder animation="glow" className="w-100" /> :
-                  <>
-                    <FormControl
-                      isValid={validationResults.slug.isValid}
-                      isInvalid={!validationResults.slug.isValid}
-                      type='text'
-                      value={slug}
-                      onChange={(event) => onSlugChange(event.target.value)}
-                    />
-                    <InvalidIcon
-                      id='category-slug-invalid'
-                      isInvalid={!validationResults.slug.isValid}
-                      invalidReason={validationResults.slug.invalidReason}
-                    />
-                  </>
-              }
+              {loadingAllCategories || !calledGetAllCategoriesAndPosts ? (
+                <Placeholder animation="glow" className="w-100" />
+              ) : (
+                <>
+                  <FormControl
+                    isValid={validationResults.slug.isValid}
+                    isInvalid={!validationResults.slug.isValid}
+                    type="text"
+                    value={slug}
+                    onChange={(event) => onSlugChange(event.target.value)}
+                  />
+                  <InvalidIcon
+                    id="category-slug-invalid"
+                    isInvalid={!validationResults.slug.isValid}
+                    invalidReason={validationResults.slug.invalidReason}
+                  />
+                </>
+              )}
             </FormGroup>
           </Col>
         </Row>
         <Row>
           <Col xs={6}>
-            <FormGroup className='category-name' controlId='category-name'>
+            <FormGroup className="category-name" controlId="category-name">
               <FormLabel>Name in Navbar</FormLabel>
               <FormControl
                 isValid={validationResults.name.isValid}
                 isInvalid={!validationResults.name.isValid}
-                type='text'
+                type="text"
                 value={name}
-                onChange={(event) => onNameChange(event.target.value)}                
+                onChange={(event) => onNameChange(event.target.value)}
               />
               <InvalidIcon
-                id='category-name-invalid'
+                id="category-name-invalid"
                 isInvalid={!validationResults.name.isValid}
                 invalidReason={validationResults.name.invalidReason}
               />
@@ -268,25 +286,25 @@ export default function CategoryEditor({
           <Col xs={6}>
             <FormGroup className="category-order" controlId="category-order">
               <FormLabel>Order in Navbar</FormLabel>
-              {
-                (loadingAllCategories || !calledGetAllCategoriesAndPosts) ?
-                  <Placeholder animation="glow" className="w-100" /> :
-                  <>
-                    <FormControl
-                      isValid={validationResults.order.isValid}
-                      isInvalid={!validationResults.order.isValid}
-                      type='number'
-                      value={order}
-                      onChange={(event) => onOrderChange(event.target.value)}
-                      inputMode='numeric'
-                    />
-                    <InvalidIcon
-                      id='category-order-invalid'
-                      isInvalid={!validationResults.order.isValid}
-                      invalidReason={validationResults.order.invalidReason}
-                    />
-                  </>
-              }
+              {loadingAllCategories || !calledGetAllCategoriesAndPosts ? (
+                <Placeholder animation="glow" className="w-100" />
+              ) : (
+                <>
+                  <FormControl
+                    isValid={validationResults.order.isValid}
+                    isInvalid={!validationResults.order.isValid}
+                    type="number"
+                    value={order}
+                    onChange={(event) => onOrderChange(event.target.value)}
+                    inputMode="numeric"
+                  />
+                  <InvalidIcon
+                    id="category-order-invalid"
+                    isInvalid={!validationResults.order.isValid}
+                    invalidReason={validationResults.order.invalidReason}
+                  />
+                </>
+              )}
             </FormGroup>
           </Col>
         </Row>
@@ -297,7 +315,7 @@ export default function CategoryEditor({
                 alreadyInsideForm
                 markdown={markdown}
                 onChange={onMarkdownChange}
-                className='category-editor'
+                className="category-editor"
               />
             </Form.Group>
           </Col>

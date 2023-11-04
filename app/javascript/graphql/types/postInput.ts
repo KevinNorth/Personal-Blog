@@ -1,5 +1,5 @@
 interface PostInput {
-  category_id: string;
+  categoryId: string;
   markdown: string;
   order: number;
   published: boolean;

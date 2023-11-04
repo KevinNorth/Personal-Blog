@@ -1,7 +1,8 @@
 import { FetchResult, MutationOptions } from '@apollo/client';
 
-export type MutationExecutionFunction =
-  (options?: MutationOptions) => Promise<FetchResult>;
+export type MutationExecutionFunction<ResultType, Variables> = (
+  options?: Partial<MutationOptions<ResultType, Variables>>
+) => Promise<FetchResult<ResultType>>;
 
 interface MutationResult<ResultType> {
   data?: ResultType;
