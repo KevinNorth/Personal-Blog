@@ -45,7 +45,7 @@ export interface UpdateCategoryVariables {
 }
 
 export type UpdateCategoryMutationResult = MutationResult<{
-  post: Partial<Category>;
+  category: Partial<Category>;
   errors: string[];
 }>;
 
