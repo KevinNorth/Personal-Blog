@@ -6,7 +6,7 @@ import CategoryEditor from './CategoryEditor';
 function ExistingCategoryEditor(): React.ReactElement {
   const { id } = useParams();
 
-  const { data, loading } = getCategoryById(id);
+  const { data, loading } = getCategoryById({ id, includeUnpublished: true });
   const category = loading ? null : data.categoryById;
 
   const [hasSetInitialValues, indicateHasSetInitialValues] = useState(false);

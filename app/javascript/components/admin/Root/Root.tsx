@@ -5,7 +5,7 @@ import getAllCategoriesAndPostsQuery from '../../../graphql/queries/allCategorie
 import organizeCategoriesAndPostsIntoArboristTree from '../../../transforms/organizeCategoriesAndPostsIntoArboristTree';
 
 export default function Root(): React.ReactElement {
-  const { data, loading } = getAllCategoriesAndPostsQuery(true);
+  const { data, loading } = getAllCategoriesAndPostsQuery({ includeUnpublished: true });
 
   const tree = useMemo(() => {
     if (loading || !data?.categories) {

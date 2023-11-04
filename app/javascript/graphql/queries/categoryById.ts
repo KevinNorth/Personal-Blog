@@ -47,10 +47,14 @@ const categoryByIdQuery =
     ${USER_FRAGMENT}
   `;
 
+export interface CategoryByIdVariables {
+  id: NonNullable<string>;
+  includeUnpublished: boolean;
+}
+
 function getCategoryById(
-  id: NonNullable<string>,
-  includeUnpublished: boolean = false
-): QueryResult<{ categoryById: Partial<Category> }> {
+  { id, includeUnpublished = false }: CategoryByIdVariables
+): QueryResult<{ categoryById: Partial<Category> }, CategoryByIdVariables> {
   return useQuery(
     categoryByIdQuery, 
     {

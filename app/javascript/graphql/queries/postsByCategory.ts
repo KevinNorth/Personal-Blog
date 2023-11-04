@@ -3,7 +3,7 @@ import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
-import LazyQueryResult from 'graphql/types/lazyQueryResult';
+import LazyQueryResult, { LazyQueryExecuteFunction } from 'graphql/types/lazyQueryResult';
 
 const postByIdQuery = 
   gql`
@@ -24,10 +24,14 @@ const postByIdQuery =
     ${USER_FRAGMENT}
   `;
 
+export interface PostByCategoryVariables {
+  categoryId: NonNullable<string>;
+  includeUnpublished: boolean;
+}
+
 function getPostsByCategory(
-  categoryId: NonNullable<string>,
-  includeUnpublished: boolean = false
-): QueryResult<{ postsByCategory: Partial<Post>[] }> {
+  { categoryId, includeUnpublished = false }: PostByCategoryVariables
+): QueryResult<{ postsByCategory: Partial<Post>[] }, PostByCategoryVariables > {
   return useQuery(
     postByIdQuery, 
     {
@@ -37,11 +41,10 @@ function getPostsByCategory(
 }
 
 export function lazyGetPostsByCategory(
-  categoryId: NonNullable<string>,
-  includeUnpublished: boolean = false
+  { categoryId, includeUnpublished = false }: PostByCategoryVariables
 ): [
-  queryFunction: () => void,
-  LazyQueryResult<{ postsByCategory: Partial<Post>[] }>
+  LazyQueryExecuteFunction<Partial<Post>[], PostByCategoryVariables, 'postsByCategory'>,
+  LazyQueryResult<Partial<Post>[], PostByCategoryVariables, 'postsByCategory'>,
 ] {
   return useLazyQuery(
     postByIdQuery,

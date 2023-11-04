@@ -1,9 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Post from '../types/post';
 import PostInput from '../types/postInput';
+import MutationResult, { MutationExecutionFunction } from '../types/mutationResult';
 
 const createPostMutation = 
   gql`
@@ -32,15 +33,16 @@ const createPostMutation =
     ${USER_FRAGMENT}
   `;
 
-export interface CreatePostMutationResult {
-  data?: { post: Partial<Post>, errors: string[] };
-  loading: boolean;
-}
+export type CreatePostMutationResult =
+  MutationResult<{ post: Partial<Post>, errors: string[] }>;
 
 function useCreatePostMutation(
   postAttributes: PostInput
-): CreatePostMutationResult {
-  return useQuery(
+): [
+  MutationExecutionFunction,
+  CreatePostMutationResult
+] {
+  return useMutation(
     createPostMutation, 
     {
       variables: { postAttributes }

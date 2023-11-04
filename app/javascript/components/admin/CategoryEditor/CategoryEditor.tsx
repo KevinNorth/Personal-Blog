@@ -5,6 +5,7 @@ import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCatego
 import LoadingEditor from './LoadingEditor';
 import validateCategoryForm from './validateCategoryForm';
 import InvalidIcon from '../../common/InvalidIcon';
+import Category from '../../../graphql/types/category';
 
 export interface CategoryEditorProps {
   loading: boolean;
@@ -52,7 +53,7 @@ export default function CategoryEditor({
   const [
     getAllCategoriesAndPosts,
     { data: allCategories, loading: loadingAllCategories, called: calledGetAllCategoriesAndPosts }
-  ] = lazyGetAllCategoriesAndPosts(true);
+  ] = lazyGetAllCategoriesAndPosts({ includeUnpublished: true });
 
   if (loading) {
     return <LoadingEditor />;
@@ -63,7 +64,7 @@ export default function CategoryEditor({
   }
 
   const otherCategories = (loadingAllCategories || !calledGetAllCategoriesAndPosts) ? [] :
-    allCategories.categories
+    (allCategories as { categories: Partial<Category>[] }).categories
       .filter((c) => c.id !== id);
   const siblingCategories = otherCategories.filter((c) => (c.parent?.id || null) === parentId);
   const usedSlugs = otherCategories.map((c) => c.slug);

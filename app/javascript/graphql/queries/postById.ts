@@ -32,10 +32,14 @@ const postByIdQuery =
     ${USER_FRAGMENT}
   `;
 
+export interface PostByIdVariables {
+  id: NonNullable<string>;
+  includeUnpublished: boolean;
+}
+
 function getPostById(
-  id: NonNullable<string>,
-  includeUnpublished: boolean = false
-): QueryResult<{ postById: Partial<Post> }> {
+  { id, includeUnpublished = false }: PostByIdVariables
+): QueryResult<{ postById: Partial<Post> }, PostByIdVariables> {
   return useQuery(
     postByIdQuery, 
     {

@@ -6,7 +6,7 @@ import PostEditor from './PostEditor';
 function ExistingPostEditor(): React.ReactElement {
   const { id } = useParams();
 
-  const { data, loading } = getPostById(id);
+  const { data, loading } = getPostById({ id, includeUnpublished: true });
   const post = loading ? null : data.postById;
 
   const [hasSetInitialValues, indicateHasSetInitialValues] = useState(false);

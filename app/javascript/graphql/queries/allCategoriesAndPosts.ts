@@ -4,7 +4,7 @@ import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Category from '../types/category';
 import QueryResult from '../types/queryResult';
-import LazyQueryResult from '../types/lazyQueryResult';
+import LazyQueryResult, { LazyQueryExecuteFunction } from '../types/lazyQueryResult';
 
 const allCategoriesAndPostsQuery = 
   gql`
@@ -30,9 +30,13 @@ const allCategoriesAndPostsQuery =
     ${USER_FRAGMENT}
   `;
 
+export interface AllCategoriesAndPostsVariables {
+  includeUnpublished: boolean;
+}
+
 function getAllCategoriesAndPosts(
-  includeUnpublished: boolean = false
-): QueryResult<{ categories: Partial<Category>[] }> {
+  { includeUnpublished = false }: AllCategoriesAndPostsVariables
+): QueryResult<{ categories: Partial<Category>[] }, AllCategoriesAndPostsVariables> {
   return useQuery(
     allCategoriesAndPostsQuery, 
     {
@@ -42,10 +46,10 @@ function getAllCategoriesAndPosts(
 }
 
 export function lazyGetAllCategoriesAndPosts(
-  includeUnpublished: boolean = false
+  { includeUnpublished = false }: AllCategoriesAndPostsVariables
 ): [
-  queryFunction: () => void,
-  LazyQueryResult<{ categories: Partial<Category>[] }>
+  LazyQueryExecuteFunction<Partial<Category>[], AllCategoriesAndPostsVariables, 'categories'>,
+  LazyQueryResult<Partial<Category>[], AllCategoriesAndPostsVariables, 'categories'>,
 ] {
   return useLazyQuery(
     allCategoriesAndPostsQuery,

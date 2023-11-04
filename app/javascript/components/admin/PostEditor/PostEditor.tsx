@@ -5,6 +5,7 @@ import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory
 import LoadingEditor from './LoadingEditor';
 import validatePostForm from './validatePostForm';
 import InvalidIcon from '../../common/InvalidIcon';
+import Post from '../../../graphql/types/post';
 
 export interface PostEditorProps {
   loading: boolean;
@@ -48,7 +49,7 @@ export default function PostEditor({
   const [
     getPostsByCategory,
     { data: siblingPosts, loading: loadingSiblingPosts, called: calledGetPostsByCategory }
-  ] = lazyGetPostsByCategory(categoryId, true);
+  ] = lazyGetPostsByCategory({ categoryId, includeUnpublished: true });
 
   if (loading) {
     return <LoadingEditor />;
@@ -59,7 +60,7 @@ export default function PostEditor({
   }
 
   const otherSiblingPosts = (loadingSiblingPosts || !calledGetPostsByCategory) ? [] :
-    siblingPosts.postsByCategory
+    (siblingPosts as { postsByCategory: Partial<Post>[] }).postsByCategory
       .filter((p) => p.id !== id);
   const usedSlugs = otherSiblingPosts.map((p) => p.slug);
   const usedOrders = otherSiblingPosts.map((p) => p.order);

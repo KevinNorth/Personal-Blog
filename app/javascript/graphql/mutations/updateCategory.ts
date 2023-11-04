@@ -1,9 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Category from '../types/category';
 import CategoryInput from '../types/categoryInput';
+import MutationResult, { MutationExecutionFunction } from '../types/mutationResult';
 
 const updateCategoryMutation = 
   gql`
@@ -32,16 +33,17 @@ const updateCategoryMutation =
     ${USER_FRAGMENT}
   `;
 
-export interface UpdateCategoryMutationResult {
-  data?: { post: Partial<Category>, errors: string[] };
-  loading: boolean;
-}
+export type UpdateCategoryMutationResult =
+  MutationResult<{ post: Partial<Category>, errors: string[] }>;
 
 function useUpdateCategoryMutation(
   id: string,
   categoryAttributes: CategoryInput,
-): UpdateCategoryMutationResult {
-  return useQuery(
+): [
+  MutationExecutionFunction,
+  UpdateCategoryMutationResult
+] {
+  return useMutation(
     updateCategoryMutation, 
     {
       variables: { id, categoryAttributes }
