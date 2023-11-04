@@ -6,6 +6,8 @@ import Layout from './admin/Layout';
 import Root from './admin/Root/Root';
 import ExistingPostEditor from './admin/PostEditor/ExistingPostEditor';
 import ExistingCategoryEditor from './admin/CategoryEditor/ExistingCategoryEditor';
+import NewPostEditor from './admin/PostEditor/NewPostEditor';
+import NewCategoryEditor from './admin/CategoryEditor/NewCategoryEditor';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -21,8 +23,10 @@ function Admin() {
       <Layout>
         <BrowserRouter basename="/admin">
           <Routes>
-            <Route path="/post/:id" element={<ExistingPostEditor />} />
+            <Route path="/category/new" element={<NewCategoryEditor />} />
             <Route path="/category/:id" element={<ExistingCategoryEditor />} />
+            <Route path="/post/new" element={<NewPostEditor />} />
+            <Route path="/post/:id" element={<ExistingPostEditor />} />
             <Route path="/" element={<Root />} />
           </Routes>
         </BrowserRouter>
