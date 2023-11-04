@@ -6,9 +6,14 @@
     "typescript.format.enable": false,
     "eslint.format.enable": true,
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.formatOnPaste": false, 
+    "editor.formatOnType": false,
+    "editor.formatOnSave": true, 
+    "editor.formatOnSaveMode": "file",
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
     "typescript.tsdk": "/workspaces/Personal-Blog/node_modules/typescript/lib",
     "typescript.preferences.includePackageJsonAutoImports": "on",
+    "vs-code-prettier-eslint.prettierLast": false // set as "true" to run 'prettier' last not first
 }
