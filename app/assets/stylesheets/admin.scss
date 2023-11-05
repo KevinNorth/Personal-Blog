@@ -16,9 +16,83 @@
 
 @import './base';
 
-.admin-tree {
-  max-width: 800px;
+.admin {
   margin: 0 auto;
+  padding: 20px;
+  max-width: 1000px;
+  min-height: 100vh;
+  max-height: 100vh;
+
+  display: flex;
+  flex-flow: column;
+
+  .admin-header {
+    flex: 0 1 auto;
+    margin: 0 0 auto 8px;
+    padding: 10px 10px 10px 4px;
+    border-bottom-color: grey;
+    border-bottom-width: 0.5px;
+    border-bottom-style: solid;
+    min-height: 80px;
+    max-height: 80px;
+  }
+
+  .admin-main {
+    flex: 1 1 auto;
+
+    min-height: calc(100% - 80px);
+    max-height: calc(100% - 80px);
+
+    display: flex;
+    flex-flow: row;
+    align-items: stretch;
+
+    .admin-sidebar {
+      flex: 1 1 0;
+      padding-top: 20px;
+
+      border-right-color: grey;
+      border-right-width: 0.5px;
+      border-right-style: solid;
+    
+      padding-right: 10px;
+      margin-right: 10px;
+    
+      .navbar-nav {
+        flex-direction: column;
+        text-wrap: balance;
+        text-align: right;
+
+        min-width: 200px;
+        max-width: 200px;
+
+        --bs-nav-link-color: #{$body-color};
+        --bs-navbar-hover-color: #{body-color};
+        --bs-navbar-disabled-color: grey;
+      }
+    }  
+  
+    .admin-body {
+      flex: 5 1 auto;
+      padding-top: 20px;
+
+      display: flex;
+      flex-flow: column;
+    
+      .admin-toasts {
+        flex: 0 1 auto;
+        padding: 0 10px;
+      }
+    
+      .admin-content {
+        flex: 1 1 auto;
+        overflow-y: scroll;
+      }
+    }
+  }
+}
+
+.admin-tree {
   text-overflow: ellipsis;
 
   .category-node, .post-node {

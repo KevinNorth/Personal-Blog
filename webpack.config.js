@@ -9,13 +9,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   devtool: 'source-map',
   entry: {
-    blog: [
-      './app/javascript/blog.tsx',
-      './app/assets/stylesheets/blog.scss',
-    ],
+    blog: ['./app/javascript/blog.tsx', './app/assets/stylesheets/blog.scss'],
     admin: [
       './app/javascript/admin.tsx',
       './app/assets/stylesheets/admin.scss',
@@ -44,9 +41,9 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
+      maxChunks: 1,
     }),
     new RemoveEmptyScriptsPlugin(),
-    new MiniCssExtractPlugin()
-  ]
+    new MiniCssExtractPlugin(),
+  ],
 };
