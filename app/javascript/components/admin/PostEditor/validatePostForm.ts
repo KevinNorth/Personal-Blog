@@ -1,4 +1,5 @@
 import Category from '../../../graphql/types/category';
+import Post from '../../../graphql/types/post';
 
 export type Validation =
   | {
@@ -32,8 +33,7 @@ function validatePostForm({
   subtitle,
   summary,
   title,
-  usedSlugs,
-  usedOrders,
+  siblingPosts,
   allCategories,
 }: {
   categoryId: string;
@@ -44,8 +44,7 @@ function validatePostForm({
   subtitle: string;
   summary: string;
   title: string;
-  usedSlugs: string[];
-  usedOrders: number[];
+  siblingPosts: Partial<Post>[];
   allCategories: Partial<Category>[];
 }): ValidationResults {
   const validationResults: ValidationResults = [
@@ -64,6 +63,9 @@ function validatePostForm({
     }),
     {}
   ) as ValidationResults;
+
+  const usedSlugs = siblingPosts.map((p) => p.slug);
+  const usedOrders = siblingPosts.map((p) => p.order);
 
   if (title === '') {
     validationResults.title = {

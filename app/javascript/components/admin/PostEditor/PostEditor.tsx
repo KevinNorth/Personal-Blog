@@ -84,10 +84,12 @@ export default function PostEditor({
     },
   ] = lazyGetPostsByCategory({ categoryId, includeUnpublished: true });
   const siblingPosts =
-    calledGetPostsByCategory && !loadingSiblingPosts
-      ? (postsByCategoryData as { postsByCategory: Partial<Post>[] })
-        .postsByCategory
-      : [];
+    (postsByCategoryData as { postsByCategory: Partial<Post>[] })
+      ?.postsByCategory || [];
+  const otherSiblingPosts =
+    loadingSiblingPosts || !calledGetPostsByCategory
+      ? []
+      : siblingPosts.filter((p) => p.id !== id);
 
   if (loading) {
     return <LoadingEditor />;
@@ -101,13 +103,6 @@ export default function PostEditor({
     getAllCategoriesAndPosts();
   }
 
-  const otherSiblingPosts =
-    loadingSiblingPosts || !calledGetPostsByCategory
-      ? []
-      : siblingPosts.filter((p) => p.id !== id);
-  const usedSlugs = otherSiblingPosts.map((p) => p.slug);
-  const usedOrders = otherSiblingPosts.map((p) => p.order);
-
   const validationResults = validatePostForm({
     categoryId,
     markdown,
@@ -117,8 +112,7 @@ export default function PostEditor({
     subtitle,
     summary,
     title,
-    usedOrders,
-    usedSlugs,
+    siblingPosts: otherSiblingPosts,
     allCategories: categories || [],
   });
 
