@@ -38,9 +38,14 @@ function receiveToast(
 function Admin() {
   const location = useLocation();
 
-  const [toasts, setToasts] = useState(
-    generateInitialToasts(location?.state?.toast)
-  );
+  const [hasSetInitialToast, indicateHasSetInitialToast] = useState(false);
+  const [toasts, setToasts] = useState([]);
+
+  if (!hasSetInitialToast && location?.state) {
+    indicateHasSetInitialToast(true);
+    setToasts([...toasts, ...generateInitialToasts(location?.state?.toast)]);
+  }
+
   const sendToast: SendToastFunction = (toast) =>
     receiveToast(toast, setToasts, toasts);
 
