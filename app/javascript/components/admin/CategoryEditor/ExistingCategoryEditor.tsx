@@ -1,54 +1,27 @@
 import React, { useState } from 'react';
-import { Accordion, Button, Col, Container, Row, Toast } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { FetchResult } from '@apollo/client';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
 import Category from '../../../graphql/types/category';
 import CategoryEditor from './CategoryEditor';
-import getAllCategoriesAndPosts from 'graphql/queries/allCategoriesAndPosts';
+import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
 import getCategoryById from '../../../graphql/queries/categoryById';
-import Spacer from 'components/common/Spacer';
+import QueryErrorToast from '../../common/QueryErrorToast';
+import Spacer from '../../common/Spacer';
+import useDeleteCategoryAndChildrenMutation, {
+  DeleteCategoryAndChildrenMutationResult,
+} from '../../../graphql/mutations/deleteCategoryAndChildren';
 import useUpdateCategoryMutation, {
   UpdateCategoryMutationResult,
 } from '../../../graphql/mutations/updateCategory';
-import useDeleteCategoryAndChildrenMutation, {
-  DeleteCategoryAndChildrenMutationResult,
-} from 'graphql/mutations/deleteCategoryAndChildren';
 import validateCategoryForm from './validateCategoryForm';
-
-function MutationErrorToast({
-  header,
-  bodyPreamble = 'The messages from the server are:',
-  errors,
-}: {
-  header: string;
-  bodyPreamble?: string;
-  errors: string[];
-}): React.ReactElement {
-  return (
-    <Toast>
-      <Toast.Header>{header}</Toast.Header>
-      <Toast.Body>
-        <p>{bodyPreamble}</p>
-        <Accordion>
-          {errors.map((error, index) => (
-            <Accordion.Item eventKey={String(index)} key={index}>
-              <Accordion.Header>Error {index + 1}</Accordion.Header>
-              <Accordion.Body>
-                <code>{error}</code>
-              </Accordion.Body>
-            </Accordion.Item>
-          ))}
-        </Accordion>
-      </Toast.Body>
-    </Toast>
-  );
-}
+import SimpleToast from '../../common/SimpleToast';
 
 function updateCategoryCallback(
   result: FetchResult<UpdateCategoryMutationResult['data']>,
   sendToast: (toast: React.ReactElement) => void,
-  navigate: NavigateFunction
+  refetchCategory: () => void
 ): void {
   let errors: string[] = [];
 
@@ -60,13 +33,21 @@ function updateCategoryCallback(
 
   if (errors.length > 0) {
     sendToast(
-      <MutationErrorToast errors={errors} header="Problem updating category." />
+      <QueryErrorToast errors={errors} header="Problem updating category." />
     );
+    return;
   }
 
-  navigate(`/category/${encodeURIComponent(result.data?.category?.id)}`, {
-    state: { toast: { header: 'Success', body: 'category saved.' } },
-  });
+  sendToast(
+    <SimpleToast
+      header="Success"
+      body="Category saved."
+      bg="success"
+      headerIcon="CheckCircle"
+    />
+  );
+
+  refetchCategory();
 }
 
 function deletePostCallback(
@@ -84,12 +65,20 @@ function deletePostCallback(
 
   if (errors.length > 0) {
     sendToast(
-      <MutationErrorToast errors={errors} header="Problem deleting category." />
+      <QueryErrorToast errors={errors} header="Problem deleting category." />
     );
+    return;
   }
 
   navigate('/', {
-    state: { toast: { header: 'Success', body: 'Category deleted.' } },
+    state: {
+      toast: {
+        header: 'Success',
+        body: 'Category deleted.',
+        bg: 'success',
+        icon: 'CheckCircle2',
+      },
+    },
   });
 }
 
@@ -102,7 +91,14 @@ function ExistingCategoryEditor({
 }: ExistingCategoryEditorProps): React.ReactElement {
   const { id } = useParams();
 
-  const { data, loading } = getCategoryById({ id, includeUnpublished: true });
+  const {
+    data,
+    loading,
+    refetch: refetchCategory,
+  } = getCategoryById({
+    id,
+    includeUnpublished: true,
+  });
   const category = loading ? null : data.categoryById;
 
   const [hasSetInitialValues, indicateHasSetInitialValues] = useState(false);
@@ -248,7 +244,7 @@ function ExistingCategoryEditor({
                   },
                 },
               }).then((result) =>
-                updateCategoryCallback(result, sendToast, navigate)
+                updateCategoryCallback(result, sendToast, refetchCategory)
               )
             }
           >

@@ -13,7 +13,9 @@
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "typescript.tsdk": "/workspaces/Personal-Blog/node_modules/typescript/lib",
     "typescript.preferences.includePackageJsonAutoImports": "on",
-    "vs-code-prettier-eslint.prettierLast": false // set as "true" to run 'prettier' last not first
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.tsdk": "/workspaces/Personal-Blog/node_modules/typescript/lib",
+    "vs-code-prettier-eslint.prettierLast": false,
+    "typescript.preferences.importModuleSpecifierEnding": "minimal" // set as "true" to run 'prettier' last not first
 }
