@@ -2,7 +2,7 @@ import Category from './category';
 import User from './user';
 
 export interface PostWithoutRelationships {
-  __typename: 'Post',
+  __typename: 'Post';
   createdAt: string;
   headerImage: string | null;
   id: NonNullable<string>;

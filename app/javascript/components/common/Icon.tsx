@@ -13,7 +13,7 @@ export interface IconProps extends icons.IconProps {
   iconName: IconName;
 }
 
-function Icon ({ iconName, ...props }: IconProps): React.ReactElement {
+function Icon({ iconName, ...props }: IconProps): React.ReactElement {
   if (!isIconName(iconName)) {
     throw new Error(`${iconName} is not a valid iconName`);
   }

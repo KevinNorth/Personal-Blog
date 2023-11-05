@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
@@ -6,7 +7,6 @@ import MutationResult, {
 } from '../types/mutationResult';
 import Post from '../types/post';
 import PostInput from '../types/postInput';
-import { gql, useMutation } from '@apollo/client';
 
 const createPostMutation = gql`
   mutation createPostMutation($postAttributes: PostInput!) {

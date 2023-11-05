@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
@@ -6,7 +7,6 @@ import CategoryInput from '../types/categoryInput';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
-import { gql, useMutation } from '@apollo/client';
 
 const updateCategoryMutation = gql`
   mutation updateCategoryMutation(

@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   ButtonGroup,
-  Container,
   Col,
+  Container,
   Form,
   FormControl,
   FormGroup,
@@ -11,10 +11,10 @@ import {
   Row,
   ToggleButton,
 } from 'react-bootstrap';
-import Category from '../../../graphql/types/category';
-import Editor from '../Editor/Editor';
-import InvalidIcon from '../../common/InvalidIcon';
 import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCategoriesAndPosts';
+import Category from '../../../graphql/types/category';
+import InvalidIcon from '../../common/InvalidIcon';
+import Editor from '../Editor/Editor';
 import LoadingEditor from './LoadingEditor';
 import validateCategoryForm from './validateCategoryForm';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import Markdown, { Components } from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import Icon, { isIconName } from './Icon';
+import 'highlight.js/styles/github.css';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
-import Icon, { isIconName } from './Icon';
-import 'highlight.js/styles/github.css';
+import remarkGfm from 'remark-gfm';
 
 export interface MarkdownRendererProps {
   markdown: string;
@@ -23,22 +23,25 @@ const iconComponentsConfig: Components = {
     }
 
     // eslint-disable-next-line jsx-a11y/alt-text
-    return <img {...props} ></img>;
-  }
+    return <img {...props}></img>;
+  },
 };
 
-function MarkdownRenderer({ markdown, className }: MarkdownRendererProps): React.ReactElement {
+function MarkdownRenderer({
+  markdown,
+  className,
+}: MarkdownRendererProps): React.ReactElement {
   return (
     <Markdown
       className={className}
       components={iconComponentsConfig}
       remarkPlugins={
-        [[remarkGfm, {singleTilde: false}]] // GitHub-flavored Markdown
+        [[remarkGfm, { singleTilde: false }]] // GitHub-flavored Markdown
       }
       rehypePlugins={[
         rehypeHighlight, // Syntax highlighting in code blocks
         rehypeRaw,
-        rehypeSlug // Automatically add ids to headers
+        rehypeSlug, // Automatically add ids to headers
       ]}
     >
       {markdown}

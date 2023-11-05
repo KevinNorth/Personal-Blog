@@ -1,20 +1,25 @@
 import React from 'react';
-import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 import getCRSFToken from '../lib/getCRSFToken';
-import Layout from './admin/Layout';
-import Root from './admin/Root/Root';
-import ExistingPostEditor from './admin/PostEditor/ExistingPostEditor';
 import ExistingCategoryEditor from './admin/CategoryEditor/ExistingCategoryEditor';
-import NewPostEditor from './admin/PostEditor/NewPostEditor';
 import NewCategoryEditor from './admin/CategoryEditor/NewCategoryEditor';
+import Layout from './admin/Layout';
+import ExistingPostEditor from './admin/PostEditor/ExistingPostEditor';
+import NewPostEditor from './admin/PostEditor/NewPostEditor';
+import Root from './admin/Root/Root';
 
 const client = new ApolloClient({
   link: new HttpLink({
     uri: '/graphql',
     headers: { 'X-CSRF-Token': getCRSFToken() || '' },
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 function Admin() {

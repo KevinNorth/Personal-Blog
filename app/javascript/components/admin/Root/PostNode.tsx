@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useMemo } from 'react';
+import { NodeRendererProps } from 'react-arborist';
 import { Button, Col, Row } from 'react-bootstrap';
 import { JournalRichtext } from 'react-bootstrap-icons';
-import { NodeRendererProps } from 'react-arborist';
-import { AdminTreePostVertex } from './types';
 import Spacer from '../../common/Spacer';
+import { AdminTreePostVertex } from './types';
 import { CSSLength } from 'types/cssLength';
 
 export interface PostNodeProps extends NodeRendererProps<AdminTreePostVertex> {
@@ -18,24 +18,27 @@ function PostNode(props: PostNodeProps) {
     return {
       editURL: `/admin/post/${encodeURIComponent(data.id)}`,
       published: data.graphqlObject?.published || false,
-      title: data.title
+      title: data.title,
     };
   }, [data]);
 
   const indent = `${props.node.level * props.indentSize}px` as CSSLength;
 
   return (
-    <Row ref={props.dragHandle} style={props.style} className='post-node'>
-      <Col xs='8'>
+    <Row ref={props.dragHandle} style={props.style} className="post-node">
+      <Col xs="8">
         <Spacer indent={indent} />
         <JournalRichtext />
-        <span className='label'>Post:</span> <strong className='value'>{title}</strong>
+        <span className="label">Post:</span>{' '}
+        <strong className="value">{title}</strong>
       </Col>
-      <Col xs='2' className='published'>
-        {published ? 'Published' : 'Draft' }
+      <Col xs="2" className="published">
+        {published ? 'Published' : 'Draft'}
       </Col>
-      <Col xs='2'>
-        <Button as='a' size='sm' href={editURL}>Edit</Button>
+      <Col xs="2">
+        <Button as="a" size="sm" href={editURL}>
+          Edit
+        </Button>
       </Col>
     </Row>
   );

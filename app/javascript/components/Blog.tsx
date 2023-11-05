@@ -1,5 +1,10 @@
 import React from 'react';
-import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  HttpLink,
+  InMemoryCache,
+} from '@apollo/client';
 import getCRSFToken from '../lib/getCRSFToken';
 
 const client = new ApolloClient({
@@ -7,7 +12,7 @@ const client = new ApolloClient({
     uri: '/graphql',
     headers: { 'X-CSRF-Token': getCRSFToken() || '' },
   }),
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 });
 
 function Blog() {

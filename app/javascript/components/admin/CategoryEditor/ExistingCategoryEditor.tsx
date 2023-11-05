@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
+import { FetchResult } from '@apollo/client';
 import useDeleteCategoryAndChildrenMutation, {
   DeleteCategoryAndChildrenMutationResponsePayload,
   DeleteCategoryAndChildrenMutationResult,
@@ -19,7 +20,6 @@ import SimpleToast from '../../common/SimpleToast';
 import Spacer from '../../common/Spacer';
 import CategoryEditor from './CategoryEditor';
 import validateCategoryForm from './validateCategoryForm';
-import { FetchResult } from '@apollo/client';
 
 function updateCategoryCallback(
   result: FetchResult<UpdateCategoryMutationResult['data']>,

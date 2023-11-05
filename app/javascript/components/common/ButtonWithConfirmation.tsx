@@ -45,7 +45,7 @@ function ConfirmationPopover({
   confirmationText,
   confirmationTitle,
   onCancelButtonClick,
-  onConfirmationClick
+  onConfirmationClick,
 }: ConfirmationPopoverProps): React.ReactElement {
   return (
     <Popover id={confirmationPopoverId}>
@@ -53,13 +53,14 @@ function ConfirmationPopover({
       <PopoverBody>
         <Container fluid>
           <Row>
-            <Col xs={12}>
-              {confirmationText}
-            </Col>
+            <Col xs={12}>{confirmationText}</Col>
           </Row>
           <Row>
             <Col xs={5}>
-              <Button {...confirmationButtonProps} onClick={onConfirmationClick}>
+              <Button
+                {...confirmationButtonProps}
+                onClick={onConfirmationClick}
+              >
                 {confirmationButtonText}
               </Button>
             </Col>
@@ -72,7 +73,8 @@ function ConfirmationPopover({
           </Row>
         </Container>
       </PopoverBody>
-    </Popover>);
+    </Popover>
+  );
 }
 
 function ButtonWithConfirmation({
@@ -105,7 +107,7 @@ function ButtonWithConfirmation({
 
   return (
     <OverlayTrigger
-      trigger='click'
+      trigger="click"
       show={showConfirmation}
       overlay={confirmationPopover}
     >

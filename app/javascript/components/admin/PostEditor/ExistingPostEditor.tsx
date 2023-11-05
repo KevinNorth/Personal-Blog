@@ -19,7 +19,7 @@ function ExistingPostEditor(): React.ReactElement {
   const [order, setOrder] = useState('0');
   const [categoryId, setCategoryId] = useState('');
 
-  if(!loading && !hasSetInitialValues) {
+  if (!loading && !hasSetInitialValues) {
     indicateHasSetInitialValues(true);
     setTitle(post.title);
     setSubtitle(post.subtitle);
@@ -31,26 +31,28 @@ function ExistingPostEditor(): React.ReactElement {
     setCategoryId(post.category?.id || '');
   }
 
-  return <PostEditor
-    loading={loading}
-    id={post?.id || ''}
-    categoryId={categoryId}
-    markdown={markdown}
-    order={order}
-    published={published}
-    slug={slug}
-    subtitle={subtitle}
-    summary={summary}
-    title={title}
-    onCategoryIdChange={setCategoryId}
-    onMarkdownChange={setMarkdown}
-    onOrderChange={setOrder}
-    onPublishedChange={setPublished}
-    onSlugChange={setSlug}
-    onSubtitleChange={setSubtitle}
-    onSummaryChange={setSummary}
-    onTitleChange={setTitle}
-  />;
+  return (
+    <PostEditor
+      loading={loading}
+      id={post?.id || ''}
+      categoryId={categoryId}
+      markdown={markdown}
+      order={order}
+      published={published}
+      slug={slug}
+      subtitle={subtitle}
+      summary={summary}
+      title={title}
+      onCategoryIdChange={setCategoryId}
+      onMarkdownChange={setMarkdown}
+      onOrderChange={setOrder}
+      onPublishedChange={setPublished}
+      onSlugChange={setSlug}
+      onSubtitleChange={setSubtitle}
+      onSummaryChange={setSummary}
+      onTitleChange={setTitle}
+    />
+  );
 }
 
 export default ExistingPostEditor;

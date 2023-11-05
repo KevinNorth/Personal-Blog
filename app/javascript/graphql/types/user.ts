@@ -1,7 +1,7 @@
 import Post from './post';
 
 export interface UserWithoutRelationships {
-  __typename: 'User',
+  __typename: 'User';
   admin: boolean;
   createdAt: string;
   id: NonNullable<string>;

@@ -1,12 +1,23 @@
 import React from 'react';
-import { ButtonGroup, Container, Col, Form, FormControl, FormGroup, FormLabel, Placeholder, Row, ToggleButton } from 'react-bootstrap';
-import Category from '../../../graphql/types/category';
-import Editor from '../Editor/Editor';
+import {
+  ButtonGroup,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  FormGroup,
+  FormLabel,
+  Placeholder,
+  Row,
+  ToggleButton,
+} from 'react-bootstrap';
 import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCategoriesAndPosts';
-import InvalidIcon from '../../common/InvalidIcon';
 import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
-import LoadingEditor from './LoadingEditor';
+import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
+import InvalidIcon from '../../common/InvalidIcon';
+import Editor from '../Editor/Editor';
+import LoadingEditor from './LoadingEditor';
 import validatePostForm from './validatePostForm';
 
 export interface PostEditorProps {
@@ -48,25 +59,35 @@ export default function PostEditor({
   onSlugChange,
   onSubtitleChange,
   onSummaryChange,
-  onTitleChange
+  onTitleChange,
 }: PostEditorProps): React.ReactElement {
   const [
     getAllCategoriesAndPosts,
-    { data: allCategoriesAndPostsData, loading: loadingCategories, called: calledGetAllCategoriesAndPosts }
+    {
+      data: allCategoriesAndPostsData,
+      loading: loadingCategories,
+      called: calledGetAllCategoriesAndPosts,
+    },
   ] = lazyGetAllCategoriesAndPosts({ includeUnpublished: true });
   const categories =
-    (calledGetAllCategoriesAndPosts && !loadingCategories) ?
-      (allCategoriesAndPostsData as { categories: Partial<Category>[] }).categories :
-      [];
+    calledGetAllCategoriesAndPosts && !loadingCategories
+      ? (allCategoriesAndPostsData as { categories: Partial<Category>[] })
+        .categories
+      : [];
 
   const [
     getPostsByCategory,
-    { data: postsByCategoryData, loading: loadingSiblingPosts, called: calledGetPostsByCategory }
+    {
+      data: postsByCategoryData,
+      loading: loadingSiblingPosts,
+      called: calledGetPostsByCategory,
+    },
   ] = lazyGetPostsByCategory({ categoryId, includeUnpublished: true });
   const siblingPosts =
-    (calledGetPostsByCategory && !loadingSiblingPosts) ?
-      (postsByCategoryData as { postsByCategory: Partial<Post>[] }).postsByCategory :
-      [];
+    calledGetPostsByCategory && !loadingSiblingPosts
+      ? (postsByCategoryData as { postsByCategory: Partial<Post>[] })
+        .postsByCategory
+      : [];
 
   if (loading) {
     return <LoadingEditor />;
@@ -76,12 +97,14 @@ export default function PostEditor({
     getPostsByCategory();
   }
 
-  if(!calledGetAllCategoriesAndPosts) {
+  if (!calledGetAllCategoriesAndPosts) {
     getAllCategoriesAndPosts();
   }
 
-  const otherSiblingPosts = (loadingSiblingPosts || !calledGetPostsByCategory) ? [] :
-    siblingPosts.filter((p) => p.id !== id);
+  const otherSiblingPosts =
+    loadingSiblingPosts || !calledGetPostsByCategory
+      ? []
+      : siblingPosts.filter((p) => p.id !== id);
   const usedSlugs = otherSiblingPosts.map((p) => p.slug);
   const usedOrders = otherSiblingPosts.map((p) => p.order);
 
@@ -100,7 +123,7 @@ export default function PostEditor({
   });
 
   return (
-    <Container fluid className='post-editor'>
+    <Container fluid className="post-editor">
       <Form>
         <Row>
           <Col xs={12}>
@@ -110,12 +133,12 @@ export default function PostEditor({
                 isValid={validationResults.title.isValid}
                 isInvalid={!validationResults.title.isValid}
                 size="lg"
-                type='text'
+                type="text"
                 value={title}
                 onChange={(event) => onTitleChange(event.target.value)}
               />
               <InvalidIcon
-                id='post-title-invalid'
+                id="post-title-invalid"
                 isInvalid={!validationResults.title.isValid}
                 invalidReason={validationResults.title.invalidReason}
               />
@@ -129,12 +152,12 @@ export default function PostEditor({
               <Form.Control
                 isValid={validationResults.subtitle.isValid}
                 isInvalid={!validationResults.subtitle.isValid}
-                type='text'
+                type="text"
                 value={subtitle}
                 onChange={(event) => onSubtitleChange(event.target.value)}
               />
               <InvalidIcon
-                id='post-subtitle-invalid'
+                id="post-subtitle-invalid"
                 isInvalid={!validationResults.subtitle.isValid}
                 invalidReason={validationResults.subtitle.invalidReason}
               />
@@ -148,12 +171,12 @@ export default function PostEditor({
               <Form.Control
                 isValid={validationResults.summary.isValid}
                 isInvalid={!validationResults.summary.isValid}
-                type='text'
+                type="text"
                 value={summary}
                 onChange={(event) => onSummaryChange(event.target.value)}
               />
               <InvalidIcon
-                id='post-summary-invalid'
+                id="post-summary-invalid"
                 isInvalid={!validationResults.summary.isValid}
                 invalidReason={validationResults.summary.invalidReason}
               />
@@ -164,39 +187,42 @@ export default function PostEditor({
           <Col xs={12}>
             <Form.Group className="post-category" controlId="post-category">
               <Form.Label>Category</Form.Label>
-              {
-                loadingCategories ?
-                  <Placeholder animation='glow' className='w-100' /> :
-                  <>
-                    <Form.Select
-                      aria-label="Select the post's category"
-                      isValid={validationResults.categoryId.isValid}
-                      isInvalid={!validationResults.categoryId.isValid}
-                      value={categoryId}
-                      onChange={
-                        (event) => {
-                          const newValue = event.target.value;
-                          // Update which posts we compare against to make sure
-                          // we properly validate slug and order
-                          getPostsByCategory({ variables: { categoryId: newValue, includeUnplished: true } });
-                          onCategoryIdChange(newValue);
-                        }
-                      }
-                    >
-                      <option value=''>Select Category</option>
-                      {
-                        categories.map((category: Partial<Category>) =>
-                          <option value={category.id} key={category.id}>{category.name}</option>
-                        )
-                      }
-                    </Form.Select>
-                    <InvalidIcon
-                      id='post-category-invalid'
-                      isInvalid={!validationResults.categoryId.isValid}
-                      invalidReason={validationResults.categoryId.invalidReason}
-                    />
-                  </>
-              }
+              {loadingCategories ? (
+                <Placeholder animation="glow" className="w-100" />
+              ) : (
+                <>
+                  <Form.Select
+                    aria-label="Select the post's category"
+                    isValid={validationResults.categoryId.isValid}
+                    isInvalid={!validationResults.categoryId.isValid}
+                    value={categoryId}
+                    onChange={(event) => {
+                      const newValue = event.target.value;
+                      // Update which posts we compare against to make sure
+                      // we properly validate slug and order
+                      getPostsByCategory({
+                        variables: {
+                          categoryId: newValue,
+                          includeUnplished: true,
+                        },
+                      });
+                      onCategoryIdChange(newValue);
+                    }}
+                  >
+                    <option value="">Select Category</option>
+                    {categories.map((category: Partial<Category>) => (
+                      <option value={category.id} key={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                  </Form.Select>
+                  <InvalidIcon
+                    id="post-category-invalid"
+                    isInvalid={!validationResults.categoryId.isValid}
+                    invalidReason={validationResults.categoryId.invalidReason}
+                  />
+                </>
+              )}
             </Form.Group>
           </Col>
         </Row>
@@ -232,48 +258,48 @@ export default function PostEditor({
           <Col xs={3}>
             <FormGroup className="post-order" controlId="post-order">
               <FormLabel>Order in Navbar</FormLabel>
-              {
-                (loadingSiblingPosts || !calledGetPostsByCategory) ?
-                  <Placeholder animation="glow" className="w-100" /> :
-                  <>
-                    <FormControl
-                      isValid={validationResults.order.isValid}
-                      isInvalid={!validationResults.order.isValid}
-                      type='number'
-                      value={order}
-                      onChange={(event) => onOrderChange(event.target.value)}
-                      inputMode='numeric'
-                    />
-                    <InvalidIcon
-                      id='post-order-invalid'
-                      isInvalid={!validationResults.order.isValid}
-                      invalidReason={validationResults.order.invalidReason}
-                    />
-                  </>
-              }
+              {loadingSiblingPosts || !calledGetPostsByCategory ? (
+                <Placeholder animation="glow" className="w-100" />
+              ) : (
+                <>
+                  <FormControl
+                    isValid={validationResults.order.isValid}
+                    isInvalid={!validationResults.order.isValid}
+                    type="number"
+                    value={order}
+                    onChange={(event) => onOrderChange(event.target.value)}
+                    inputMode="numeric"
+                  />
+                  <InvalidIcon
+                    id="post-order-invalid"
+                    isInvalid={!validationResults.order.isValid}
+                    invalidReason={validationResults.order.invalidReason}
+                  />
+                </>
+              )}
             </FormGroup>
           </Col>
           <Col xs={6}>
             <FormGroup className="post-slug" controlId="post-slug">
               <FormLabel>Slug</FormLabel>
-              {
-                (loadingSiblingPosts || !calledGetPostsByCategory) ?
-                  <Placeholder animation="glow" className="w-100" /> :
-                  <>
-                    <FormControl
-                      isValid={validationResults.slug.isValid}
-                      isInvalid={!validationResults.slug.isValid}
-                      type='text'
-                      value={slug}
-                      onChange={(event) => onSlugChange(event.target.value)}
-                    />
-                    <InvalidIcon
-                      id='post-slug-invalid'
-                      isInvalid={!validationResults.slug.isValid}
-                      invalidReason={validationResults.slug.invalidReason}
-                    />
-                  </>
-              }
+              {loadingSiblingPosts || !calledGetPostsByCategory ? (
+                <Placeholder animation="glow" className="w-100" />
+              ) : (
+                <>
+                  <FormControl
+                    isValid={validationResults.slug.isValid}
+                    isInvalid={!validationResults.slug.isValid}
+                    type="text"
+                    value={slug}
+                    onChange={(event) => onSlugChange(event.target.value)}
+                  />
+                  <InvalidIcon
+                    id="post-slug-invalid"
+                    isInvalid={!validationResults.slug.isValid}
+                    invalidReason={validationResults.slug.invalidReason}
+                  />
+                </>
+              )}
             </FormGroup>
           </Col>
         </Row>
@@ -284,7 +310,7 @@ export default function PostEditor({
                 alreadyInsideForm
                 markdown={markdown}
                 onChange={onMarkdownChange}
-                className='post-editor'
+                className="post-editor"
               />
             </Form.Group>
           </Col>

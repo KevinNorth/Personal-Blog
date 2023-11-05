@@ -10,7 +10,7 @@ function Spacer({ indent }: SpacerProps): React.ReactElement {
     throw new Error(`indent prop "${indent}" is not a CSS length`);
   }
 
-  return <span className='spacer' style={{ paddingLeft: indent }} />;
+  return <span className="spacer" style={{ paddingLeft: indent }} />;
 }
 
 export default Spacer;

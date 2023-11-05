@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
 import { Tree } from 'react-arborist';
+import { Container } from 'react-bootstrap';
 import AdminTreeNode from './AdminTreeNode';
 import { AdminTreeVertex } from './types';
 
@@ -11,7 +11,7 @@ export interface AdminTreeProps {
 
 function AdminTree({ tree, indentSize }: AdminTreeProps): React.ReactElement {
   return (
-    <Container fluid className='admin-tree'>
+    <Container fluid className="admin-tree">
       <Tree
         initialData={tree}
         idAccessor={(vertex) => `${vertex.type}${vertex.id}`}
@@ -21,7 +21,9 @@ function AdminTree({ tree, indentSize }: AdminTreeProps): React.ReactElement {
         indent={0}
         rowHeight={45}
       >
-        {(nodeProps) => <AdminTreeNode {...nodeProps} indentSize={indentSize} />}
+        {(nodeProps) => (
+          <AdminTreeNode {...nodeProps} indentSize={indentSize} />
+        )}
       </Tree>
     </Container>
   );

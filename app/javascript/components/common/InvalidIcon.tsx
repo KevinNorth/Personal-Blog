@@ -8,26 +8,28 @@ export interface InvalidIconProps {
   invalidReason?: string;
 }
 
-function InvalidIcon({ id, isInvalid, invalidReason }: InvalidIconProps): React.ReactElement {
+function InvalidIcon({
+  id,
+  isInvalid,
+  invalidReason,
+}: InvalidIconProps): React.ReactElement {
   if (!isInvalid) {
     return <></>;
   }
 
   if (!invalidReason) {
-    return (<XCircle className='invalid-icon' />);
+    return <XCircle className="invalid-icon" />;
   }
 
   const tooltip = (
-    <Tooltip className='invalid-reason' id={id}>{invalidReason}</Tooltip>
+    <Tooltip className="invalid-reason" id={id}>
+      {invalidReason}
+    </Tooltip>
   );
 
   return (
-    <OverlayTrigger
-      overlay={tooltip}
-      trigger={'hover'}
-      placement='top'
-    >
-      <XCircle className='invalid-icon' />
+    <OverlayTrigger overlay={tooltip} trigger={'hover'} placement="top">
+      <XCircle className="invalid-icon" />
     </OverlayTrigger>
   );
 }

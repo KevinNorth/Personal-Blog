@@ -29,7 +29,8 @@ export type CSSLength =
   | `${number}dvh`
   | `${number}%`;
 
-export const cssLengthRegex = /^(0|(\d+(\.\d+)?(cm|mm|Q|in|pc|pt|px|em|ex|ch|rem|lh|rlh|vw|vh|vmin|vmax|vb|vi|svw|svh|lvw|lvh|dvw|dvh|%)))$/;
+export const cssLengthRegex =
+  /^(0|(\d+(\.\d+)?(cm|mm|Q|in|pc|pt|px|em|ex|ch|rem|lh|rlh|vw|vh|vmin|vmax|vb|vi|svw|svh|lvw|lvh|dvw|dvh|%)))$/;
 
 export function isCSSLength(str: string): str is CSSLength {
   return cssLengthRegex.test(str);

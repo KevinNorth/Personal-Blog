@@ -3,10 +3,10 @@ import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Category from '../types/category';
-import QueryResult from '../types/queryResult';
 import LazyQueryResult, {
   LazyQueryExecuteFunction,
 } from '../types/lazyQueryResult';
+import QueryResult from '../types/queryResult';
 
 const allCategoriesAndPostsQuery = gql`
   query allCategoriesAndPostsQuery($includeUnpublished: Boolean) {

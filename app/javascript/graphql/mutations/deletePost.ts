@@ -1,7 +1,7 @@
+import { gql, useMutation } from '@apollo/client';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
-import { gql, useMutation } from '@apollo/client';
 
 const deletePostMutation = gql`
   mutation deletPostMutation($id: ID!) {

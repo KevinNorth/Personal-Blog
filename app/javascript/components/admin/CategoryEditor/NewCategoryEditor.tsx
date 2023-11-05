@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { FetchResult } from '@apollo/client';
 import useCreateCategoryMutation, {
   CreateCategoryMutationResponsePayload,
   CreateCategoryMutationResult,
@@ -11,7 +12,6 @@ import Toastable, { SendToastFunction } from '../../../types/toastable';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import CategoryEditor from './CategoryEditor';
 import validateCategoryForm from './validateCategoryForm';
-import { FetchResult } from '@apollo/client';
 
 function createCategoryCallback(
   result: FetchResult<CreateCategoryMutationResult['data']>,

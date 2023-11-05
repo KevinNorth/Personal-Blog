@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Col, Form, Placeholder, Row } from 'react-bootstrap';
+import { Col, Container, Form, Placeholder, Row } from 'react-bootstrap';
 
 function LoadingEditor(): React.ReactElement {
   return (

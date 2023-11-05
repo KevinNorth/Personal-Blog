@@ -1,7 +1,7 @@
 import Post from './post';
 
 export interface CategoryWithoutRelationships {
-  __typename: 'Category',
+  __typename: 'Category';
   createdAt: string;
   headerImage: string | null;
   id: NonNullable<string>;

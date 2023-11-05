@@ -1,7 +1,10 @@
-import organizeCategoriesAndPostsIntoArboristTree from '../organizeCategoriesAndPostsIntoArboristTree';
-import { mockCategoriesAndPosts, categoriesAndPostsAsArboristTree } from './fixtures/allCategoriesAndPosts';
-import Category from '../../graphql/types/category';
 import { AdminTreeVertex } from '../../components/admin/Root/types';
+import Category from '../../graphql/types/category';
+import organizeCategoriesAndPostsIntoArboristTree from '../organizeCategoriesAndPostsIntoArboristTree';
+import {
+  categoriesAndPostsAsArboristTree,
+  mockCategoriesAndPosts,
+} from './fixtures/allCategoriesAndPosts';
 
 describe('test', () => {
   describe('when given an empty array', () => {
@@ -29,7 +32,7 @@ describe('test', () => {
           subtitle: 'Test 1',
           summary: 'Test 1',
           title: 'Test 1',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -47,7 +50,7 @@ describe('test', () => {
           subtitle: 'Test 2',
           summary: 'Test 2',
           title: 'Test 2',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -65,19 +68,23 @@ describe('test', () => {
           subtitle: 'Test 3',
           summary: 'Test 3',
           title: 'Test 3',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
-      const expectedTree = categories.map((category): AdminTreeVertex => ({
-        id: category.id,
-        title: category.title,
-        type: 'Category',
-        children: [],
-        graphqlObject: category,    
-      }));
+      const expectedTree = categories.map(
+        (category): AdminTreeVertex => ({
+          id: category.id,
+          title: category.title,
+          type: 'Category',
+          children: [],
+          graphqlObject: category,
+        })
+      );
 
-      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(expectedTree);
+      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(
+        expectedTree
+      );
     });
   });
 
@@ -107,7 +114,7 @@ describe('test', () => {
               subtitle: 'Post 1',
               summary: 'Post 1',
               title: 'Post 1',
-              updatedAt: '2023-10-28',            
+              updatedAt: '2023-10-28',
             },
             {
               __typename: 'Post',
@@ -121,15 +128,15 @@ describe('test', () => {
               subtitle: 'Post 2',
               summary: 'Post 2',
               title: 'Post 2',
-              updatedAt: '2023-10-28',            
-            }
+              updatedAt: '2023-10-28',
+            },
           ],
           published: true,
           slug: 'test-1',
           subtitle: 'Test 1',
           summary: 'Test 1',
           title: 'Test 1',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -147,7 +154,7 @@ describe('test', () => {
           subtitle: 'Test 2',
           summary: 'Test 2',
           title: 'Test 2',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -172,33 +179,39 @@ describe('test', () => {
               subtitle: 'Post 3',
               summary: 'Post 3',
               title: 'Post 3',
-              updatedAt: '2023-10-28',            
-            }
+              updatedAt: '2023-10-28',
+            },
           ],
           published: true,
           slug: 'test-3',
           subtitle: 'Test 3',
           summary: 'Test 3',
           title: 'Test 3',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
-      const expectedTree = categories.map((category): AdminTreeVertex => ({
-        id: category.id,
-        title: category.title,
-        type: 'Category',
-        children: category.posts.map((post): AdminTreeVertex => ({
-          id: post.id,
-          title: post.title,
-          type: 'Post',
-          children: null,
-          graphqlObject: post,
-        })),
-        graphqlObject: category,    
-      }));
+      const expectedTree = categories.map(
+        (category): AdminTreeVertex => ({
+          id: category.id,
+          title: category.title,
+          type: 'Category',
+          children: category.posts.map(
+            (post): AdminTreeVertex => ({
+              id: post.id,
+              title: post.title,
+              type: 'Post',
+              children: null,
+              graphqlObject: post,
+            })
+          ),
+          graphqlObject: category,
+        })
+      );
 
-      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(expectedTree);
+      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(
+        expectedTree
+      );
     });
   });
 
@@ -223,7 +236,7 @@ describe('test', () => {
           subtitle: 'Test 1',
           summary: 'Test 1',
           title: 'Test 1',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -241,7 +254,7 @@ describe('test', () => {
           subtitle: 'Test 2',
           summary: 'Test 2',
           title: 'Test 2',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -259,7 +272,7 @@ describe('test', () => {
           subtitle: 'Test 3',
           summary: 'Test 3',
           title: 'Test 3',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -280,7 +293,7 @@ describe('test', () => {
           subtitle: 'Test 1-4',
           summary: 'Test 1-4',
           title: 'Test 1-4',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -298,7 +311,7 @@ describe('test', () => {
           subtitle: 'Test 1-5',
           summary: 'Test 1-5',
           title: 'Test 1-5',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -319,7 +332,7 @@ describe('test', () => {
           subtitle: 'Test 2-6',
           summary: 'Test 2-6',
           title: 'Test 2-6',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -340,7 +353,7 @@ describe('test', () => {
           subtitle: 'Test 3-7',
           summary: 'Test 3-7',
           title: 'Test 3-7',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -358,7 +371,7 @@ describe('test', () => {
           subtitle: 'Test 3-8',
           summary: 'Test 3-8',
           title: 'Test 3-8',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -379,7 +392,7 @@ describe('test', () => {
           subtitle: 'Test 2-6-9',
           summary: 'Test 2-6-9',
           title: 'Test 2-6-9',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -400,7 +413,7 @@ describe('test', () => {
           subtitle: 'Test 3-7-10',
           summary: 'Test 3-7-10',
           title: 'Test 3-7-10',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
         {
           __typename: 'Category',
@@ -418,7 +431,7 @@ describe('test', () => {
           subtitle: 'Test 3-7-11',
           summary: 'Test 3-7-11',
           title: 'Test 3-7-11',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -439,7 +452,7 @@ describe('test', () => {
           subtitle: 'Test 3-8-12',
           summary: 'Test 3-8-12',
           title: 'Test 3-8-12',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -460,7 +473,7 @@ describe('test', () => {
           subtitle: 'Test 2-6-9-13',
           summary: 'Test 2-6-9-13',
           title: 'Test 2-6-9-13',
-          updatedAt: '2023-10-28',        
+          updatedAt: '2023-10-28',
         },
       ];
 
@@ -487,16 +500,16 @@ describe('test', () => {
               title: category1Children[0].title,
               type: 'Category',
               graphqlObject: category1Children[0],
-              children: []
+              children: [],
             },
             {
               id: category1Children[1].id,
               title: category1Children[1].title,
               type: 'Category',
               graphqlObject: category1Children[1],
-              children: []
+              children: [],
             },
-          ]
+          ],
         },
         {
           id: rootCategories[1].id,
@@ -522,12 +535,12 @@ describe('test', () => {
                       type: 'Category',
                       graphqlObject: category9Children[0],
                       children: [],
-                    }
-                  ]
-                }
-              ]
+                    },
+                  ],
+                },
+              ],
             },
-          ]
+          ],
         },
         {
           id: rootCategories[2].id,
@@ -569,14 +582,16 @@ describe('test', () => {
                   type: 'Category',
                   graphqlObject: category8Children[0],
                   children: [],
-                }
-              ]
+                },
+              ],
             },
-          ]
+          ],
         },
       ];
 
-      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(expectedTree);
+      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(
+        expectedTree
+      );
     });
   });
 

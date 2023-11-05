@@ -3,6 +3,7 @@
   "private": "true",
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "format": "prettier-eslint --write \"app/javascript/**/*.{js,jsx,ts,tsx}\"",
     "lint": "eslint app/javascript/** -c .eslintrc.js --ext .ts,.tsx,.js,.jsx",
     "test": "jest"
   },
