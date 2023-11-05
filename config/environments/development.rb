@@ -75,4 +75,23 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Allow requests from our preview domain.
+  pf_domain = ENV.fetch('GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN', nil)
+  if pf_domain
+    config.action_dispatch.default_headers = {
+      'X-Frame-Options' => "ALLOW-FROM #{pf_domain}"
+    }
+
+    # Lets requests work in GitHub codespaces
+    config.action_controller.forgery_protection_origin_check = false
+  end
+
+  codespace_name = ENV.fetch('CODESPACE_NAME', nil)
+  if pf_domain && codespace_name
+    pf_host = "#{codespace_name}-3000.#{pf_domain}"
+    config.hosts << pf_host
+
+    config.action_cable.allowed_request_origins = ["https://#{pf_host}"]
+  end
 end

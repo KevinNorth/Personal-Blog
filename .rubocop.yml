@@ -24,6 +24,7 @@ AllCops:
 GraphQL/ExtractType:
   Exclude:
     - app/graphql/types/query_type.rb
+    - app/graphql/types/mutation_type.rb
 
 GraphQL/ObjectDescription:
   Exclude:
@@ -77,6 +78,11 @@ Naming/MethodParameterName:
 Rails/FilePath:
   Exclude:
     - spec/rails_helper.rb
+
+Rails/RakeEnvironment:
+  Exclude:
+    - lib/tasks/use_pnpm_in_jsbundling_rails.rake
+    - Rakefile
 
 # I deliberately want to allow post.order and category.order to
 # be set to the same value in the underlying database because

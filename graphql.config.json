@@ -1,0 +1,8 @@
+{
+  "schema": "schema.graphql",
+  "documents": [
+    "./app/javascript/graphql/fragments/**/*.ts",
+    "./app/javascript/graphql/mutations/**/*.ts",
+    "./app/javascript/graphql/queries/**/*.ts"
+  ]
+}

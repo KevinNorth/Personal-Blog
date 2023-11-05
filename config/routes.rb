@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'index#index'
-  get 'index' => 'index#index'
-  get 'blog' => 'index#index'
+  root to: redirect('/blog')
+  get 'index', to: redirect('/blog')
+  get 'blog' => 'blog#blog'
+  get 'blog/*all' => 'blog#blog'
+
+  get 'admin/' => 'admin#admin'
+  get 'admin/*all' => 'admin#admin'
 
   mount GraphiQL::Rails::Engine, at: '/graphiql', graphql_path: '/graphql' if Rails.env.development?
   post '/graphql', to: 'graphql#execute', as: :graphql

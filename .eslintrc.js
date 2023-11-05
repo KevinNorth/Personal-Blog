@@ -23,6 +23,14 @@ module.exports =	{
       'parserOptions': {
         'sourceType': 'script'
       }
+    },
+    {
+      'files': ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      'processor': '@graphql-eslint/graphql'
+    },
+    {
+      'files': ['*.graphql'],
+      'extends': 'plugin:@graphql-eslint/operations-recommended',
     }
   ],
   'parser': '@typescript-eslint/parser',
@@ -32,7 +40,6 @@ module.exports =	{
   },
   'plugins': [
     '@typescript-eslint',
-    'graphql',
     'jsx-a11y',
     'no-secrets',
     'no-unsanitized',
@@ -52,24 +59,25 @@ module.exports =	{
     ],
     'quotes': [
       'error',
-      'single'
+      'single',
+      { 'avoidEscape': true },
     ],
     'semi': [
       'error',
       'always'
     ],
-    // TODO: Automatically dump GraphQL schema as part of the Webpack build process
-    // 'graphql/template-strings': [
-    // 	'error',
-    // 	{
-    // 		env: 'apollo'
-    // 	}
-    // ],
     'no-secrets/no-secrets': [
       'error',
-      'always'
+      { 'tolerance': 6 }
     ],
     'no-unsanitized/method': 'error',
-    'no-unsanitized/property': 'error'
+    'no-unsanitized/property': 'error',
+    'security/detect-unsafe-regex': [
+      // This rule is concerned with avoiding regexes that can
+      // DDoS a server when given hairy inputs. In this app, though,
+      // anything written in JS only runs client-side, so the risks
+      // are minimal.
+      'off'
+    ]
   }
 };

@@ -1,9 +1,21 @@
 {
-    "ruby.rubocop.executePath": "/home/kevin/.gems/ruby/3.2.0/bin/",
-    "ruby.rubocop.configFilePath": "/workspaces/Personal Rails blog/.rubocop.yml",
+    "ruby.rubocop.executePath": "/usr/local/rvm/gems/ruby-3.2.2/gems/rubocop-1.57.1/exe/",
+    "ruby.rubocop.configFilePath": "/workspaces/Personal-Blog/.rubocop.yml",
     "editor.tabSize": 2,
     "javascript.format.enable": false,
     "typescript.format.enable": false,
     "eslint.format.enable": true,
     "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.formatOnPaste": false, 
+    "editor.formatOnType": false,
+    "editor.formatOnSave": true, 
+    "editor.formatOnSaveMode": "file",
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.tsdk": "/workspaces/Personal-Blog/node_modules/typescript/lib",
+    "vs-code-prettier-eslint.prettierLast": false,
+    "typescript.preferences.importModuleSpecifierEnding": "minimal" // set as "true" to run 'prettier' last not first
 }

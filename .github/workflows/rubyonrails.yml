@@ -34,6 +34,16 @@ jobs:
           bundler-cache: true
       - name: Set up database schema
         run: bundle exec rails db:schema:load
+      - name: Install node (for asset compilation)
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.8.0'
+      - name: Install pnpm (for asset compilation)
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+      - name: Install pnpm dependencies
+        run: pnpm install
       - name: Compile asset pipeline
         run: bundle exec rails assets:precompile
       - name: Run tests

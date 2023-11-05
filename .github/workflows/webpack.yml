@@ -5,22 +5,45 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build-and-lint:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.8.0]
     steps:
     - uses: actions/checkout@v3
-    - uses: mskelton/setup-yarn@v1.6.0
+    - uses: actions/setup-node@v3
       with:
-        # Additional flags to pass to the install command.
-        # Node version to use, defaults to the current LTS version.
-        node-version: 20.8.0
-        cache: yarn
+        node-version: '20.8.0'
+    - uses: pnpm/action-setup@v2
+      with:
+        version: latest
+    - name: Install dependencies
+      run: pnpm install
     - name: Build
-      run: |
-        yarn install
-        yarn build
+      run: pnpm run build
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '20.8.0'
+    - uses: pnpm/action-setup@v2
+      with:
+        version: latest
+    - name: Install dependencies
+      run: pnpm install
     - name: Lint
-      run: yarn run lint
+      run: pnpm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '20.8.0'
+    - uses: pnpm/action-setup@v2
+      with:
+        version: latest
+    - name: Install dependencies
+      run: pnpm install
+    - name: test
+      run: pnpm run test
