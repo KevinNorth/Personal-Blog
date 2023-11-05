@@ -1,4 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
@@ -7,6 +6,7 @@ import CategoryInput from '../types/categoryInput';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { gql, useMutation } from '@apollo/client';
 
 const updateCategoryMutation = gql`
   mutation updateCategoryMutation(
@@ -44,10 +44,15 @@ export interface UpdateCategoryVariables {
   categoryAttributes: CategoryInput;
 }
 
-export type UpdateCategoryMutationResult = MutationResult<{
+export interface UpdateCategoryMutationResponsePayload {
   category: Partial<Category>;
   errors: string[];
-}>;
+}
+
+export type UpdateCategoryMutationResult = MutationResult<
+  UpdateCategoryMutationResponsePayload,
+  'updateCategory'
+>;
 
 function useUpdateCategoryMutation({
   id,
@@ -55,7 +60,8 @@ function useUpdateCategoryMutation({
 }: UpdateCategoryVariables): [
   MutationExecutionFunction<
     UpdateCategoryMutationResult['data'],
-    UpdateCategoryVariables
+    UpdateCategoryVariables,
+    'updateCategory'
   >,
   UpdateCategoryMutationResult
 ] {

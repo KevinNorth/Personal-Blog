@@ -1,9 +1,9 @@
-import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Post from '../types/post';
 import PostInput from '../types/postInput';
+import { gql, useMutation } from '@apollo/client';
 import MutationResult, {
   MutationExecutionFunction,
 } from 'graphql/types/mutationResult';
@@ -39,10 +39,15 @@ export interface UpdatePostVariables {
   postAttributes: PostInput;
 }
 
-export type UpdatePostMutationResult = MutationResult<{
+export interface UpdatePostMutationResponsePayload {
   post: Partial<Post>;
   errors: string[];
-}>;
+}
+
+export type UpdatePostMutationResult = MutationResult<
+  UpdatePostMutationResponsePayload,
+  'updatePost'
+>;
 
 function useUpdatePostMutation({
   id,
@@ -50,7 +55,8 @@ function useUpdatePostMutation({
 }: UpdatePostVariables): [
   MutationExecutionFunction<
     UpdatePostMutationResult['data'],
-    UpdatePostVariables
+    UpdatePostVariables,
+    'updatePost'
   >,
   UpdatePostMutationResult
 ] {

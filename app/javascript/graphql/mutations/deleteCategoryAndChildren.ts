@@ -1,7 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { gql, useMutation } from '@apollo/client';
 
 const deleteCategoryAndChildrenMutation = gql`
   mutation deletCategoryMutation($id: ID!) {
@@ -16,17 +16,23 @@ export interface DeleteCategoryAndChildrenVariables {
   id: string;
 }
 
-export type DeleteCategoryAndChildrenMutationResult = MutationResult<{
+export interface DeleteCategoryAndChildrenMutationResponsePayload {
   successful: boolean;
   errors: string[];
-}>;
+}
+
+export type DeleteCategoryAndChildrenMutationResult = MutationResult<
+  DeleteCategoryAndChildrenMutationResponsePayload,
+  'deleteCategoryAndChildren'
+>;
 
 function useDeleteCategoryAndChildrenMutation({
   id,
 }: DeleteCategoryAndChildrenVariables): [
   MutationExecutionFunction<
     DeleteCategoryAndChildrenMutationResult['data'],
-    DeleteCategoryAndChildrenVariables
+    DeleteCategoryAndChildrenVariables,
+    'deleteCategoryAndChildren'
   >,
   DeleteCategoryAndChildrenMutationResult
 ] {

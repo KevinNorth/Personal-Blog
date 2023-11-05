@@ -1,7 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { gql, useMutation } from '@apollo/client';
 
 const deletePostMutation = gql`
   mutation deletPostMutation($id: ID!) {
@@ -16,17 +16,23 @@ export interface DeletePostVariables {
   id: string;
 }
 
-export type DeletePostMutationResult = MutationResult<{
+export interface DeletePostMutationResponsePayload {
   successful: boolean;
   errors: string[];
-}>;
+}
+
+export type DeletePostMutationResult = MutationResult<
+  DeletePostMutationResponsePayload,
+  'deletePost'
+>;
 
 function useDeletePostMutation({
   id,
 }: DeletePostVariables): [
   MutationExecutionFunction<
     DeletePostMutationResult['data'],
-    DeletePostVariables
+    DeletePostVariables,
+    'deletePost'
   >,
   DeletePostMutationResult
 ] {

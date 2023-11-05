@@ -1,34 +1,41 @@
 import React, { useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { FetchResult } from '@apollo/client';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
-import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
-import Category from '../../../graphql/types/category';
-import CategoryEditor from './CategoryEditor';
-import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
-import getCategoryById from '../../../graphql/queries/categoryById';
-import QueryErrorToast from '../../common/QueryErrorToast';
-import Spacer from '../../common/Spacer';
 import useDeleteCategoryAndChildrenMutation, {
+  DeleteCategoryAndChildrenMutationResponsePayload,
   DeleteCategoryAndChildrenMutationResult,
 } from '../../../graphql/mutations/deleteCategoryAndChildren';
 import useUpdateCategoryMutation, {
+  UpdateCategoryMutationResponsePayload,
   UpdateCategoryMutationResult,
 } from '../../../graphql/mutations/updateCategory';
-import validateCategoryForm from './validateCategoryForm';
+import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
+import getCategoryById from '../../../graphql/queries/categoryById';
+import Category from '../../../graphql/types/category';
+import Toastable, { SendToastFunction } from '../../../types/toastable';
+import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
+import QueryErrorToast from '../../common/QueryErrorToast';
 import SimpleToast from '../../common/SimpleToast';
+import Spacer from '../../common/Spacer';
+import CategoryEditor from './CategoryEditor';
+import validateCategoryForm from './validateCategoryForm';
+import { FetchResult } from '@apollo/client';
 
 function updateCategoryCallback(
   result: FetchResult<UpdateCategoryMutationResult['data']>,
-  sendToast: (toast: React.ReactElement) => void,
+  sendToast: SendToastFunction,
   refetchCategory: () => void
 ): void {
   let errors: string[] = [];
+  const data =
+    (result.data as { updateCategory: UpdateCategoryMutationResponsePayload })
+      ?.updateCategory ||
+    (result.data as UpdateCategoryMutationResponsePayload);
 
   if (result.errors && result.errors.length > 0) {
     errors = result.errors.map((error) => error.message);
-  } else if (result.data?.errors && result.data?.errors.length > 0) {
-    errors = result.data?.errors;
+  } else if (data?.errors && data?.errors.length > 0) {
+    errors = data?.errors;
   }
 
   if (errors.length > 0) {
@@ -56,11 +63,18 @@ function deletePostCallback(
   navigate: NavigateFunction
 ): void {
   let errors: string[] = [];
+  const data =
+    (
+      result.data as {
+        deleteCategoryAndChildren: DeleteCategoryAndChildrenMutationResponsePayload;
+      }
+    )?.deleteCategoryAndChildren ||
+    (result.data as DeleteCategoryAndChildrenMutationResponsePayload);
 
   if (result.errors && result.errors.length > 0) {
     errors = result.errors.map((error) => error.message);
-  } else if (result.data?.errors && result.data?.errors.length > 0) {
-    errors = result.data?.errors;
+  } else if (data?.errors && data?.errors.length > 0) {
+    errors = data?.errors;
   }
 
   if (errors.length > 0) {
@@ -82,13 +96,7 @@ function deletePostCallback(
   });
 }
 
-export interface ExistingCategoryEditorProps {
-  sendToast: (toast: React.ReactElement) => void;
-}
-
-function ExistingCategoryEditor({
-  sendToast,
-}: ExistingCategoryEditorProps): React.ReactElement {
+function ExistingCategoryEditor({ sendToast }: Toastable): React.ReactElement {
   const { id } = useParams();
 
   const {
@@ -215,7 +223,13 @@ function ExistingCategoryEditor({
             outerButtonText="Delete"
             onConfirmationClick={() =>
               deleteCategory({ variables: { id } }).then((result) =>
-                deletePostCallback(result, sendToast, navigate)
+                deletePostCallback(
+                  result as FetchResult<
+                    DeleteCategoryAndChildrenMutationResult['data']
+                  >,
+                  sendToast,
+                  navigate
+                )
               )
             }
           />
@@ -244,7 +258,11 @@ function ExistingCategoryEditor({
                   },
                 },
               }).then((result) =>
-                updateCategoryCallback(result, sendToast, refetchCategory)
+                updateCategoryCallback(
+                  result as FetchResult<UpdateCategoryMutationResult['data']>,
+                  sendToast,
+                  refetchCategory
+                )
               )
             }
           >

@@ -1,4 +1,3 @@
-import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
@@ -7,6 +6,7 @@ import CategoryInput from '../types/categoryInput';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { gql, useMutation } from '@apollo/client';
 
 const createCategoryMutation = gql`
   mutation createCategoryMutation($categoryAttributes: CategoryInput!) {
@@ -38,17 +38,23 @@ export interface CreateCategoryVariables {
   categoryAttributes: CategoryInput;
 }
 
-export type CreateCategoryMutationResult = MutationResult<{
+export interface CreateCategoryMutationResponsePayload {
   category: Partial<Category>;
   errors: string[];
-}>;
+}
+
+export type CreateCategoryMutationResult = MutationResult<
+  CreateCategoryMutationResponsePayload,
+  'createCategory'
+>;
 
 function useCreateCategoryMutation({
   categoryAttributes,
 }: CreateCategoryVariables): [
   MutationExecutionFunction<
     CreateCategoryMutationResult['data'],
-    CreateCategoryVariables
+    CreateCategoryVariables,
+    'createCategory'
   >,
   CreateCategoryMutationResult
 ] {
