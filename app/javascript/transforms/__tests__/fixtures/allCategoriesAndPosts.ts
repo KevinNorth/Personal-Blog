@@ -155,7 +155,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -178,7 +177,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -260,7 +258,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -284,7 +281,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -330,7 +326,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -399,7 +394,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -423,7 +417,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -470,7 +463,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -495,7 +487,6 @@ export const mockCategoriesAndPosts: Category[] = [
         updatedAt: '2023-10-28T20:04:26Z',
         __typename: 'Post',
         author: {
-          admin: true,
           createdAt: '2023-10-28T20:04:26Z',
           id: '1',
           login: 'kevin',
@@ -558,7 +549,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -588,7 +579,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -622,7 +613,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -646,7 +637,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -696,7 +687,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -730,7 +721,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -812,7 +803,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
               __typename: 'Post',
               author: {
                 __typename: 'User',
-                admin: true,
+
                 createdAt: '2023-10-28T20:04:26Z',
                 id: '1',
                 login: 'kevin',
@@ -843,7 +834,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
               __typename: 'Post',
               author: {
                 __typename: 'User',
-                admin: true,
+
                 createdAt: '2023-10-28T20:04:26Z',
                 id: '1',
                 login: 'kevin',
@@ -876,7 +867,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
               __typename: 'Post',
               author: {
                 __typename: 'User',
-                admin: true,
+
                 createdAt: '2023-10-28T20:04:26Z',
                 id: '1',
                 login: 'kevin',
@@ -901,7 +892,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
               __typename: 'Post',
               author: {
                 __typename: 'User',
-                admin: true,
+
                 createdAt: '2023-10-28T20:04:26Z',
                 id: '1',
                 login: 'kevin',
@@ -983,7 +974,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1013,7 +1004,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1047,7 +1038,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1071,7 +1062,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1121,7 +1112,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1152,7 +1143,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1188,7 +1179,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',
@@ -1213,7 +1204,7 @@ export const categoriesAndPostsAsArboristTree: AdminTreeCategoryVertex[] = [
                   __typename: 'Post',
                   author: {
                     __typename: 'User',
-                    admin: true,
+
                     createdAt: '2023-10-28T20:04:26Z',
                     id: '1',
                     login: 'kevin',

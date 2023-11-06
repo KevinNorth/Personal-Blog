@@ -19,6 +19,13 @@ class PersonalRailsBlogSchema < GraphQL::Schema
   #   super
   # end
 
+  def self.unauthorized_object(error)
+    # Add a top-level error to the response instead of returning nil:
+    raise GraphQL::ExecutionError, "An object of type #{error.type.graphql_name} was hidden due to permissions. " \
+                                   '(Did you try to set includeUnpublished: true without logging in as a site admin? ' \
+                                   'This requires authentication.)'
+  end
+
   # Union and Interface Resolution
   def self.resolve_type(_abstract_type, _obj, _ctx)
     # TODO: Implement this method

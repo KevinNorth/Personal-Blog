@@ -23,7 +23,8 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories that have not yet been published'
+               description: 'whether to include categories that have not yet been published',
+               require_logged_in: true
     end
 
     field :category_by_id, CategoryType, description: 'Fetches a category by its ID.' do
@@ -31,14 +32,16 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories that have not yet been published'
+               description: 'whether to include categories that have not yet been published',
+               require_logged_in: true
     end
 
     field :category_by_slug, CategoryType, description: 'Fetches a category by its URL slug.' do
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories that have not yet been published'
+               description: 'whether to include categories that have not yet been published',
+               require_logged_in: true
       argument :slug, String, required: true, description: 'the slug to look up'
     end
 
@@ -47,7 +50,8 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories and posts that have not yet been published'
+               description: 'whether to include categories and posts that have not yet been published',
+               require_logged_in: true
     end
 
     field :post_by_id, PostType, null: true, description: 'Fetches a Post by ID' do
@@ -55,7 +59,8 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories and posts that have not yet been published'
+               description: 'whether to include categories and posts that have not yet been published',
+               require_logged_in: true
     end
 
     field :post_by_slug, PostType, null: true, description: 'Fetches a Post by URL slug' do
@@ -63,7 +68,8 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories and posts that have not yet been published'
+               description: 'whether to include categories and posts that have not yet been published',
+               require_logged_in: true
       argument :post_slug, String, required: true, description: "the post's slug"
     end
 

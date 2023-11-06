@@ -17,9 +17,10 @@
 
 def seed
   user = User.create(
-    admin: true,
     login: 'kevin',
-    name: 'Kevin North'
+    name: 'Kevin North',
+    password: '12345',
+    password_confirmation: '12345'
   )
 
   categories = {}

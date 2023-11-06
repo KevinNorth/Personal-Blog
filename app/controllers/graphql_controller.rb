@@ -11,8 +11,8 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      user_signed_in: user_signed_in?,
+      current_user: current_user || nil
     }
     result = PersonalRailsBlogSchema.execute(query, variables:, context:,
                                                     operation_name:)

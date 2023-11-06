@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'category_by_slug', type: :request do
+  before do
+    sign_in create(:user)
+  end
+
   def get_query(slug:, include_unpublished:)
     <<~GQL
       query {

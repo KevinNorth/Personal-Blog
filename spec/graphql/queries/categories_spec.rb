@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'categories', type: :request do
+  before do
+    sign_in create(:user)
+  end
+
   def get_query(include_unpublished:)
     <<~GQL
       query {

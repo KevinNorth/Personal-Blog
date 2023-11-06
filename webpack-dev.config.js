@@ -17,6 +17,7 @@ module.exports = {
       './app/javascript/admin.tsx',
       './app/assets/stylesheets/admin.scss',
     ],
+    login: ['./app/assets/stylesheets/login.scss'],
   },
   module: {
     rules: [

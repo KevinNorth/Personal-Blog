@@ -4,7 +4,6 @@ module Types
   class UserType < Types::BaseObject
     description 'A user who maintains the website'
 
-    field :admin, Boolean, null: false, description: 'Whether this user can write posts'
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false,
                                                         description: 'When this object was added to the database'
     field :id, ID, null: false, description: 'Unique database ID'
