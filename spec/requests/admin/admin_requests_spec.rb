@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'admin requests' do
+  before do
+    sign_in create(:user)
+  end
+
   describe '/admin' do
     it 'opens the admin React app' do
       get '/admin'

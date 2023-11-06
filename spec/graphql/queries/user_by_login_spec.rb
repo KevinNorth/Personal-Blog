@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'user_by_login', type: :request do
+  before do
+    sign_in create(:user)
+  end
+
   def get_query(login:)
     <<~GQL
       query {

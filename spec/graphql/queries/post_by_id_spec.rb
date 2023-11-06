@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'post_by_id', type: :request do
+  before do
+    sign_in create(:user)
+  end
+
   def get_query(id:, include_unpublished:)
     <<~GQL
       query {
