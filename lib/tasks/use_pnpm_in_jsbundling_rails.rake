@@ -39,7 +39,13 @@ module JsbundlingMonkeypatch
     end
 
     def build_command
-      return 'pnpm run build' if File.exist?('pnpm-lock.yaml') || tool_exists?('pnpm')
+      if Rails.env.development?
+        return 'pnpm run build:dev' if File.exist?('pnpm-lock.yaml') || tool_exists?('pnpm')
+      else
+        # rubocop:disable Style/IfInsideElse
+        return 'pnpm run build' if File.exist?('pnpm-lock.yaml') || tool_exists?('pnpm')
+        # rubocop:enable Style/IfInsideElse
+      end
 
       raise 'jsbundling-rails: No suitable tool found for building JavaScript'
     end
