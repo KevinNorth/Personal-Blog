@@ -12,7 +12,7 @@ module Mutations
 
     def resolve(post_attributes:)
       post = Post.build(
-        author: User.first, # TODO: automatically set based on which user is logged in
+        author: context[:current_user],
         category_id: post_attributes.category_id,
         markdown: post_attributes.markdown,
         order: post_attributes.order,
