@@ -8,7 +8,7 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  # config.secret_key = '710fae1511a665cdf8b507acfe0337dc9f8b435d8a5bb976c5f7c4fb5a4610f3c9e389d81f455f7b210df83a8a179c1846472b38860a5bdee3211fc45d434898'
+  # config.secret_key = '710fae15...'
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
@@ -109,7 +109,7 @@ Devise.setup do |config|
   # For bcrypt, this is the cost for hashing the password and defaults to 12. If
   # using other algorithms, it sets how many times you want the password to be hashed.
   # The number of stretches used for generating the hashed password are stored
-  # with the hashed password. This allows you to change the stretches without
+# with the hashed password. This allows you to change the stretches without
   # invalidating existing passwords.
   #
   # Limiting the stretches to just one in testing will increase the performance of
@@ -120,7 +120,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = '8f483c25fcffe16b374e2ddfb95b08ee710fd12fcdb33bdd3b5848edb73a897ff3f503b57f7e9376326e48e1a759af1a881333f2c54861c5eda954e4e9dee396'
+  # config.pepper = '8f483c25fcffe16b3...'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
