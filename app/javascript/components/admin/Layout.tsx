@@ -1,10 +1,24 @@
 import React from 'react';
 import { Nav, Navbar, ToastContainer } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
+import getCRSFToken from '../../lib/getCRSFToken';
 
 export interface LayoutProps {
   children: React.ReactNode;
   toasts: React.ReactElement[];
+}
+
+async function logout() {
+  const headers = new Headers();
+  headers.append('X-CSRF-Token', getCRSFToken() || '');
+
+  await fetch('/auth/logout', {
+    method: 'DELETE',
+    headers,
+  });
+
+  // eslint-disable-next-line xss/no-location-href-assign
+  window.location.href = '/auth/login';
 }
 
 export default function Layout({
@@ -22,17 +36,17 @@ export default function Layout({
         <div className="admin-sidebar">
           <Navbar>
             <Nav defaultActiveKey={location.pathname}>
-              <Nav.Link eventKey="/admin" href="/admin">
+              <Nav.Link eventKey="/" href="/admin">
                 See All Categories and Posts
               </Nav.Link>
-              <Nav.Link
-                eventKey="/admin/category/new"
-                href="/admin/category/new"
-              >
+              <Nav.Link eventKey="/category/new" href="/admin/category/new">
                 New Category
               </Nav.Link>
-              <Nav.Link eventKey="/admin/post/new" href="/admin/post/new">
+              <Nav.Link eventKey="/post/new" href="/admin/post/new">
                 New Post
+              </Nav.Link>
+              <Nav.Link as="button" onClick={logout}>
+                Log out
               </Nav.Link>
             </Nav>
           </Navbar>

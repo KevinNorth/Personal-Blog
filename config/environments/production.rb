@@ -3,6 +3,8 @@
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
+  Rails.application.default_url_options = { host: 'kevinnorth.dev' }
+
   # Prepare the ingress controller used to receive mail
   # config.action_mailbox.ingress = :relay
 

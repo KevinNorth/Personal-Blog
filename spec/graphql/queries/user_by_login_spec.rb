@@ -7,7 +7,6 @@ RSpec.describe 'user_by_login', type: :request do
     <<~GQL
       query {
         userByLogin(login: "#{login}") {
-          admin
           createdAt
           id
           login
@@ -35,7 +34,6 @@ RSpec.describe 'user_by_login', type: :request do
       result = json['data']['userByLogin']
 
       expect(result).to include(
-        'admin' => user.admin,
         'id' => user.id.to_s,
         'login' => login,
         'name' => user.name

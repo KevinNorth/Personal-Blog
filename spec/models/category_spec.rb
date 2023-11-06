@@ -1,5 +1,31 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: categories
+#
+#  id           :bigint           not null, primary key
+#  header_image :binary
+#  markdown     :text
+#  name         :string
+#  order        :integer
+#  published    :boolean          default(FALSE), not null
+#  slug         :string           not null
+#  subtitle     :string
+#  summary      :string
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  parent_id    :bigint
+#
+# Indexes
+#
+#  index_categories_on_parent_id  (parent_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (parent_id => categories.id)
+#
 require 'rails_helper'
 
 RSpec.describe Category do
