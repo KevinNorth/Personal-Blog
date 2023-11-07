@@ -15,3 +15,55 @@
  */
 
 @import './base';
+
+$banner-height: 30px;
+
+.blog {
+  .blog-banner {
+    .blog-nav {
+      min-height: $banner-height;
+    }
+  }
+
+  .blog-content {
+    .blog-header-image {
+      min-height: calc(100vh - $banner-height);
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      background-color: white;
+      background-attachment: fixed;
+      background-image:
+        linear-gradient(#0004, #0004),
+        url('/images/default-page-header-image.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 21% top;
+
+      .blog-title {
+        flex: 0 1 fit-content;
+        margin: 0 auto;
+        padding: 32px;
+        max-width: 30%;
+        background-color: white;
+        color: black;
+
+        h1 {
+          margin-bottom: 0.5rem;
+        }
+
+        h2 {
+          border-top-color: black;
+          border-top-width: 1px;
+          border-top-style: solid;
+        }
+      }
+    }
+
+    .blog-body {
+      margin: 0 auto;
+      min-width: 600px;
+    }
+  }
+}
