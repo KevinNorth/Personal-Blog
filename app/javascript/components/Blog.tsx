@@ -1,30 +1,23 @@
 import React from 'react';
-import {
-  ApolloClient,
-  ApolloProvider,
-  HttpLink,
-  InMemoryCache,
-} from '@apollo/client';
-import getCRSFToken from '../lib/getCRSFToken';
+import { Route, Routes } from 'react-router-dom';
+import '@apollo/client';
+import CategoryViewer from './blog/CategoryViewer/CategoryViewer';
+import Layout from './blog/Layout';
+import PostViewer from './blog/PostViewer/PostViewer';
 
-const client = new ApolloClient({
-  link: new HttpLink({
-    uri: '/graphql',
-    headers: { 'X-CSRF-Token': getCRSFToken() || '' },
-  }),
-  cache: new InMemoryCache(),
-});
-
-function Blog() {
+function Admin() {
   return (
-    <ApolloProvider client={client}>
-      <div>
-        <header>
-          <h1>Blog Test</h1>
-        </header>
-      </div>
-    </ApolloProvider>
+    <Layout>
+      <Routes>
+        <Route path="/:categorySlug/:postSlug" element={<PostViewer />} />
+        <Route path="/:categorySlug" element={<CategoryViewer />} />
+        <Route
+          path="/"
+          element={<CategoryViewer showDefaultCategory={true} />}
+        />
+      </Routes>
+    </Layout>
   );
 }
 
-export default Blog;
+export default Admin;

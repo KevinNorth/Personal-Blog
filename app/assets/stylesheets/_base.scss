@@ -12,7 +12,7 @@ $link-color-hover: #7f9de8;
 $code-color: #cdcddc;
 
 $body-background-color: #000000FF;
-$container-background-color: #141414FF;
+$secondary-background-color: #141414FF;
 
 :root {
   --bs-body-bg: #{$body-background-color};
@@ -22,7 +22,7 @@ $container-background-color: #141414FF;
   --bs-font-sans-serif: #{$body-font};
   --bs-link-color-rgb: #{$link-color};
   --bs-link-hover-color-rgb: #{$link-color-hover};
-  --bs-secondary-bg: #{$container-background-color};
+  --bs-secondary-bg: #{$secondary-background-color};
   --font-family-monospace: #{$code-font};
   --font-family-sans-serif: #{$body-font};
 }
@@ -108,10 +108,6 @@ h5 {
 h6 {
   @extend %header;
   font-size: $body-font-size;
-}
-
-.container, .container-fluid {
-  background-color: $container-background-color;
 }
 
 .title-text {

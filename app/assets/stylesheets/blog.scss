@@ -15,3 +15,132 @@
  */
 
 @import './base';
+
+$banner-height: 60px;
+
+.blog {
+  header {
+    .blog-nav {
+      @include title-text;
+      min-height: $banner-height;
+      max-width: 800px;
+      margin: 0 auto;
+
+      .blog-categories {
+        margin-right: auto;
+      }
+
+      .navbar-brand {
+        color: white;
+      }
+
+      .nav-link {
+        color: white;
+        transition: none;
+      }
+
+      .nav-link:hover, .nav-link:active {
+        background-color: white;
+        color: black;
+      }
+
+      .navbar-toggler-icon {
+        // To get the icon to appear white
+        filter: brightness(100);
+      }
+
+      .dropdown-item:hover, .dropdown-item:active {
+        background-color: white;
+        color: black;
+      }
+
+      .category-with-dropdown {
+        .top-level-category-link {
+          padding-right: 0px;
+        }
+
+        .top-level-category-dropdown-button {
+          .dropdown-toggle {
+            padding-left: 2px;
+          }
+
+          .dropdown-toggle::after {
+            border: none;
+          }
+        }
+
+        .nav-link {
+          display: inline-block
+        }
+
+        .dropdown {
+          width: fit-content;
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .blog-content {
+    background-color: white;
+    color: black;
+
+    .blog-header-image {
+      min-height: calc(100vh - $banner-height);
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      background-color: white;
+      background-attachment: fixed;
+      background-image:
+        linear-gradient(#0004, #0004),
+        url('/images/default-page-header-image.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 21% top;
+
+      .blog-title {
+        flex: 0 1 30%;
+        margin: 0 auto;
+        padding: 32px;
+        background-color: white;
+        color: black;
+
+        h1 {
+          margin-bottom: 0.5rem;
+        }
+
+        h2 {
+          border-top-color: black;
+          border-top-width: 1px;
+          border-top-style: solid;
+          font-size: 1.4rem;
+          padding-top: 0.3rem;
+        }
+      }
+    }
+
+    .blog-body {
+      margin: 0 auto;
+      max-width: 800px;
+      padding: 5rem 0;
+    }
+  }
+
+  footer {
+    margin: 2rem auto 2rem auto;
+    font-size: 0.8rem;
+    width: fit-content;
+    text-align: center;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    img {
+      object-fit: contain;
+      height: 1.5rem;
+    }
+  }
+}
