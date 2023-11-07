@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navbar, Spinner } from 'react-bootstrap';
+import { Github } from 'react-bootstrap-icons';
 import usePageContent from '../../hooks/usePageContent';
 
 export interface LayoutProps {
@@ -10,7 +11,7 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
 
   return (
     <div className="blog">
-      <header className="blog-banner">
+      <header>
         <div className="blog-nav">
           <Navbar></Navbar>
         </div>
@@ -24,6 +25,19 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
         </header>
         <section className="blog-body">{children}</section>
       </article>
+      <footer>
+        <p>
+          Made with Rails, React, GraphQL and pride{' '}
+          <img src="/images/progress-flag.svg" alt="Love is Love"></img> by
+          Kevin North
+        </p>
+        <p>
+          This website&apos;s code available at{' '}
+          <a href="https://github.com/KevinNorth/Personal-Blog">
+            <Github /> Github
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

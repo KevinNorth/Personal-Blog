@@ -49,7 +49,7 @@ body {
   @include body-text;
   color: $body-color;
   background-color: $body-background-color;
-  font-size: 16px; // 1rem is relative to this, so we have to set it explicitly
+  font-size: 20px; // 1rem is relative to this, so we have to set it explicitly
 }
 
 a {

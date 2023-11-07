@@ -16,16 +16,19 @@
 
 @import './base';
 
-$banner-height: 30px;
+$banner-height: 60px;
 
 .blog {
-  .blog-banner {
+  header {
     .blog-nav {
       min-height: $banner-height;
     }
   }
 
   .blog-content {
+    background-color: white;
+    color: black;
+
     .blog-header-image {
       min-height: calc(100vh - $banner-height);
       position: relative;
@@ -42,10 +45,9 @@ $banner-height: 30px;
       background-position: 21% top;
 
       .blog-title {
-        flex: 0 1 fit-content;
+        flex: 0 1 30%;
         margin: 0 auto;
         padding: 32px;
-        max-width: 30%;
         background-color: white;
         color: black;
 
@@ -57,13 +59,32 @@ $banner-height: 30px;
           border-top-color: black;
           border-top-width: 1px;
           border-top-style: solid;
+          font-size: 1.4rem;
+          padding-top: 0.3rem;
         }
       }
     }
 
     .blog-body {
       margin: 0 auto;
-      min-width: 600px;
+      max-width: 800px;
+      padding: 5rem 0;
+    }
+  }
+
+  footer {
+    margin: 2rem auto 2rem auto;
+    font-size: 0.8rem;
+    width: fit-content;
+    text-align: center;
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    img {
+      object-fit: contain;
+      height: 1.5rem;
     }
   }
 }
