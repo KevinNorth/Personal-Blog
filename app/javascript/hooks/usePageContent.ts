@@ -1,4 +1,4 @@
-import { useMatch, useParams } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import getCategoryBySlug from '../graphql/queries/categoryBySlug';
 import getPostBySlug from '../graphql/queries/postBySlug';
 import Category from '../graphql/types/category';

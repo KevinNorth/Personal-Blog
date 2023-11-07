@@ -1,26 +1,38 @@
 import React from 'react';
-import { Navbar, Spinner } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
 import { Github } from 'react-bootstrap-icons';
+import getAllCategoriesAndPosts from '../../graphql/queries/allCategoriesAndPosts';
 import usePageContent from '../../hooks/usePageContent';
+import organizeCategoriesAndPostsIntoNavbarTree from '../../transforms/organizeCategoriesAndPostsIntoNavbarTree';
+import BlogNavbar from './Navbar/BlogNavbar';
 
 export interface LayoutProps {
   children: React.ReactNode;
 }
 export default function Layout({ children }: LayoutProps): React.ReactElement {
-  const { loading, pageContent } = usePageContent();
+  const { loading: allCategoriesLoading, data: allCategoriesData } =
+    getAllCategoriesAndPosts({ includeUnpublished: false });
+  const { loading: pageContentLoading, pageContent } = usePageContent();
+
+  let navbarTree = [];
+  if (!allCategoriesLoading && allCategoriesData.categories) {
+    navbarTree = organizeCategoriesAndPostsIntoNavbarTree(
+      allCategoriesData.categories
+    );
+  }
 
   return (
     <div className="blog">
       <header>
         <div className="blog-nav">
-          <Navbar></Navbar>
+          <BlogNavbar tree={navbarTree} loading={allCategoriesLoading} />
         </div>
       </header>
       <article className="blog-content">
         <header className="blog-header-image">
           <div className="blog-title">
-            <h1>{loading ? <Spinner /> : pageContent.title}</h1>
-            <h2>{loading ? <Spinner /> : pageContent.subtitle}</h2>
+            <h1>{pageContentLoading ? <Spinner /> : pageContent.title}</h1>
+            <h2>{pageContentLoading ? <Spinner /> : pageContent.subtitle}</h2>
           </div>
         </header>
         <section className="blog-body">{children}</section>

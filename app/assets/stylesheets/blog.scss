@@ -21,7 +21,63 @@ $banner-height: 60px;
 .blog {
   header {
     .blog-nav {
+      @include title-text;
       min-height: $banner-height;
+      max-width: 800px;
+      margin: 0 auto;
+
+      .blog-categories {
+        margin-right: auto;
+      }
+
+      .navbar-brand {
+        color: white;
+      }
+
+      .nav-link {
+        color: white;
+        transition: none;
+      }
+
+      .nav-link:hover, .nav-link:active {
+        background-color: white;
+        color: black;
+      }
+
+      .navbar-toggler-icon {
+        // To get the icon to appear white
+        filter: brightness(100);
+      }
+
+      .dropdown-item:hover, .dropdown-item:active {
+        background-color: white;
+        color: black;
+      }
+
+      .category-with-dropdown {
+        .top-level-category-link {
+          padding-right: 0px;
+        }
+
+        .top-level-category-dropdown-button {
+          .dropdown-toggle {
+            padding-left: 2px;
+          }
+
+          .dropdown-toggle::after {
+            border: none;
+          }
+        }
+
+        .nav-link {
+          display: inline-block
+        }
+
+        .dropdown {
+          width: fit-content;
+          display: inline-block;
+        }
+      }
     }
   }
 

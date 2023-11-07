@@ -93,6 +93,7 @@
 }
 
 .admin-tree {
+  background-color: $secondary-background-color;
   text-overflow: ellipsis;
 
   .category-node, .post-node {

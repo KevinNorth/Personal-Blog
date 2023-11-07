@@ -64,12 +64,12 @@ function buildCategoryTreeVertex({
 }
 
 /**
- * Massages a GraphQL query result into the data structure thats
+ * Massages a GraphQL query result into the data structure that
  * React Arborist expects for the Tree component's data prop.
  * @param categoriesAndPosts An array of Categories queried from GraphQL,
  *  including lists of child category IDs and full child posts.
  * @returns A tree that can be dropped directly into React Arborist's
- * Tree component as the id prop.
+ *  Tree component as the data prop.
  */
 function organizeCategoriesAndPostsIntoArboristTree(
   categoriesAndPosts: Partial<Category>[]
