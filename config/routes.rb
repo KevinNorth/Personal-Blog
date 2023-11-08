@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: redirect('/blog')
-  get 'index', to: redirect('/blog')
-  get 'blog' => 'blog#blog'
-  get 'blog/*all' => 'blog#blog'
+  get 'index', to: redirect('/')
+  get 'blog', to: redirect('/')
 
   get 'admin/' => 'admin#admin'
   get 'admin/*all' => 'admin#admin'
@@ -18,4 +16,7 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
+
+  root 'blog#blog'
+  get '/*all' => 'blog#blog'
 end

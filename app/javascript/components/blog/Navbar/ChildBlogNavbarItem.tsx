@@ -13,7 +13,7 @@ function ChildBlogNavbarItem({
   thisVertex,
   indentLevel,
 }: ChildBlogNavbarItemProps): React.ReactElement {
-  const url = `/blog/${encodeURIComponent(thisVertex.slug)}`;
+  const url = `/${encodeURIComponent(thisVertex.slug)}`;
 
   const shouldIndent = indentLevel !== 0;
   const indentLength: CSSLength = shouldIndent ? `${indentLevel * 10}px` : '0';

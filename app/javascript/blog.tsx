@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = createRoot(domNode);
   root.render(
     <ApolloProvider client={client}>
-      <BrowserRouter basename="/blog">
+      <BrowserRouter basename="/">
         <Blog />
       </BrowserRouter>
     </ApolloProvider>
