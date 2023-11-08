@@ -39,7 +39,7 @@ function createChildNavbarItems(
 function TopLevelBlogNavbarItem({
   thisVertex,
 }: TopLevelBlogNavbarItemProps): React.ReactElement {
-  const url = `/blog/${encodeURIComponent(thisVertex.slug)}`;
+  const url = `/${encodeURIComponent(thisVertex.slug)}`;
 
   if (thisVertex.children.length === 0) {
     return (

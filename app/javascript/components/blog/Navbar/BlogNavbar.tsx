@@ -25,7 +25,7 @@ function BlogNavbar({ tree, loading }: BlogNavbarProps): React.ReactElement {
         ) : (
           <>
             {' '}
-            <Navbar.Brand href="/blog">Kevin North</Navbar.Brand>
+            <Navbar.Brand href="/">Kevin North</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-toggle" />
             <Navbar.Collapse id="navbar-toggle">
               <Nav className="blog-categories" navbarScroll>

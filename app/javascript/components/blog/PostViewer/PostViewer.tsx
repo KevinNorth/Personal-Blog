@@ -3,6 +3,7 @@ import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import getPostBySlug from '../../../graphql/queries/postBySlug';
 import MarkdownRenderer from '../../common/MarkdownRenderer';
+import fourOhFour from '../fourOhFour';
 
 function PostViewer(): React.ReactElement {
   const { categorySlug, postSlug } = useParams();
@@ -17,7 +18,9 @@ function PostViewer(): React.ReactElement {
     return <Spinner />;
   }
 
-  const { postBySlug: post } = postData || { postBySlug: null };
+  const post = !postData?.postBySlug
+    ? { ...fourOhFour, __typeName: 'Post' }
+    : postData.postBySlug;
 
   return (
     <MarkdownRenderer

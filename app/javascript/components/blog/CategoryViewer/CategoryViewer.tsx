@@ -5,6 +5,8 @@ import getCategoryBySlug from '../../../graphql/queries/categoryBySlug';
 import Category from '../../../graphql/types/category';
 import useDefaultCategory from '../../../hooks/useDefaultCategory';
 import MarkdownRenderer from '../../common/MarkdownRenderer';
+import fourOhFour from '../fourOhFour';
+import CategoryFooter from './CategoryFooter';
 
 export interface CategoryViewerProps {
   showDefaultCategory?: boolean;
@@ -37,11 +39,18 @@ function PostViewer({
     return <Spinner />;
   }
 
+  if (!category) {
+    category = { ...fourOhFour, __typename: 'Category' };
+  }
+
   return (
-    <MarkdownRenderer
-      markdown={category?.markdown || ''}
-      className="category-markdown"
-    />
+    <>
+      <MarkdownRenderer
+        markdown={category?.markdown || ''}
+        className="category-markdown"
+      />
+      <CategoryFooter categorySlug={category?.slug} categoryId={category?.id} />
+    </>
   );
 }
 

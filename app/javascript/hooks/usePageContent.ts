@@ -1,4 +1,5 @@
 import { useMatch } from 'react-router-dom';
+import fourOhFour from '../components/blog/fourOhFour';
 import getCategoryBySlug from '../graphql/queries/categoryBySlug';
 import getPostBySlug from '../graphql/queries/postBySlug';
 import Category from '../graphql/types/category';
@@ -20,7 +21,7 @@ function usePageContent(): PageContentResult {
       postSlug,
       includeUnpublished: false,
     });
-    return { loading, pageContent: data?.postBySlug };
+    return { loading, pageContent: data?.postBySlug || fourOhFour };
   }
 
   const categoryRouteMatch = useMatch('/:categorySlug');
@@ -31,7 +32,7 @@ function usePageContent(): PageContentResult {
       slug: categorySlug,
       includeUnpublished: false,
     });
-    return { loading, pageContent: data?.categoryBySlug };
+    return { loading, pageContent: data?.categoryBySlug || fourOhFour };
   }
 
   const { loading, defaultCategory } = useDefaultCategory();
