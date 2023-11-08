@@ -1,0 +1,20 @@
+databases:
+  - name: kevinnorthdev
+    databaseName: kevinnorthprod
+    user: kevin
+
+services:
+  - type: web
+    name: kevinnorthdev
+    runtime: ruby
+    buildCommand: ".render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: kevinnorthdev
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: RAILS_ENV
+        value: production

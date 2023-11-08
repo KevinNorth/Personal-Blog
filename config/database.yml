@@ -86,3 +86,4 @@ production:
   database: personal_rails_blog_production
   username: personal_rails_blog
   password: <%= ENV["PERSONAL_RAILS_BLOG_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
