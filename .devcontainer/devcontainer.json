@@ -35,9 +35,7 @@
 		"vscode": {
 			"extensions": [
 				"misogi.ruby-rubocop",
-				"orsenkucher.vscode-graphql",
 				"GraphQL.vscode-graphql",
-				"bung87.rails",
 				"GraphQL.vscode-graphql-syntax",
 				"ms-vscode-remote.remote-containers",
 				"dbaeumer.vscode-eslint",
