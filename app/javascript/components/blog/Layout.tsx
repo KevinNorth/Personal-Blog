@@ -39,12 +39,11 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
       </article>
       <footer>
         <p>
-          Made with Rails, React, GraphQL and pride{' '}
-          <img src="/images/progress-flag.svg" alt="Love is Love"></img> by
-          Kevin North
+          This site made with Rails, React, GraphQL and pride{' '}
+          <img src="/images/progress-flag.svg" alt="Love is Love"></img>
         </p>
         <p>
-          This website&apos;s code available at{' '}
+          Source code available at{' '}
           <a href="https://github.com/KevinNorth/Personal-Blog">
             <Github /> Github
           </a>

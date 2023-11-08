@@ -17,6 +17,7 @@
 @import './base';
 
 $banner-height: 60px;
+$space-between-post-cards: 25px;
 
 .blog {
   header {
@@ -125,6 +126,65 @@ $banner-height: 60px;
       margin: 0 auto;
       max-width: 800px;
       padding: 5rem 0;
+
+      a {
+        color: #1f1fbb;
+      }
+
+      a:hover {
+        color: #1f1fbb;
+      }
+
+      img {
+        margin: 0 auto;
+        display: block;
+      }
+
+      footer {
+        border-top-color: black;
+        border-top-width: 1px;
+        border-top-style: solid;
+
+        margin: 5rem 0 0 0;
+        padding-top: 1rem;
+
+        font-size: 1rem;
+        width: 100%;
+        text-align: start;
+
+        h1 {
+          font-size: 1.5rem;
+          font-weight: 200;
+          text-transform: none;
+        }
+
+        .post-cards {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-items: stretch;
+          gap: $space-between-post-cards;
+
+          .card {
+            flex: 1 1 calc(33% - $space-between-post-cards);
+            padding: 12px;
+
+            background-color: white;
+            color: black;
+            border-color: black;
+            border-style: solid;
+            border-radius: 0;
+            border-width: 2.5px;
+
+            .card-title {
+              padding: 5px 10px;
+
+              background-color: black;
+              color: white;
+            }
+          }
+        }
+      }
     }
   }
 
