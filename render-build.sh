@@ -2,6 +2,12 @@
 # exit on error
 set -o errexit
 
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+export PATH=~/.npm-global/bin:$PATH
+echo "export PATH=\"$PATH\"" >> .bashrc
+
+npm install -g corepack
 corepack enable
 corepack prepare pnpm@latest --activate
 npm install -g pnpm
