@@ -8,7 +8,7 @@ services:
     name: kevinnorthdev
     plan: starter
     runtime: ruby
-    buildCommand: ".render-build.sh"
+    buildCommand: "./render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     numinstances: 1
     envVars:
