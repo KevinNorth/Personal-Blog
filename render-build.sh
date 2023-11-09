@@ -4,7 +4,6 @@ set -o errexit
 
 npm install -g corepack
 corepack enable
-npm install -g pnpm
 
 pnpm install
 
