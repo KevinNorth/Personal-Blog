@@ -8,6 +8,7 @@ services:
     name: kevinnorthdev
     plan: starter
     runtime: ruby
+    dockerfilePath: "Dockerfile"
     buildCommand: "./render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
     numInstances: 1
