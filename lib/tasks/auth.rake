@@ -4,7 +4,7 @@ namespace :auth do
   desc 'Creates a new user in the database'
   task :create_user, %i[name login] => :environment do |_t, args|
     $stdout.puts 'Enter new password:'
-    password = $stdin.gets
+    password = $stdin.gets.chomp
     User.create(name: args[:name], login: args[:login], password:, password_confirmation: password)
   end
 
