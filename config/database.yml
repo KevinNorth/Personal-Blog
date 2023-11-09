@@ -83,7 +83,7 @@ test:
 #
 production:
   <<: *default
-  database: personal_rails_blog_production
-  username: personal_rails_blog
+  database: kevinnorthprod
+  username: kevin
   password: <%= ENV["PERSONAL_RAILS_BLOG_DATABASE_PASSWORD"] %>
   url: <%= ENV['DATABASE_URL'] %>

@@ -10,7 +10,7 @@ services:
     runtime: ruby
     buildCommand: "./render-build.sh"
     startCommand: "bundle exec puma -C config/puma.rb"
-    numinstances: 1
+    numInstances: 1
     envVars:
       - key: DATABASE_URL
         fromDatabase:
