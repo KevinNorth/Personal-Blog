@@ -118,6 +118,14 @@ h6 {
   @include code-text;
 }
 
+blockquote {
+  padding-left: 0.5rem;
+  border-left-color: #333;
+  border-left-style: solid;
+  border-left-width: 5px;
+  margin-left: 0.5rem;
+}
+
 %transparent-button {
   --bs-btn-padding-x: 0;
   --bs-btn-padding-y: 0;

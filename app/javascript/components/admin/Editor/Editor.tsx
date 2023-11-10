@@ -112,7 +112,9 @@ function Editor({
         </Col>
         <Col xs="6" className="editor-preview">
           <h2>Preview</h2>
-          <MarkdownRenderer markdown={markdown} />
+          <div className="editor-preview-content">
+            <MarkdownRenderer markdown={markdown} />
+          </div>
         </Col>
       </Row>
     </Container>

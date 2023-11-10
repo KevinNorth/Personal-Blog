@@ -19,6 +19,7 @@ import LoadingEditor from './LoadingEditor';
 import validateCategoryForm from './validateCategoryForm';
 
 export interface CategoryEditorProps {
+  children: React.ReactNode;
   loading: boolean;
   id: string;
   parentId: string | null;
@@ -42,6 +43,7 @@ export interface CategoryEditorProps {
 }
 
 export default function CategoryEditor({
+  children,
   loading,
   id,
   parentId,
@@ -106,7 +108,10 @@ export default function CategoryEditor({
       <Form>
         <Row>
           <Col xs={12}>
-            <Form.Group className="category-title" controlId="category-title">
+            <Form.Group
+              className="text-group category-title"
+              controlId="category-title"
+            >
               <Form.Label size="lg">Title</Form.Label>
               <Form.Control
                 isValid={validationResults.title.isValid}
@@ -127,7 +132,7 @@ export default function CategoryEditor({
         <Row>
           <Col xs={12}>
             <Form.Group
-              className="category-subtitle"
+              className="text-group category-subtitle"
               controlId="category-subtitle"
             >
               <Form.Label>Subtitle</Form.Label>
@@ -149,7 +154,7 @@ export default function CategoryEditor({
         <Row>
           <Col xs={12}>
             <Form.Group
-              className="category-summary"
+              className="text-group category-summary"
               controlId="category-summary"
             >
               <Form.Label>Summary</Form.Label>
@@ -170,7 +175,10 @@ export default function CategoryEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="category-parent" controlId="category-parent">
+            <Form.Group
+              className="select-group category-parent"
+              controlId="category-parent"
+            >
               <Form.Label>Category</Form.Label>
               {loadingAllCategories ? (
                 <Placeholder animation="glow" className="w-100" />
@@ -212,7 +220,7 @@ export default function CategoryEditor({
         <Row>
           <Col xs={6}>
             <Form.Group
-              className="category-published"
+              className="button-group category-published"
               controlId="category-published"
             >
               <ButtonGroup>
@@ -242,7 +250,10 @@ export default function CategoryEditor({
             </Form.Group>
           </Col>
           <Col xs={6}>
-            <FormGroup className="category-slug" controlId="category-slug">
+            <FormGroup
+              className="text-group category-slug"
+              controlId="category-slug"
+            >
               <FormLabel>Slug</FormLabel>
               {loadingAllCategories || !calledGetAllCategoriesAndPosts ? (
                 <Placeholder animation="glow" className="w-100" />
@@ -266,8 +277,11 @@ export default function CategoryEditor({
           </Col>
         </Row>
         <Row>
-          <Col xs={6}>
-            <FormGroup className="category-name" controlId="category-name">
+          <Col xs={12}>
+            <FormGroup
+              className="text-group category-name"
+              controlId="category-name"
+            >
               <FormLabel>Name in Navbar</FormLabel>
               <FormControl
                 isValid={validationResults.name.isValid}
@@ -283,8 +297,13 @@ export default function CategoryEditor({
               />
             </FormGroup>
           </Col>
-          <Col xs={6}>
-            <FormGroup className="category-order" controlId="category-order">
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <FormGroup
+              className="number-group category-order"
+              controlId="category-order"
+            >
               <FormLabel>Order in Navbar</FormLabel>
               {loadingAllCategories || !calledGetAllCategoriesAndPosts ? (
                 <Placeholder animation="glow" className="w-100" />
@@ -310,14 +329,22 @@ export default function CategoryEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="category-body" controlId="category-body">
+            <Form.Group
+              className="editor-group category-body"
+              controlId="category-body"
+            >
               <Editor
                 alreadyInsideForm
                 markdown={markdown}
                 onChange={onMarkdownChange}
-                className="category-editor"
+                className="category-markdown-editor"
               />
             </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} as="footer">
+            {children}
           </Col>
         </Row>
       </Form>

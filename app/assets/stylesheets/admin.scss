@@ -16,6 +16,8 @@
 
 @import './base';
 
+$admin-header-height: 80px;
+
 .admin {
   margin: 0 auto;
   padding: 20px;
@@ -33,15 +35,15 @@
     border-bottom-color: grey;
     border-bottom-width: 0.5px;
     border-bottom-style: solid;
-    min-height: 80px;
-    max-height: 80px;
+    min-height: $admin-header-height;
+    max-height: $admin-header-height;
   }
 
   .admin-main {
     flex: 1 1 auto;
 
-    min-height: calc(100% - 80px);
-    max-height: calc(100% - 80px);
+    min-height: calc(100% - $admin-header-height);
+    max-height: calc(100% - $admin-header-height);
 
     display: flex;
     flex-flow: row;
@@ -69,6 +71,11 @@
         --bs-nav-link-color: #{$body-color};
         --bs-navbar-hover-color: #{body-color};
         --bs-navbar-disabled-color: grey;
+        --bs-navbar-active-color: #{$body-color};
+        
+        .active {
+          background-color: #303030;
+        }
       }
     }  
   
@@ -93,7 +100,6 @@
 }
 
 .admin-tree {
-  background-color: $secondary-background-color;
   text-overflow: ellipsis;
 
   .category-node, .post-node {
@@ -138,11 +144,54 @@
 }
 
 .category-editor, .post-editor {
-  height: 100%;
-  max-height: 100vh;
-
   .row {
     max-height: inherit;
+    margin: 1rem 0;
+  }
+
+  .text-group, .number-group, .select-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+
+    label {
+      flex: 0 0 auto;
+    }
+
+    input, select {
+      flex: 1 1 auto;
+      margin-left: 1rem;
+    }
+
+    svg, img {
+      flex: 0 0 1;
+      margin-left: 1rem;
+    }
+  }
+
+  .button-group {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer {
+    text-align: end;
+
+    .delete-button {
+      margin-right: 3rem;
+      background-color: red;
+    }
+  }
+}
+
+.category-markdown-editor, .post-markdown-editor {
+  height: 80vh;
+  max-height: 80vh;
+
+  .row {
+    height: 100%;
   }
 
   .editor-input, .editor-preview {
@@ -153,14 +202,30 @@
   }
 
   .editor-input {
+    display: flex;
+    flex-flow: column;
+
     .editor-syntax-help-button {
       @extend %transparent-button;
       height: 2.5rem;
       width: 1.5rem;
     }
 
+    h2 {
+      flex: 0 0 fit-content;
+    }
+
     textarea {
+      flex: 1 1 auto;
       font-family: $code-font;
+    }
+  }
+
+  .editor-preview {
+    .editor-preview-content {
+      background-color: white;
+      color: black;
+      padding: 8px;
     }
   }
 }
