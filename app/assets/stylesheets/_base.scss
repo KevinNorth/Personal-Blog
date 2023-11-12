@@ -136,3 +136,42 @@ blockquote {
     vertical-align: baseline;
   }
 }
+
+@mixin blog-body {
+  max-width: 800px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  a {
+    color: #1f1fbb;
+  }
+
+  a:hover {
+    color: #1f1fbb;
+  }
+
+  img {
+    margin: 0 auto;
+    display: block;
+  }
+
+  code, pre {
+    --bs-code-color: #666680;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  
+    li:before {
+      content: "▪";
+      padding-right: 0.5rem;
+    }
+  
+    li {
+      padding-left: 1.5rem;
+      text-indent: -1rem;
+    }
+  }  
+}

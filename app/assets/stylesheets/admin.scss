@@ -21,7 +21,6 @@ $admin-header-height: 80px;
 .admin {
   margin: 0 auto;
   padding: 20px;
-  max-width: 1000px;
   min-height: 100vh;
   max-height: 100vh;
 
@@ -75,6 +74,12 @@ $admin-header-height: 80px;
         
         .active {
           background-color: #303030;
+        }
+
+        button.nav-link {
+          // This is needed because the text-align: right above doesn't apply
+          // to the logout button.
+          text-align: right;
         }
       }
     }  
@@ -221,21 +226,43 @@ $admin-header-height: 80px;
     }
   }
 
-  .editor-preview {
-    .editor-preview-content {
+  .editor-preview-wrapper {
+    display: flex;
+    flex-flow: column;
+    max-height: 100%;
+
+    h2 {
+      flex: 0 1 auto;
+    }
+
+    .editor-preview {
       background-color: white;
       color: black;
-      padding: 8px;
+      flex: 1 1 auto;
+
+      .editor-preview-content {
+        @include blog-body;
+        padding: 1rem;
+      }
     }
   }
 }
 
-#editor-syntax-help {
+.popover {
   --bs-popover-border-color: white;
   --bs-popover-font-size: 0.8rem;
   --bs-popover-header-font-size: 1rem;
-  --bs-popover-max-width: 33vw;
   font-family: $body-font;
+} 
+
+#editor-syntax-help {
+  --bs-popover-max-width: 33vw;
+}
+
+#delete-post-confirmation, #delete-category-and-children-confirmation {
+  .popover-body .row:first-of-type {
+    margin-bottom: 1rem;
+  }
 }
 
 .invalid-icon {

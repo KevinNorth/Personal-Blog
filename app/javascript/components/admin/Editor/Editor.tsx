@@ -110,10 +110,12 @@ function Editor({
           </h2>
           {editorInsideForm}
         </Col>
-        <Col xs="6" className="editor-preview">
+        <Col xs="6" className="editor-preview-wrapper">
           <h2>Preview</h2>
-          <div className="editor-preview-content">
-            <MarkdownRenderer markdown={markdown} />
+          <div className="editor-preview">
+            <div className="editor-preview-content">
+              <MarkdownRenderer markdown={markdown} />
+            </div>
           </div>
         </Col>
       </Row>
