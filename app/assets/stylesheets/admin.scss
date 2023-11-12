@@ -36,6 +36,15 @@ $admin-header-height: 80px;
     border-bottom-style: solid;
     min-height: $admin-header-height;
     max-height: $admin-header-height;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+
+    h1 {
+      text-overflow: ellipsis;
+    }
   }
 
   .admin-main {
@@ -76,7 +85,7 @@ $admin-header-height: 80px;
           background-color: #303030;
         }
 
-        button.nav-link {
+        button.nav-link, .logout-button {
           // This is needed because the text-align: right above doesn't apply
           // to the logout button.
           text-align: right;
@@ -133,6 +142,55 @@ $admin-header-height: 80px;
       .admin-content {
         flex: 1 1 auto;
         overflow-y: scroll;
+      }
+    }
+  }
+}
+
+@media(max-width: 900px) {
+  .admin {
+    .admin-main {
+      flex-flow: column;
+
+      .admin-sidebar {
+        flex: 0 1 auto;
+        max-width: 100%;
+
+        border-right: none;
+        border-bottom-color: grey;
+        border-bottom-width: 0.5px;
+        border-bottom-style: solid;
+
+        padding: 10px;
+        margin-bottom: 10px;
+
+        .navbar-nav {
+          min-width: 100%;
+          flex-flow: row wrap;
+          text-align: left;
+
+          // Not actually used, but if I make changes, this is the
+          // styling that I'm going to expect in the future
+          button.nav-link, .logout-button {
+            text-align: left;
+          }
+
+          .nav-link:last-child {
+            margin-left: auto;
+            text-align: right;
+          }
+        }
+      }
+
+      .admin-body {
+        flex: 1 0 auto;
+        align-self: stretch;
+
+        .admin-content {
+          // Fixes an issue with computing children elements' heights
+          // See https://stackoverflow.com/a/21836870/473792
+          height: 1px;
+        }
       }
     }
   }
