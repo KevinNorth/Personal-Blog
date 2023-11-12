@@ -21,7 +21,7 @@ $secondary-background-color: #141414FF;
   --bs-font-monospace: #{$code-font};
   --bs-font-sans-serif: #{$body-font};
   --bs-link-color-rgb: #{$link-color};
-  --bs-link-hover-color-rgb: #{$link-color-hover};
+  --bs-link-hover-color-rgb: #{$link-color-hover};  
   --bs-secondary-bg: #{$secondary-background-color};
   --font-family-monospace: #{$code-font};
   --font-family-sans-serif: #{$body-font};
@@ -118,6 +118,14 @@ h6 {
   @include code-text;
 }
 
+blockquote {
+  padding-left: 0.5rem;
+  border-left-color: #333;
+  border-left-style: solid;
+  border-left-width: 5px;
+  margin-left: 0.5rem;
+}
+
 %transparent-button {
   --bs-btn-padding-x: 0;
   --bs-btn-padding-y: 0;
@@ -127,4 +135,61 @@ h6 {
   img, svg {
     vertical-align: baseline;
   }
+}
+
+.nav-tabs {
+  --bs-nav-link-color: #{$body-color};
+  --bs-nav-link-hover-color: #{$body-color};
+  --bs-nav-tabs-border-radius: 0;
+  --bs-nav-tabs-link-active-color: #{$body-color};
+  --bs-nav-tabs-link-active-bg: #{$secondary-background-color};
+  --bs-nav-tabs-link-active-border-color: white;
+  --bs-nav-tabs-link-hover-border-color: white;
+
+  .nav-link {
+    transition: none;
+  }
+
+  .nav-link:not(.active):hover {
+    border-style: dashed;
+  }
+}
+
+@mixin blog-body {
+  max-width: 800px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  a {
+    color: #1f1fbb;
+  }
+
+  a:hover {
+    color: #1f1fbb;
+  }
+
+  img {
+    margin: 0 auto;
+    display: block;
+  }
+
+  code, pre {
+    --bs-code-color: #666680;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+  
+    li:before {
+      content: "▪";
+      padding-right: 0.5rem;
+    }
+  
+    li {
+      padding-left: 1.5rem;
+      text-indent: -1rem;
+    }
+  }  
 }

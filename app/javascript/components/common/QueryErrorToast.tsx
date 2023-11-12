@@ -1,19 +1,23 @@
-import React from 'react';
-import { Accordion, Toast } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Accordion, Toast, ToastProps } from 'react-bootstrap';
 
 export interface QueryErrorToastProps {
   header: string;
   bodyPreamble?: string;
   errors: string[];
+  bg?: ToastProps['bg'];
 }
 
 function QueryErrorToast({
   header,
   bodyPreamble = 'The messages from the server are:',
   errors,
+  bg = 'danger',
 }: QueryErrorToastProps): React.ReactElement {
+  const [show, setShow] = useState(true);
+
   return (
-    <Toast>
+    <Toast bg={bg} show={show} onClose={() => setShow(false)}>
       <Toast.Header>{header}</Toast.Header>
       <Toast.Body>
         <p>{bodyPreamble}</p>

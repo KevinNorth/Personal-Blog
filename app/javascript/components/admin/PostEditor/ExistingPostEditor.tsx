@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
+import { FetchResult } from '@apollo/client';
 import useDeletePost, {
   DeletePostMutationResponsePayload,
   DeletePostMutationResult,
@@ -14,30 +15,24 @@ import getPostById from '../../../graphql/queries/postById';
 import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
+import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
 import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import SimpleToast from '../../common/SimpleToast';
-import Spacer from '../../common/Spacer';
 import PostEditor from './PostEditor';
 import validatePostForm from './validatePostForm';
-import { FetchResult } from '@apollo/client';
 
 function updatePostCallback(
   result: FetchResult<UpdatePostMutationResult['data']>,
   sendToast: SendToastFunction,
   refetchPost: () => void
 ): void {
-  let errors: string[] = [];
   const data =
     (result.data as { updatePost: UpdatePostMutationResponsePayload })
       ?.updatePost || (result.data as UpdatePostMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -63,7 +58,6 @@ function deletePostCallback(
   sendToast: (toast: React.ReactElement) => void,
   navigate: NavigateFunction
 ): void {
-  let errors: string[] = [];
   const data =
     (
       result.data as {
@@ -71,11 +65,7 @@ function deletePostCallback(
       }
     )?.deletePost || (result.data as DeletePostMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -145,21 +135,39 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
       ? []
       : siblingPosts.filter((p) => p.id !== id);
 
-  const [updatePost, { loading: loadingUpdatePost }] = useUpdatePostMutation({
-    id,
-    postAttributes: {
-      categoryId,
-      markdown,
-      order: Number(order),
-      published,
-      slug,
-      subtitle,
-      summary,
-      title,
+  const [updatePost, { loading: loadingUpdatePost }] = useUpdatePostMutation(
+    {
+      id,
+      postAttributes: {
+        categoryId,
+        markdown,
+        order: Number(order),
+        published,
+        slug,
+        subtitle,
+        summary,
+        title,
+      },
     },
-  });
+    (error) =>
+      sendToast(
+        <QueryErrorToast
+          errors={[error.message]}
+          header="Problem updating post."
+        />
+      )
+  );
 
-  const [deletePost, { loading: loadingDeletePost }] = useDeletePost({ id });
+  const [deletePost, { loading: loadingDeletePost }] = useDeletePost(
+    { id },
+    (error) =>
+      sendToast(
+        <QueryErrorToast
+          errors={[error.message]}
+          header="Problem deleting post."
+        />
+      )
+  );
 
   if (!loading && !hasSetInitialValues) {
     indicateHasSetInitialValues(true);
@@ -194,99 +202,92 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
   );
 
   return (
-    <Container fluid>
-      <Row>
-        <Col xs={12}>
-          <PostEditor
-            loading={loading || loadingUpdatePost || loadingDeletePost}
-            id={post?.id || ''}
-            categoryId={categoryId}
-            markdown={markdown}
-            order={order}
-            published={published}
-            slug={slug}
-            subtitle={subtitle}
-            summary={summary}
-            title={title}
-            onCategoryIdChange={(newCategoryId) => {
-              setCategoryId(newCategoryId);
-              getPostsByCategory({
-                variables: {
-                  categoryId: newCategoryId,
-                  includeUnpublished: true,
-                },
-              });
-            }}
-            onMarkdownChange={setMarkdown}
-            onOrderChange={setOrder}
-            onPublishedChange={setPublished}
-            onSlugChange={setSlug}
-            onSubtitleChange={setSubtitle}
-            onSummaryChange={setSummary}
-            onTitleChange={setTitle}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12}>
-          <ButtonWithConfirmation
-            confirmationButtonProps={{
-              disabled: loadingDeletePost || loadingUpdatePost,
-            }}
-            confirmationButtonText="Delete"
-            confirmationPopoverId="delete-post-confirmation"
-            confirmationText="This will delete this post. Are you sure?"
-            outerButtonProps={{
-              disabled: loadingDeletePost || loadingUpdatePost,
-            }}
-            outerButtonText="Delete"
-            onConfirmationClick={() =>
-              deletePost({ variables: { id } }).then((result) =>
-                deletePostCallback(
-                  result as FetchResult<DeletePostMutationResult['data']>,
-                  sendToast,
-                  navigate
-                )
+    <PostEditor
+      loading={loading || loadingUpdatePost || loadingDeletePost}
+      id={post?.id || ''}
+      categoryId={categoryId}
+      markdown={markdown}
+      order={order}
+      published={published}
+      slug={slug}
+      subtitle={subtitle}
+      summary={summary}
+      title={title}
+      onCategoryIdChange={(newCategoryId) => {
+        setCategoryId(newCategoryId);
+        getPostsByCategory({
+          variables: {
+            categoryId: newCategoryId,
+            includeUnpublished: true,
+          },
+        });
+      }}
+      onMarkdownChange={setMarkdown}
+      onOrderChange={setOrder}
+      onPublishedChange={setPublished}
+      onSlugChange={setSlug}
+      onSubtitleChange={setSubtitle}
+      onSummaryChange={setSummary}
+      onTitleChange={setTitle}
+    >
+      <div>
+        <ButtonWithConfirmation
+          confirmationButtonProps={{
+            disabled: loadingDeletePost || loadingUpdatePost,
+          }}
+          confirmationButtonText="Delete"
+          confirmationPopoverId="delete-post-confirmation"
+          confirmationText="This will delete this post. Are you sure?"
+          outerButtonProps={{
+            className: 'delete-button',
+            disabled: loadingDeletePost || loadingUpdatePost,
+          }}
+          outerButtonText="Delete"
+          onConfirmationClick={() =>
+            deletePost({ variables: { id } }).then((result) =>
+              deletePostCallback(
+                result as FetchResult<DeletePostMutationResult['data']>,
+                sendToast,
+                navigate
               )
-            }
-          />
-          <Spacer indent="15px" />
-          <Button
-            disabled={
-              !isPostValid ||
-              loadingAllCategories ||
-              loadingDeletePost ||
-              loadingUpdatePost
-            }
-            onClick={() =>
-              updatePost({
-                variables: {
-                  id: id,
-                  postAttributes: {
-                    categoryId,
-                    markdown,
-                    order: Number(order),
-                    published,
-                    slug,
-                    subtitle,
-                    summary,
-                    title,
-                  },
+            )
+          }
+        />
+        <Button
+          disabled={
+            !isPostValid ||
+            loadingAllCategories ||
+            loadingDeletePost ||
+            loadingUpdatePost
+          }
+          onClick={() =>
+            updatePost({
+              variables: {
+                id: id,
+                postAttributes: {
+                  categoryId,
+                  markdown,
+                  order: Number(order),
+                  published,
+                  slug,
+                  subtitle,
+                  summary,
+                  title,
                 },
-              }).then((result) =>
-                updatePostCallback(
-                  result as FetchResult<UpdatePostMutationResult['data']>,
-                  sendToast,
-                  refetchPost
-                )
+              },
+            }).then((result) =>
+              updatePostCallback(
+                result as FetchResult<UpdatePostMutationResult['data']>,
+                sendToast,
+                refetchPost
               )
-            }
-          >
-            Save
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+            )
+          }
+        >
+          Save
+        </Button>
+      </div>
+    </PostEditor>
   );
 }
 

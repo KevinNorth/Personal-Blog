@@ -7,9 +7,14 @@ import { AdminTreeVertex } from './types';
 export interface AdminTreeProps {
   tree: AdminTreeVertex[];
   indentSize: number;
+  height: number;
 }
 
-function AdminTree({ tree, indentSize }: AdminTreeProps): React.ReactElement {
+function AdminTree({
+  tree,
+  indentSize,
+  height,
+}: AdminTreeProps): React.ReactElement {
   return (
     <Container fluid className="admin-tree">
       <Tree
@@ -17,7 +22,7 @@ function AdminTree({ tree, indentSize }: AdminTreeProps): React.ReactElement {
         idAccessor={(vertex) => `${vertex.type}${vertex.id}`}
         openByDefault={true}
         width="100%"
-        height={600}
+        height={height}
         indent={0}
         rowHeight={45}
       >

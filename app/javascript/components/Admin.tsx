@@ -8,7 +8,6 @@ import ExistingPostEditor from './admin/PostEditor/ExistingPostEditor';
 import NewPostEditor from './admin/PostEditor/NewPostEditor';
 import Root from './admin/Root/Root';
 import SimpleToast, { SimpleToastProps } from './common/SimpleToast';
-import { v4 as uuid } from 'uuid';
 
 function generateInitialToasts(
   toast: SimpleToastProps | undefined
@@ -17,7 +16,7 @@ function generateInitialToasts(
     return [];
   }
 
-  return [<SimpleToast {...toast} key={uuid()} />];
+  return [<SimpleToast {...toast} key={0} />];
 }
 
 function receiveToast(
@@ -26,11 +25,17 @@ function receiveToast(
   existingToasts: React.ReactElement[]
 ) {
   if (isValidElement(toast)) {
-    setToasts([...existingToasts, cloneElement(toast, { key: uuid() })]);
+    setToasts([
+      ...existingToasts,
+      cloneElement(toast, { key: existingToasts.length }),
+    ]);
   } else {
     setToasts([
       ...existingToasts,
-      <SimpleToast {...(toast as SimpleToastProps)} key={uuid()} />,
+      <SimpleToast
+        {...(toast as SimpleToastProps)}
+        key={existingToasts.length}
+      />,
     ]);
   }
 }

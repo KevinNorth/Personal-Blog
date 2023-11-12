@@ -45,7 +45,7 @@ export default function Layout({
               <Nav.Link eventKey="/post/new" href="/admin/post/new">
                 New Post
               </Nav.Link>
-              <Nav.Link as="button" onClick={logout}>
+              <Nav.Link as="button" onClick={logout} className="logout-button">
                 Log out
               </Nav.Link>
             </Nav>

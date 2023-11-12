@@ -7,6 +7,7 @@ import CategoryInput from '../types/categoryInput';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { MutationOnErrorFunction } from '../types/onErrorFunction';
 
 const updateCategoryMutation = gql`
   mutation updateCategoryMutation(
@@ -54,10 +55,10 @@ export type UpdateCategoryMutationResult = MutationResult<
   'updateCategory'
 >;
 
-function useUpdateCategoryMutation({
-  id,
-  categoryAttributes,
-}: UpdateCategoryVariables): [
+function useUpdateCategoryMutation(
+  { id, categoryAttributes }: UpdateCategoryVariables,
+  onError: MutationOnErrorFunction = undefined
+): [
   MutationExecutionFunction<
     UpdateCategoryMutationResult['data'],
     UpdateCategoryVariables,
@@ -70,6 +71,7 @@ function useUpdateCategoryMutation({
     UpdateCategoryVariables
   >(updateCategoryMutation, {
     variables: { id, categoryAttributes },
+    onError,
   });
 }
 

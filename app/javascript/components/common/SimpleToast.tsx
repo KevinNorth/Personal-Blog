@@ -1,20 +1,12 @@
-import React from 'react';
-import { Toast } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Toast, ToastProps } from 'react-bootstrap';
 import Icon, { IconName } from './Icon';
 
 export interface SimpleToastProps {
   header: string;
   body: string;
   headerIcon?: IconName;
-  bg?:
-    | 'primary'
-    | 'secondary'
-    | 'success'
-    | 'danger'
-    | 'warning'
-    | 'info'
-    | 'dark'
-    | 'light';
+  bg?: ToastProps['bg'];
 }
 
 function SimpleToast({
@@ -23,8 +15,10 @@ function SimpleToast({
   headerIcon,
   bg,
 }: SimpleToastProps): React.ReactElement {
+  const [show, setShow] = useState(true);
+
   return (
-    <Toast bg={bg}>
+    <Toast bg={bg} show={show} onClick={() => setShow(false)}>
       <Toast.Header>
         {headerIcon && <Icon iconName={headerIcon} />}
         {header}
