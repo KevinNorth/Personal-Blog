@@ -13,6 +13,7 @@ import useUpdateCategoryMutation, {
 import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
 import getCategoryById from '../../../graphql/queries/categoryById';
 import Category from '../../../graphql/types/category';
+import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
 import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
 import QueryErrorToast from '../../common/QueryErrorToast';
@@ -25,17 +26,12 @@ function updateCategoryCallback(
   sendToast: SendToastFunction,
   refetchCategory: () => void
 ): void {
-  let errors: string[] = [];
   const data =
     (result.data as { updateCategory: UpdateCategoryMutationResponsePayload })
       ?.updateCategory ||
     (result.data as UpdateCategoryMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -61,7 +57,6 @@ function deletePostCallback(
   sendToast: (toast: React.ReactElement) => void,
   navigate: NavigateFunction
 ): void {
-  let errors: string[] = [];
   const data =
     (
       result.data as {
@@ -70,11 +65,7 @@ function deletePostCallback(
     )?.deleteCategoryAndChildren ||
     (result.data as DeleteCategoryAndChildrenMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -144,23 +135,39 @@ function ExistingCategoryEditor({ sendToast }: Toastable): React.ReactElement {
     : allCategories.filter((c) => c.id !== id);
 
   const [updateCategory, { loading: loadingUpdateCategory }] =
-    useUpdateCategoryMutation({
-      id,
-      categoryAttributes: {
-        parentId,
-        markdown,
-        name,
-        order: Number(order),
-        published,
-        slug,
-        subtitle,
-        summary,
-        title,
+    useUpdateCategoryMutation(
+      {
+        id,
+        categoryAttributes: {
+          parentId,
+          markdown,
+          name,
+          order: Number(order),
+          published,
+          slug,
+          subtitle,
+          summary,
+          title,
+        },
       },
-    });
+      (error) =>
+        sendToast(
+          <QueryErrorToast
+            errors={[error.message]}
+            header="Problem updating category."
+          />
+        )
+    );
 
   const [deleteCategory, { loading: loadingDeleteCategory }] =
-    useDeleteCategoryAndChildrenMutation({ id });
+    useDeleteCategoryAndChildrenMutation({ id }, (error) =>
+      sendToast(
+        <QueryErrorToast
+          errors={[error.message]}
+          header="Problem deleting category."
+        />
+      )
+    );
 
   const validationResults = validateCategoryForm({
     markdown,

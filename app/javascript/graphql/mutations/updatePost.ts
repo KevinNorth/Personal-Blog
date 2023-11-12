@@ -2,6 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
+import { MutationOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import PostInput from '../types/postInput';
 import MutationResult, {
@@ -49,10 +50,10 @@ export type UpdatePostMutationResult = MutationResult<
   'updatePost'
 >;
 
-function useUpdatePostMutation({
-  id,
-  postAttributes,
-}: UpdatePostVariables): [
+function useUpdatePostMutation(
+  { id, postAttributes }: UpdatePostVariables,
+  onError: MutationOnErrorFunction = undefined
+): [
   MutationExecutionFunction<
     UpdatePostMutationResult['data'],
     UpdatePostVariables,
@@ -64,6 +65,7 @@ function useUpdatePostMutation({
     updatePostMutation,
     {
       variables: { id, postAttributes },
+      onError,
     }
   );
 }

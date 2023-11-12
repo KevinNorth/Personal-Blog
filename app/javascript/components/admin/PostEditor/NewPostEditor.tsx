@@ -10,6 +10,7 @@ import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndP
 import getPostsByCategory from '../../../graphql/queries/postsByCategory';
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
+import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import PostEditor from './PostEditor';
@@ -20,16 +21,11 @@ function createPostCallback(
   sendToast: SendToastFunction,
   navigate: NavigateFunction
 ): void {
-  let errors: string[] = [];
   const data =
     (result.data as { createPost: CreatePostMutationResponsePayload })
       ?.createPost || (result.data as CreatePostMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -79,18 +75,27 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
     (postsByCategoryData as { postsByCategory: Partial<Post>[] })
       ?.postsByCategory || [];
 
-  const [createPost, { loading: loadingCreatePost }] = useCreatePostMutation({
-    postAttributes: {
-      categoryId,
-      markdown,
-      order: Number(order),
-      published,
-      slug,
-      subtitle,
-      summary,
-      title,
+  const [createPost, { loading: loadingCreatePost }] = useCreatePostMutation(
+    {
+      postAttributes: {
+        categoryId,
+        markdown,
+        order: Number(order),
+        published,
+        slug,
+        subtitle,
+        summary,
+        title,
+      },
     },
-  });
+    (error) =>
+      sendToast(
+        <QueryErrorToast
+          errors={[error.message]}
+          header="Problem creating post."
+        />
+      )
+  );
 
   const validationResults = validatePostForm({
     categoryId,

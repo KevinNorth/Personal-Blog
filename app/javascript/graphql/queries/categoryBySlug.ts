@@ -3,6 +3,7 @@ import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Category from '../types/category';
+import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import QueryResult from '../types/queryResult';
 
 const categoryBySlugQuery = gql`
@@ -34,16 +35,14 @@ export interface CategoryBySlugVariables {
   includeUnpublished: boolean;
 }
 
-function getCategoryBySlug({
-  slug,
-  includeUnpublished = false,
-}: CategoryBySlugVariables): QueryResult<
-  { categoryBySlug: Partial<Category> },
-  CategoryBySlugVariables
-> {
+function getCategoryBySlug(
+  { slug, includeUnpublished = false }: CategoryBySlugVariables,
+  onError: QueryOnErrorFunction = undefined
+): QueryResult<{ categoryBySlug: Partial<Category> }, CategoryBySlugVariables> {
   return useQuery(categoryBySlugQuery, {
     variables: { slug, includeUnpublished },
     fetchPolicy: 'cache-and-network',
+    onError,
   });
 }
 

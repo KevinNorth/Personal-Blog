@@ -8,6 +8,7 @@ import useCreateCategoryMutation, {
 } from '../../../graphql/mutations/createCategory';
 import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
 import Category from '../../../graphql/types/category';
+import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import CategoryEditor from './CategoryEditor';
@@ -18,17 +19,12 @@ function createCategoryCallback(
   sendToast: SendToastFunction,
   navigate: NavigateFunction
 ): void {
-  let errors: string[] = [];
   const data =
     (result.data as { createCategory: CreateCategoryMutationResponsePayload })
       ?.createCategory ||
     (result.data as CreateCategoryMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -74,19 +70,28 @@ function NewCategoryEditor({ sendToast }: Toastable): React.ReactElement {
     : [];
 
   const [createCategory, { loading: loadingCreateCategory }] =
-    useCreateCategoryMutation({
-      categoryAttributes: {
-        parentId,
-        markdown,
-        name,
-        order: Number(order),
-        published,
-        slug,
-        subtitle,
-        summary,
-        title,
+    useCreateCategoryMutation(
+      {
+        categoryAttributes: {
+          parentId,
+          markdown,
+          name,
+          order: Number(order),
+          published,
+          slug,
+          subtitle,
+          summary,
+          title,
+        },
       },
-    });
+      (error) =>
+        sendToast(
+          <QueryErrorToast
+            errors={[error.message]}
+            header="Problem creating category."
+          />
+        )
+    );
 
   const validationResults = validateCategoryForm({
     markdown,

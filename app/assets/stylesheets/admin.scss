@@ -94,6 +94,40 @@ $admin-header-height: 80px;
       .admin-toasts {
         flex: 0 1 auto;
         padding: 0 10px;
+
+        .toast-container {
+          position: static;
+          width: 100%;
+
+          display: flex;
+          flex-flow: row wrap;
+          gap: 10px;
+          align-items: stretch;
+          align-content: flex-start;
+          justify-content: flex-start;
+
+          .toast {
+            flex: 0 0 auto;
+            width: fit-content;
+            min-width: calc(33% - 5px);
+
+            border-radius: 0;
+            margin-bottom: unset;
+
+            .toast-header {
+              border-radius: 0;
+
+              svg, img {
+                margin-right: 7px;
+                margin-bottom: 4px;
+              }
+
+              .btn-close {
+                margin-left: auto;
+              }
+            }
+          }
+        }
       }
     
       .admin-content {

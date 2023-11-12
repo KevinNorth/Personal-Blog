@@ -1,6 +1,7 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
+import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
 import LazyQueryResult, {
@@ -33,22 +34,20 @@ export interface PostByCategoryVariables {
   includeUnpublished: boolean;
 }
 
-function getPostsByCategory({
-  categoryId,
-  includeUnpublished = false,
-}: PostByCategoryVariables): QueryResult<
-  { postsByCategory: Partial<Post>[] },
-  PostByCategoryVariables
-> {
+function getPostsByCategory(
+  { categoryId, includeUnpublished = false }: PostByCategoryVariables,
+  onError: QueryOnErrorFunction = undefined
+): QueryResult<{ postsByCategory: Partial<Post>[] }, PostByCategoryVariables> {
   return useQuery(postByIdQuery, {
     variables: { categoryId, includeUnpublished },
+    onError,
   });
 }
 
-export function lazyGetPostsByCategory({
-  categoryId,
-  includeUnpublished = false,
-}: PostByCategoryVariables): [
+export function lazyGetPostsByCategory(
+  { categoryId, includeUnpublished = false }: PostByCategoryVariables,
+  onError: QueryOnErrorFunction = undefined
+): [
   LazyQueryExecuteFunction<
     Partial<Post>[],
     PostByCategoryVariables,
@@ -59,6 +58,7 @@ export function lazyGetPostsByCategory({
   return useLazyQuery(postByIdQuery, {
     variables: { categoryId, includeUnpublished },
     fetchPolicy: 'cache-and-network',
+    onError,
   });
 }
 
