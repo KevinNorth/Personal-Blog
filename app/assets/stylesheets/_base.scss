@@ -21,7 +21,7 @@ $secondary-background-color: #141414FF;
   --bs-font-monospace: #{$code-font};
   --bs-font-sans-serif: #{$body-font};
   --bs-link-color-rgb: #{$link-color};
-  --bs-link-hover-color-rgb: #{$link-color-hover};
+  --bs-link-hover-color-rgb: #{$link-color-hover};  
   --bs-secondary-bg: #{$secondary-background-color};
   --font-family-monospace: #{$code-font};
   --font-family-sans-serif: #{$body-font};
@@ -134,6 +134,24 @@ blockquote {
 
   img, svg {
     vertical-align: baseline;
+  }
+}
+
+.nav-tabs {
+  --bs-nav-link-color: #{$body-color};
+  --bs-nav-link-hover-color: #{$body-color};
+  --bs-nav-tabs-border-radius: 0;
+  --bs-nav-tabs-link-active-color: #{$body-color};
+  --bs-nav-tabs-link-active-bg: #{$secondary-background-color};
+  --bs-nav-tabs-link-active-border-color: white;
+  --bs-nav-tabs-link-hover-border-color: white;
+
+  .nav-link {
+    transition: none;
+  }
+
+  .nav-link:not(.active):hover {
+    border-style: dashed;
   }
 }
 

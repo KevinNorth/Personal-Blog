@@ -312,9 +312,8 @@ $admin-header-height: 80px;
     flex-flow: column;
 
     .editor-syntax-help-button {
-      @extend %transparent-button;
-      height: 2.5rem;
-      width: 1.5rem;
+      width: fit-content;
+      margin-top: 1rem;
     }
 
     h2 {
@@ -349,6 +348,13 @@ $admin-header-height: 80px;
   }
 }
 
+@media(max-width: 900px) {
+  .category-markdown-editor, .post-markdown-editor {
+    height: 50vh;
+    min-height: 50vh;
+  }
+}
+
 .popover {
   --bs-popover-border-color: white;
   --bs-popover-font-size: 0.8rem;
@@ -356,8 +362,15 @@ $admin-header-height: 80px;
   font-family: $body-font;
 } 
 
+
 #editor-syntax-help {
   --bs-popover-max-width: 33vw;
+}
+
+@media(max-width: 900px) {
+  #editor-syntax-help {
+    --bs-popover-max-width: 50vw;
+  }
 }
 
 #delete-post-confirmation, #delete-category-and-children-confirmation {

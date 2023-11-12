@@ -7,16 +7,17 @@ import {
   OverlayTrigger,
   Popover,
   Row,
+  Tab,
+  Tabs,
 } from 'react-bootstrap';
-import { InfoCircle } from 'react-bootstrap-icons';
 import MarkdownRenderer from '../../common/MarkdownRenderer';
-import Spacer from '../../common/Spacer';
 
 export interface EditorProps {
   alreadyInsideForm: boolean;
   markdown: string;
   onChange: (string) => void;
   className?: string;
+  id?: string;
   editorClassName?: string;
   previewClassName?: string;
 }
@@ -65,11 +66,41 @@ const popover = (
   </Popover>
 );
 
+interface CoreEditorProps {
+  children: React.ReactNode;
+}
+
+function CoreEditor({ children }: CoreEditorProps): React.ReactElement {
+  return (
+    <>
+      {children}
+      <OverlayTrigger trigger="focus" placement="right-end" overlay={popover}>
+        <Button className="editor-syntax-help-button">Syntax Help</Button>
+      </OverlayTrigger>
+    </>
+  );
+}
+
+interface PreviewProps {
+  markdown: string;
+}
+
+function Preview({ markdown }: PreviewProps): React.ReactElement {
+  return (
+    <div className="editor-preview">
+      <div className="editor-preview-content">
+        <MarkdownRenderer markdown={markdown} />
+      </div>
+    </div>
+  );
+}
+
 function Editor({
   alreadyInsideForm,
   markdown,
   onChange,
   className,
+  id = 'core-markdown-editor',
 }: EditorProps): React.ReactElement {
   let editorInsideForm = null;
 
@@ -96,30 +127,43 @@ function Editor({
   }
 
   return (
-    <Container fluid className={className}>
-      <Row>
-        <Col xs="6" className="editor-input">
-          <h2>
-            Editor
-            <Spacer indent="10px" />
-            <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-              <Button className="editor-syntax-help-button">
-                <InfoCircle />
-              </Button>
-            </OverlayTrigger>
-          </h2>
-          {editorInsideForm}
-        </Col>
-        <Col xs="6" className="editor-preview-wrapper">
-          <h2>Preview</h2>
-          <div className="editor-preview">
-            <div className="editor-preview-content">
-              <MarkdownRenderer markdown={markdown} />
-            </div>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+    <Tabs
+      defaultActiveKey="split"
+      id={id}
+      className="editor-tabs"
+      transition={false}
+    >
+      <Tab eventKey="split" title="Split Editor">
+        <Container fluid className={className}>
+          <Row>
+            <Col xs="6" className="editor-input">
+              <CoreEditor>{editorInsideForm}</CoreEditor>
+            </Col>
+            <Col xs="6" className="editor-preview-wrapper">
+              <Preview markdown={markdown} />
+            </Col>
+          </Row>
+        </Container>
+      </Tab>
+      <Tab eventKey="editor" title="Editor">
+        <Container fluid className={className}>
+          <Row>
+            <Col xs="12" className="editor-input">
+              <CoreEditor>{editorInsideForm}</CoreEditor>
+            </Col>
+          </Row>
+        </Container>
+      </Tab>
+      <Tab eventKey="preview" title="Preview">
+        <Container fluid className={className}>
+          <Row>
+            <Col xs="12" className="editor-preview-wrapper">
+              <Preview markdown={markdown} />
+            </Col>
+          </Row>
+        </Container>
+      </Tab>
+    </Tabs>
   );
 }
 
