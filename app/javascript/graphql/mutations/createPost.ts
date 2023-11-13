@@ -5,6 +5,7 @@ import USER_FRAGMENT from '../fragments/userFragment';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { MutationOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import PostInput from '../types/postInput';
 
@@ -48,9 +49,10 @@ export type CreatePostMutationResult = MutationResult<
   'createPost'
 >;
 
-function useCreatePostMutation({
-  postAttributes,
-}: CreatePostVariables): [
+function useCreatePostMutation(
+  { postAttributes }: CreatePostVariables,
+  onError: MutationOnErrorFunction = undefined
+): [
   MutationExecutionFunction<
     CreatePostMutationResult['data'],
     CreatePostVariables,
@@ -62,6 +64,7 @@ function useCreatePostMutation({
     createPostMutation,
     {
       variables: { postAttributes },
+      onError,
     }
   );
 }

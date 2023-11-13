@@ -6,6 +6,7 @@ import Category from '../types/category';
 import LazyQueryResult, {
   LazyQueryExecuteFunction,
 } from '../types/lazyQueryResult';
+import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import QueryResult from '../types/queryResult';
 
 const allCategoriesAndPostsQuery = gql`
@@ -35,21 +36,24 @@ export interface AllCategoriesAndPostsVariables {
   includeUnpublished: boolean;
 }
 
-function getAllCategoriesAndPosts({
-  includeUnpublished = false,
-}: AllCategoriesAndPostsVariables): QueryResult<
+function getAllCategoriesAndPosts(
+  { includeUnpublished = false }: AllCategoriesAndPostsVariables,
+  onError: QueryOnErrorFunction = undefined
+): QueryResult<
   { categories: Partial<Category>[] },
   AllCategoriesAndPostsVariables
 > {
   return useQuery(allCategoriesAndPostsQuery, {
     variables: { includeUnpublished },
     fetchPolicy: 'cache-and-network',
+    onError,
   });
 }
 
-export function lazyGetAllCategoriesAndPosts({
-  includeUnpublished = false,
-}: AllCategoriesAndPostsVariables): [
+export function lazyGetAllCategoriesAndPosts(
+  { includeUnpublished = false }: AllCategoriesAndPostsVariables,
+  onError: QueryOnErrorFunction = undefined
+): [
   LazyQueryExecuteFunction<
     Partial<Category>[],
     AllCategoriesAndPostsVariables,
@@ -63,6 +67,7 @@ export function lazyGetAllCategoriesAndPosts({
 ] {
   return useLazyQuery(allCategoriesAndPostsQuery, {
     variables: { includeUnpublished },
+    onError,
   });
 }
 

@@ -48,16 +48,20 @@ The `app/javascript` directory is organized like this:
 
 I decided to focus on getting my website live quickly so I could link to it - and this repo - on my LinkedIn profile. As a result, I accrued a bit of tech debt. Here are the things I'm planning on cleaning up soon:
 
- - Add more tests to gain near-full code coverage.
- - Clean up the CSS on the backend so the editing forms are easier to use.
- - Handle errors on both the frontend and the backend more gracefully.
- - Shore up the validation logic on models.
+ - [ ] Add more tests to gain near-full code coverage. (In progress: https://github.com/KevinNorth/Personal-Blog/pull/13)
+ - [X] Clean up the CSS on the backend so the editing forms are easier to use. (https://github.com/KevinNorth/Personal-Blog/pull/12)
+ - [ ] Handle errors on both the frontend and the backend more gracefully.
+ - [ ] Shore up the validation logic on models.
+ - [ ] Refactor posts and categories into one model. I thought they'd be more different from each other when I started this project, but in retrospect, I only need posts with unique URL slugs on my site.
+ - [ ] Clean up the number of configuration files in the repository's root directory.
 
 When I'm caught up on tech debt, there are a couple more features I'm planning to add:
  
- - Use ActiveStorage to upload images for each category and post, allowing them to show different header images on each page.
+ - [ ] Use ActiveStorage to upload images for each category and post, allowing them to show different header images on each page.
    - I'd like to include thumbnail images on the cards for posts as well.
- - Add a post tag system so I can tag posts and categories with the technologies I used for each project.
+ - [ ] Add a post tag system so I can tag posts and categories with the technologies I used for each project.
+ - [ ] Use Webpack's `SplitChunksPlugin` to avoid serving one large JS payload. https://webpack.js.org/plugins/split-chunks-plugin/
+ - [ ] Switch from jsbundling-rails to [Shakapacker](https://github.com/shakacode/shakapacker) and set up hot reloading in my dev environment.
 
 ## Creating a development environment
 
@@ -114,6 +118,12 @@ To run backend tests, run `rspec`. To run frontend tests, run `pnpm run test`.
 To lint the backend, run `rubocop`. `brakeman` and `bundler-audit` are also available and are run as part of the CI pipeline.
 
 To lint the frontend, run `pnpm run lint`. To format frontend code via Prettier, run `pnpm run format`.
+
+### Deploying
+
+I'm hosting my website on [Render](https://render.com/). Render is configured to automatically deploy whenever there are changes to main published to GitHub in this repository.
+
+My deployment manifest is [`render.yaml`](https://github.com/KevinNorth/Personal-Blog/blob/main/render.yaml) in the repo's root directory. You can use it to [deploy your own instance to Render](https://render.com/docs/deploy-rails).
 
 ### VS Code recommended
 

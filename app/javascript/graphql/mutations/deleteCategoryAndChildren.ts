@@ -2,6 +2,7 @@ import { gql, useMutation } from '@apollo/client';
 import MutationResult, {
   MutationExecutionFunction,
 } from '../types/mutationResult';
+import { MutationOnErrorFunction } from '../types/onErrorFunction';
 
 const deleteCategoryAndChildrenMutation = gql`
   mutation deletCategoryMutation($id: ID!) {
@@ -26,9 +27,10 @@ export type DeleteCategoryAndChildrenMutationResult = MutationResult<
   'deleteCategoryAndChildren'
 >;
 
-function useDeleteCategoryAndChildrenMutation({
-  id,
-}: DeleteCategoryAndChildrenVariables): [
+function useDeleteCategoryAndChildrenMutation(
+  { id }: DeleteCategoryAndChildrenVariables,
+  onError: MutationOnErrorFunction = undefined
+): [
   MutationExecutionFunction<
     DeleteCategoryAndChildrenMutationResult['data'],
     DeleteCategoryAndChildrenVariables,
@@ -41,6 +43,7 @@ function useDeleteCategoryAndChildrenMutation({
     DeleteCategoryAndChildrenVariables
   >(deleteCategoryAndChildrenMutation, {
     variables: { id },
+    onError,
   });
 }
 

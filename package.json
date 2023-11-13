@@ -39,7 +39,6 @@
     "sass": "^1.69.3",
     "sass-loader": "^13.3.2",
     "typescript": "^5.2.2",
-    "uuid": "^9.0.1",
     "webpack": "^5.89.0",
     "webpack-remove-empty-scripts": "^1.0.4"
   },

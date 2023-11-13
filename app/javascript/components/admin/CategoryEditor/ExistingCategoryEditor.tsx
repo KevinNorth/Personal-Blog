@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import { FetchResult } from '@apollo/client';
 import useDeleteCategoryAndChildrenMutation, {
@@ -13,11 +13,11 @@ import useUpdateCategoryMutation, {
 import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
 import getCategoryById from '../../../graphql/queries/categoryById';
 import Category from '../../../graphql/types/category';
+import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
 import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import SimpleToast from '../../common/SimpleToast';
-import Spacer from '../../common/Spacer';
 import CategoryEditor from './CategoryEditor';
 import validateCategoryForm from './validateCategoryForm';
 
@@ -26,17 +26,12 @@ function updateCategoryCallback(
   sendToast: SendToastFunction,
   refetchCategory: () => void
 ): void {
-  let errors: string[] = [];
   const data =
     (result.data as { updateCategory: UpdateCategoryMutationResponsePayload })
       ?.updateCategory ||
     (result.data as UpdateCategoryMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -62,7 +57,6 @@ function deletePostCallback(
   sendToast: (toast: React.ReactElement) => void,
   navigate: NavigateFunction
 ): void {
-  let errors: string[] = [];
   const data =
     (
       result.data as {
@@ -71,11 +65,7 @@ function deletePostCallback(
     )?.deleteCategoryAndChildren ||
     (result.data as DeleteCategoryAndChildrenMutationResponsePayload);
 
-  if (result.errors && result.errors.length > 0) {
-    errors = result.errors.map((error) => error.message);
-  } else if (data?.errors && data?.errors.length > 0) {
-    errors = data?.errors;
-  }
+  const errors = grabErrorsFromMutationResult(result, data);
 
   if (errors.length > 0) {
     sendToast(
@@ -145,23 +135,39 @@ function ExistingCategoryEditor({ sendToast }: Toastable): React.ReactElement {
     : allCategories.filter((c) => c.id !== id);
 
   const [updateCategory, { loading: loadingUpdateCategory }] =
-    useUpdateCategoryMutation({
-      id,
-      categoryAttributes: {
-        parentId,
-        markdown,
-        name,
-        order: Number(order),
-        published,
-        slug,
-        subtitle,
-        summary,
-        title,
+    useUpdateCategoryMutation(
+      {
+        id,
+        categoryAttributes: {
+          parentId,
+          markdown,
+          name,
+          order: Number(order),
+          published,
+          slug,
+          subtitle,
+          summary,
+          title,
+        },
       },
-    });
+      (error) =>
+        sendToast(
+          <QueryErrorToast
+            errors={[error.message]}
+            header="Problem updating category."
+          />
+        )
+    );
 
   const [deleteCategory, { loading: loadingDeleteCategory }] =
-    useDeleteCategoryAndChildrenMutation({ id });
+    useDeleteCategoryAndChildrenMutation({ id }, (error) =>
+      sendToast(
+        <QueryErrorToast
+          errors={[error.message]}
+          header="Problem deleting category."
+        />
+      )
+    );
 
   const validationResults = validateCategoryForm({
     markdown,
@@ -181,96 +187,89 @@ function ExistingCategoryEditor({ sendToast }: Toastable): React.ReactElement {
   );
 
   return (
-    <Container fluid>
-      <Row>
-        <Col xs={12}>
-          <CategoryEditor
-            loading={loading || loadingUpdateCategory || loadingDeleteCategory}
-            id={category?.id || ''}
-            parentId={parentId}
-            markdown={markdown}
-            name={name}
-            order={order}
-            published={published}
-            slug={slug}
-            subtitle={subtitle}
-            summary={summary}
-            title={title}
-            onMarkdownChange={setMarkdown}
-            onNameChange={setName}
-            onOrderChange={setOrder}
-            onParentIdChange={setParentId}
-            onPublishedChange={setPublished}
-            onSlugChange={setSlug}
-            onSubtitleChange={setSubtitle}
-            onSummaryChange={setSummary}
-            onTitleChange={setTitle}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col xs={12}>
-          <ButtonWithConfirmation
-            confirmationButtonProps={{
-              disabled: loadingDeleteCategory || loadingUpdateCategory,
-            }}
-            confirmationButtonText="Delete"
-            confirmationPopoverId="delete-category-and-children-confirmation"
-            confirmationText="This will delete this category as well as all of its posts and children cateories. Are you sure?"
-            outerButtonProps={{
-              disabled: loadingDeleteCategory || loadingUpdateCategory,
-            }}
-            outerButtonText="Delete"
-            onConfirmationClick={() =>
-              deleteCategory({ variables: { id } }).then((result) =>
-                deletePostCallback(
-                  result as FetchResult<
-                    DeleteCategoryAndChildrenMutationResult['data']
-                  >,
-                  sendToast,
-                  navigate
-                )
+    <CategoryEditor
+      loading={loading || loadingUpdateCategory || loadingDeleteCategory}
+      id={category?.id || ''}
+      parentId={parentId}
+      markdown={markdown}
+      name={name}
+      order={order}
+      published={published}
+      slug={slug}
+      subtitle={subtitle}
+      summary={summary}
+      title={title}
+      onMarkdownChange={setMarkdown}
+      onNameChange={setName}
+      onOrderChange={setOrder}
+      onParentIdChange={setParentId}
+      onPublishedChange={setPublished}
+      onSlugChange={setSlug}
+      onSubtitleChange={setSubtitle}
+      onSummaryChange={setSummary}
+      onTitleChange={setTitle}
+    >
+      <div>
+        <ButtonWithConfirmation
+          confirmationButtonProps={{
+            disabled: loadingDeleteCategory || loadingUpdateCategory,
+          }}
+          confirmationButtonText="Delete"
+          confirmationPopoverId="delete-category-and-children-confirmation"
+          confirmationText="This will delete this category as well as all of its posts and children cateories. Are you sure?"
+          outerButtonProps={{
+            className: 'delete-button',
+            disabled: loadingDeleteCategory || loadingUpdateCategory,
+          }}
+          outerButtonText="Delete"
+          onConfirmationClick={() =>
+            deleteCategory({ variables: { id } }).then((result) =>
+              deletePostCallback(
+                result as FetchResult<
+                  DeleteCategoryAndChildrenMutationResult['data']
+                >,
+                sendToast,
+                navigate
               )
-            }
-          />
-          <Spacer indent="15px" />
-          <Button
-            disabled={
-              !isCategoryValid ||
-              loadingAllCategories ||
-              loadingDeleteCategory ||
-              loadingUpdateCategory
-            }
-            onClick={() =>
-              updateCategory({
-                variables: {
-                  id: id,
-                  categoryAttributes: {
-                    parentId,
-                    name,
-                    markdown,
-                    order: Number(order),
-                    published,
-                    slug,
-                    subtitle,
-                    summary,
-                    title,
-                  },
+            )
+          }
+        />
+        <Button
+          disabled={
+            !isCategoryValid ||
+            loadingAllCategories ||
+            loadingDeleteCategory ||
+            loadingUpdateCategory
+          }
+          onClick={() =>
+            updateCategory({
+              variables: {
+                id: id,
+                categoryAttributes: {
+                  parentId,
+                  name,
+                  markdown,
+                  order: Number(order),
+                  published,
+                  slug,
+                  subtitle,
+                  summary,
+                  title,
                 },
-              }).then((result) =>
-                updateCategoryCallback(
-                  result as FetchResult<UpdateCategoryMutationResult['data']>,
-                  sendToast,
-                  refetchCategory
-                )
+              },
+            }).then((result) =>
+              updateCategoryCallback(
+                result as FetchResult<UpdateCategoryMutationResult['data']>,
+                sendToast,
+                refetchCategory
               )
-            }
-          >
-            Save
-          </Button>
-        </Col>
-      </Row>
-    </Container>
+            )
+          }
+        >
+          Save
+        </Button>
+      </div>
+    </CategoryEditor>
   );
 }
 

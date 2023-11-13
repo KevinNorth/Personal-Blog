@@ -16,10 +16,11 @@
 
 @import './base';
 
+$admin-header-height: 80px;
+
 .admin {
   margin: 0 auto;
   padding: 20px;
-  max-width: 1000px;
   min-height: 100vh;
   max-height: 100vh;
 
@@ -33,15 +34,24 @@
     border-bottom-color: grey;
     border-bottom-width: 0.5px;
     border-bottom-style: solid;
-    min-height: 80px;
-    max-height: 80px;
+    min-height: $admin-header-height;
+    max-height: $admin-header-height;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    white-space: nowrap;
+
+    h1 {
+      text-overflow: ellipsis;
+    }
   }
 
   .admin-main {
     flex: 1 1 auto;
 
-    min-height: calc(100% - 80px);
-    max-height: calc(100% - 80px);
+    min-height: calc(100% - $admin-header-height);
+    max-height: calc(100% - $admin-header-height);
 
     display: flex;
     flex-flow: row;
@@ -69,6 +79,17 @@
         --bs-nav-link-color: #{$body-color};
         --bs-navbar-hover-color: #{body-color};
         --bs-navbar-disabled-color: grey;
+        --bs-navbar-active-color: #{$body-color};
+        
+        .active {
+          background-color: #303030;
+        }
+
+        button.nav-link, .logout-button {
+          // This is needed because the text-align: right above doesn't apply
+          // to the logout button.
+          text-align: right;
+        }
       }
     }  
   
@@ -82,6 +103,40 @@
       .admin-toasts {
         flex: 0 1 auto;
         padding: 0 10px;
+
+        .toast-container {
+          position: static;
+          width: 100%;
+
+          display: flex;
+          flex-flow: row wrap;
+          gap: 10px;
+          align-items: stretch;
+          align-content: flex-start;
+          justify-content: flex-start;
+
+          .toast {
+            flex: 0 0 auto;
+            width: fit-content;
+            min-width: calc(33% - 5px);
+
+            border-radius: 0;
+            margin-bottom: unset;
+
+            .toast-header {
+              border-radius: 0;
+
+              svg, img {
+                margin-right: 7px;
+                margin-bottom: 4px;
+              }
+
+              .btn-close {
+                margin-left: auto;
+              }
+            }
+          }
+        }
       }
     
       .admin-content {
@@ -92,57 +147,157 @@
   }
 }
 
-.admin-tree {
-  background-color: $secondary-background-color;
-  text-overflow: ellipsis;
+@media(max-width: 900px) {
+  .admin {
+    .admin-main {
+      flex-flow: column;
 
-  .category-node, .post-node {
-    border-bottom-color: grey;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    padding: 3px 15px;
+      .admin-sidebar {
+        flex: 0 1 auto;
+        max-width: 100%;
 
-    [class^='col'], [class*=' col'] {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
+        border-right: none;
+        border-bottom-color: grey;
+        border-bottom-width: 0.5px;
+        border-bottom-style: solid;
+
+        padding: 10px;
+        margin-bottom: 10px;
+
+        .navbar-nav {
+          min-width: 100%;
+          flex-flow: row wrap;
+          text-align: left;
+
+          // Not actually used, but if I make changes, this is the
+          // styling that I'm going to expect in the future
+          button.nav-link, .logout-button {
+            text-align: left;
+          }
+
+          .nav-link:last-child {
+            margin-left: auto;
+            text-align: right;
+          }
+        }
+      }
+
+      .admin-body {
+        flex: 1 0 auto;
+        align-self: stretch;
+
+        .admin-content {
+          // Fixes an issue with computing children elements' heights
+          // See https://stackoverflow.com/a/21836870/473792
+          height: 1px;
+        }
+      }
     }
+  }
+}
 
-    .label {
-      padding-left: 12px;
-    }
+.admin-tree-wrapper {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  min-width: 100%;
+  
+  .admin-tree {
+    text-overflow: ellipsis;
 
-    .title {
-      .value {
+    .category-node, .post-node {
+      border-bottom-color: grey;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      padding: 3px 15px;
+
+      [class^='col'], [class*=' col'] {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+
+      .label {
+        padding-left: 12px;
+      }
+
+      .title {
+        .value {
+          @include title-text;
+        }
+      }
+
+      .published {
         @include title-text;
+      }
+
+      :not(:last-child) {
+        margin-bottom: 3px;
       }
     }
 
-    .published {
-      @include title-text;
-    }
-
-    :not(:last-child) {
-      margin-bottom: 3px;
-    }
-  }
-
-  .category-node {
-    .open-toggle {
-      @extend %transparent-button;
-      width: 20px;
-      height: 20px;
+    .category-node {
+      .open-toggle {
+        @extend %transparent-button;
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }
 
 .category-editor, .post-editor {
-  height: 100%;
-  max-height: 100vh;
-
   .row {
     max-height: inherit;
+    margin: 1rem 0;
+  }
+
+  .text-group, .number-group, .select-group {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+
+    label {
+      flex: 0 0 auto;
+    }
+
+    input, select {
+      flex: 1 1 auto;
+      margin-left: 1rem;
+    }
+
+    svg, img {
+      flex: 0 0 1;
+      margin-left: 1rem;
+    }
+  }
+
+  .button-group {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  footer {
+    text-align: end;
+
+    .delete-button {
+      margin-right: 3rem;
+      background-color: red;
+    }
+  }
+}
+
+.category-markdown-editor, .post-markdown-editor {
+  height: 80vh;
+  max-height: 80vh;
+
+  .row {
+    height: 100%;
   }
 
   .editor-input, .editor-preview {
@@ -153,24 +308,75 @@
   }
 
   .editor-input {
+    display: flex;
+    flex-flow: column;
+
     .editor-syntax-help-button {
-      @extend %transparent-button;
-      height: 2.5rem;
-      width: 1.5rem;
+      width: fit-content;
+      margin-top: 1rem;
+    }
+
+    h2 {
+      flex: 0 0 fit-content;
     }
 
     textarea {
+      flex: 1 1 auto;
       font-family: $code-font;
+    }
+  }
+
+  .editor-preview-wrapper {
+    display: flex;
+    flex-flow: column;
+    max-height: 100%;
+
+    h2 {
+      flex: 0 1 auto;
+    }
+
+    .editor-preview {
+      background-color: white;
+      color: black;
+      flex: 1 1 auto;
+
+      .editor-preview-content {
+        @include blog-body;
+        padding: 1rem;
+      }
     }
   }
 }
 
-#editor-syntax-help {
+@media(max-width: 900px) {
+  .category-markdown-editor, .post-markdown-editor {
+    height: 50vh;
+    min-height: 50vh;
+  }
+}
+
+.popover {
   --bs-popover-border-color: white;
   --bs-popover-font-size: 0.8rem;
   --bs-popover-header-font-size: 1rem;
-  --bs-popover-max-width: 33vw;
   font-family: $body-font;
+} 
+
+
+#editor-syntax-help {
+  --bs-popover-max-width: 33vw;
+}
+
+@media(max-width: 900px) {
+  #editor-syntax-help {
+    --bs-popover-max-width: 50vw;
+  }
+}
+
+#delete-post-confirmation, #delete-category-and-children-confirmation {
+  .popover-body .row:first-of-type {
+    margin-bottom: 1rem;
+  }
 }
 
 .invalid-icon {

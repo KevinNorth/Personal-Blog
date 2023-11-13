@@ -2,6 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
+import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
 
@@ -36,16 +37,14 @@ export interface PostByIdVariables {
   includeUnpublished: boolean;
 }
 
-function getPostById({
-  id,
-  includeUnpublished = false,
-}: PostByIdVariables): QueryResult<
-  { postById: Partial<Post> },
-  PostByIdVariables
-> {
+function getPostById(
+  { id, includeUnpublished = false }: PostByIdVariables,
+  onError: QueryOnErrorFunction = undefined
+): QueryResult<{ postById: Partial<Post> }, PostByIdVariables> {
   return useQuery(postByIdQuery, {
     variables: { id, includeUnpublished },
     fetchPolicy: 'cache-and-network',
+    onError,
   });
 }
 

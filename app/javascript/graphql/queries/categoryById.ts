@@ -3,6 +3,7 @@ import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import Category from '../types/category';
+import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import QueryResult from '../types/queryResult';
 
 const categoryByIdQuery = gql`
@@ -51,16 +52,14 @@ export interface CategoryByIdVariables {
   includeUnpublished: boolean;
 }
 
-function getCategoryById({
-  id,
-  includeUnpublished = false,
-}: CategoryByIdVariables): QueryResult<
-  { categoryById: Partial<Category> },
-  CategoryByIdVariables
-> {
+function getCategoryById(
+  { id, includeUnpublished = false }: CategoryByIdVariables,
+  onError: QueryOnErrorFunction = undefined
+): QueryResult<{ categoryById: Partial<Category> }, CategoryByIdVariables> {
   return useQuery(categoryByIdQuery, {
     variables: { id, includeUnpublished },
     fetchPolicy: 'cache-and-network',
+    onError,
   });
 }
 

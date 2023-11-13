@@ -21,6 +21,7 @@ import LoadingEditor from './LoadingEditor';
 import validatePostForm from './validatePostForm';
 
 export interface PostEditorProps {
+  children: React.ReactNode;
   loading: boolean;
   id: string;
   categoryId: string;
@@ -42,6 +43,7 @@ export interface PostEditorProps {
 }
 
 export default function PostEditor({
+  children,
   loading,
   id,
   markdown,
@@ -121,7 +123,10 @@ export default function PostEditor({
       <Form>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-title" controlId="post-title">
+            <Form.Group
+              className="text-group post-title"
+              controlId="post-title"
+            >
               <Form.Label size="lg">Title</Form.Label>
               <Form.Control
                 isValid={validationResults.title.isValid}
@@ -141,7 +146,10 @@ export default function PostEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-subtitle" controlId="post-subtitle">
+            <Form.Group
+              className="text-group post-subtitle"
+              controlId="post-subtitle"
+            >
               <Form.Label>Subtitle</Form.Label>
               <Form.Control
                 isValid={validationResults.subtitle.isValid}
@@ -160,7 +168,10 @@ export default function PostEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-summary" controlId="post-summary">
+            <Form.Group
+              className="text-group post-summary"
+              controlId="post-summary"
+            >
               <Form.Label>Summary</Form.Label>
               <Form.Control
                 isValid={validationResults.summary.isValid}
@@ -179,7 +190,10 @@ export default function PostEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-category" controlId="post-category">
+            <Form.Group
+              className="text-group post-category"
+              controlId="post-category"
+            >
               <Form.Label>Category</Form.Label>
               {loadingCategories ? (
                 <Placeholder animation="glow" className="w-100" />
@@ -221,8 +235,11 @@ export default function PostEditor({
           </Col>
         </Row>
         <Row>
-          <Col xs={3}>
-            <Form.Group className="post-published" controlId="post-published">
+          <Col xs={6}>
+            <Form.Group
+              className="button-group post-published"
+              controlId="post-published"
+            >
               <ButtonGroup>
                 <ToggleButton
                   key="unpublished"
@@ -249,8 +266,11 @@ export default function PostEditor({
               </ButtonGroup>
             </Form.Group>
           </Col>
-          <Col xs={3}>
-            <FormGroup className="post-order" controlId="post-order">
+          <Col xs={6}>
+            <FormGroup
+              className="number-group post-order"
+              controlId="post-order"
+            >
               <FormLabel>Order in Navbar</FormLabel>
               {loadingSiblingPosts || !calledGetPostsByCategory ? (
                 <Placeholder animation="glow" className="w-100" />
@@ -273,8 +293,10 @@ export default function PostEditor({
               )}
             </FormGroup>
           </Col>
-          <Col xs={6}>
-            <FormGroup className="post-slug" controlId="post-slug">
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <FormGroup className="text-group post-slug" controlId="post-slug">
               <FormLabel>Slug</FormLabel>
               {loadingSiblingPosts || !calledGetPostsByCategory ? (
                 <Placeholder animation="glow" className="w-100" />
@@ -299,14 +321,22 @@ export default function PostEditor({
         </Row>
         <Row>
           <Col xs={12}>
-            <Form.Group className="post-body" controlId="post-body">
+            <Form.Group
+              className="editor-group post-body"
+              controlId="post-body"
+            >
               <Editor
                 alreadyInsideForm
                 markdown={markdown}
                 onChange={onMarkdownChange}
-                className="post-editor"
+                className="post-markdown-editor"
               />
             </Form.Group>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} as="footer">
+            {children}
           </Col>
         </Row>
       </Form>

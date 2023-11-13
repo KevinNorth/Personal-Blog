@@ -35,6 +35,11 @@ $space-between-post-cards: 25px;
         color: white;
       }
 
+      .nav-item > a {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
       .nav-link {
         color: white;
         transition: none;
@@ -50,19 +55,42 @@ $space-between-post-cards: 25px;
         filter: brightness(100);
       }
 
+      // White line to visually group subitems when the responsive navbar is
+      // rearranged vertically on small screens
+      @media (max-width: 768px) {
+        .category-with-dropdown .dropdown-menu {
+          border-left-color: white;
+          border-left-style: solid;
+          border-left-width: 2px;
+          border-block-width: 0;
+          border-radius: 0;
+
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+
       .dropdown-item:hover, .dropdown-item:active {
         background-color: white;
-        color: black;
+
+        a, a:hover {
+          color: black;
+        }
       }
 
       .category-with-dropdown {
+        .leaf-category, .top-level-category-link {
+          vertical-align: top;
+        }
+
         .top-level-category-link {
           padding-right: 0px;
         }
 
         .top-level-category-dropdown-button {
           .dropdown-toggle {
-            padding-left: 2px;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
           }
 
           .dropdown-toggle::after {
@@ -123,22 +151,11 @@ $space-between-post-cards: 25px;
     }
 
     .blog-body {
+      @include blog-body;
+
       margin: 0 auto;
-      max-width: 800px;
-      padding: 5rem 0;
-
-      a {
-        color: #1f1fbb;
-      }
-
-      a:hover {
-        color: #1f1fbb;
-      }
-
-      img {
-        margin: 0 auto;
-        display: block;
-      }
+      padding-top: 5rem;
+      padding-bottom: 5rem;
 
       footer {
         border-top-color: black;
@@ -146,7 +163,7 @@ $space-between-post-cards: 25px;
         border-top-style: solid;
 
         margin: 5rem 0 0 0;
-        padding-top: 1rem;
+        padding: 1rem 1rem 0 1rem;
 
         font-size: 1rem;
         width: 100%;
@@ -190,6 +207,8 @@ $space-between-post-cards: 25px;
 
   footer {
     margin: 2rem auto 2rem auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
     font-size: 0.8rem;
     width: fit-content;
     text-align: center;
