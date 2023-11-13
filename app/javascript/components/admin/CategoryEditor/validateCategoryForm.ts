@@ -1,5 +1,18 @@
 import Category from '../../../graphql/types/category';
 
+export interface CategoryForm {
+  markdown: string;
+  name: string;
+  order: string;
+  parentId: string;
+  published: boolean;
+  slug: string;
+  subtitle: string;
+  summary: string;
+  title: string;
+  otherCategories: Partial<Category>[];
+}
+
 export type Validation =
   | {
       isValid: false;
@@ -35,18 +48,7 @@ function validateCategoryForm({
   summary,
   title,
   otherCategories,
-}: {
-  markdown: string;
-  name: string;
-  order: string;
-  parentId: string;
-  published: boolean;
-  slug: string;
-  subtitle: string;
-  summary: string;
-  title: string;
-  otherCategories: Partial<Category>[];
-}): ValidationResults {
+}: CategoryForm): ValidationResults {
   const validationResults: ValidationResults = [
     'markdown',
     'name',
