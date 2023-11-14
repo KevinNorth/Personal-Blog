@@ -6,7 +6,7 @@ import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
 
-const postBySlugQuery = gql`
+export const postBySlugQuery = gql`
   query postBySlugQuery(
     $categorySlug: String!
     $postSlug: String!

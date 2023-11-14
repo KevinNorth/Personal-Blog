@@ -6,7 +6,7 @@ import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
 
-const postByIdQuery = gql`
+export const postByIdQuery = gql`
   query postByIdQuery($id: ID!, $includeUnpublished: Boolean) {
     postById(id: $id, includeUnpublished: $includeUnpublished) {
       ...PostFragment

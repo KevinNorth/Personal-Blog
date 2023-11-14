@@ -6,7 +6,7 @@ import Category from '../types/category';
 import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import QueryResult from '../types/queryResult';
 
-const categoryBySlugQuery = gql`
+export const categoryBySlugQuery = gql`
   query categoryBySlugQuery($slug: String!, $includeUnpublished: Boolean) {
     categoryBySlug(slug: $slug, includeUnpublished: $includeUnpublished) {
       ...CategoryFragment
