@@ -2,10 +2,15 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import snapshotRenderer from 'react-test-renderer';
 import { MockedProvider } from '@apollo/client/testing';
-import { render as interactableRenderer, screen } from '@testing-library/react';
+import {
+  act,
+  render as interactableRenderer,
+  RenderResult,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockCategoriesAndPosts } from '../../../../__tests__/fixtures/allCategoriesAndPosts';
 import { allCategoriesAndPostsQuery } from '../../../../graphql/queries/allCategoriesAndPosts';
@@ -41,6 +46,51 @@ function TestCategoryEditor(
       {props.children || <span>Test children</span>}
     </CategoryEditor>
   );
+}
+
+function testTextInput(input: keyof CategoryEditorProps, label?: string) {
+  const capitalizedInput = input.charAt(0).toUpperCase() + input.slice(1);
+
+  it(`calls on${capitalizedInput}Change`, async () => {
+    const user = userEvent.setup();
+    const onChangeSpy = jest.fn();
+    const initialValue = '1';
+    const typedChar = '2';
+
+    const props = {
+      [input]: initialValue,
+      [`on${capitalizedInput}Change`]: onChangeSpy,
+    };
+
+    let wrapper: RenderResult;
+    act(() => {
+      wrapper = interactableRenderer(
+        <MockedProvider mocks={[getAllCategoriesAndPostsMock]}>
+          <TestCategoryEditor {...props} />
+        </MockedProvider>
+      );
+    });
+
+    const escapedLabelForRegExp = (label || capitalizedInput).replace(
+      /[/\-\\^$*+?.()|[\]{}]/g,
+      '\\$&'
+    );
+    // We are in complete control of the values passed to the regexp here,
+    // and we escape characters with regex meaning as well.
+    // eslint-disable-next-line security/detect-non-literal-regexp
+    const labelRegExp = new RegExp(`^${escapedLabelForRegExp}$`);
+
+    await waitFor(() => {
+      // Some form inputs are only available after GraphQL queries resolve
+      expect(wrapper.findByLabelText(labelRegExp)).toBeTruthy();
+    });
+    const textbox = screen.getByLabelText(labelRegExp);
+    await user.type(textbox, typedChar);
+
+    expect(onChangeSpy.mock.lastCall?.[0]).toEqual(
+      `${initialValue}${typedChar}`
+    );
+  });
 }
 
 const getAllCategoriesAndPostsMock = {
@@ -125,11 +175,11 @@ describe('CategoryEditor', () => {
   });
 
   describe('user interactions', () => {
-    describe('when the user enters a title', () => {
-      it('calls onTitleChange', async () => {
+    describe('when the user enters markdown', () => {
+      it('calls onMarkdownChange', async () => {
         const user = userEvent.setup();
-        const onTitleChangeSpy = jest.fn();
-        const initialTitle = 'a';
+        const onMarkdownChangeSpy = jest.fn();
+        const initialMarkdown = 'a';
         const typedChar = 'b';
 
         let wrapper;
@@ -137,21 +187,67 @@ describe('CategoryEditor', () => {
           wrapper = interactableRenderer(
             <MockedProvider mocks={[getAllCategoriesAndPostsMock]}>
               <TestCategoryEditor
-                title={initialTitle}
-                onTitleChange={onTitleChangeSpy}
+                markdown={initialMarkdown}
+                onMarkdownChange={onMarkdownChangeSpy}
               />
             </MockedProvider>
           );
         });
 
-        expect(wrapper.findByLabelText(/^title$/i)).toBeTruthy();
-        const titleInput = screen.getByLabelText(/^title$/i);
-        await user.type(titleInput, typedChar);
+        expect(
+          (await wrapper.findAllByDisplayValue(initialMarkdown)).length
+        ).toBeGreaterThan(0);
+        const markdownInput = screen.getAllByDisplayValue(initialMarkdown)[0];
+        await user.type(markdownInput, typedChar);
 
-        expect(onTitleChangeSpy.mock.lastCall?.[0]).toEqual(
-          `${initialTitle}${typedChar}`
+        expect(onMarkdownChangeSpy.mock.lastCall?.[0]).toEqual(
+          `${initialMarkdown}${typedChar}`
         );
       });
+    });
+
+    describe('when the user enters a name', () => {
+      testTextInput('name', 'Name in Navbar');
+    });
+
+    describe('when the user enters an order', () => {
+      testTextInput('order', 'Order in Navbar');
+    });
+
+    describe('when the user selects a parent category', () => {
+      describe('when the user selects a non-null parent category', () => {
+        test.todo('calls onParentIdChange');
+      });
+
+      describe('when the user selects "No parent" for parent category', () => {
+        test.todo('calls onParentIdChange with null');
+      });
+    });
+
+    describe('when the user clicks on a published button', () => {
+      describe('when the user clicks "Published', () => {
+        test.todo('calls onPublishedChange(true)');
+      });
+
+      describe('when the user clicks "Unpublished', () => {
+        test.todo('calls onPublishedChange(false)');
+      });
+    });
+
+    describe('when the user enters a slug', () => {
+      testTextInput('slug');
+    });
+
+    describe('when the user enters a subtitle', () => {
+      testTextInput('subtitle');
+    });
+
+    describe('when the user enters a summary', () => {
+      testTextInput('summary');
+    });
+
+    describe('when the user enters a title', () => {
+      testTextInput('title');
     });
   });
 });
