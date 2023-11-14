@@ -1,4 +1,4 @@
-import { mockCategories } from '../fixtures/allCategories';
+import { mockCategoriesAndPosts } from '../../../../__tests__/fixtures/allCategoriesAndPosts';
 import validateCategoryForm, {
   CategoryForm,
   Validation,
@@ -9,7 +9,7 @@ const validForm: CategoryForm = {
   markdown: 'Test',
   name: 'Test',
   order: '0',
-  otherCategories: mockCategories,
+  otherCategories: mockCategoriesAndPosts,
   parentId: null,
   published: true,
   slug: 'test',

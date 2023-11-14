@@ -1,6 +1,6 @@
-import Category from '../../../../graphql/types/category';
+import Category from '../../graphql/types/category';
 
-export const mockCategories: Category[] = [
+export const mockCategoriesAndPosts: Category[] = [
   {
     createdAt: '2023-10-28T20:04:26Z',
     headerImage: null,
