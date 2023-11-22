@@ -61,6 +61,22 @@ const popover = (
           <code>&lt;img src=&quot;Icon1Circle&quot; /&gt;</code> with
           &quot;Icon&quot; appended to the start of the icon name.
         </li>
+        <li>
+          <a href="https://mermaid.js.org/" target="__blank">
+            Mermaid.js diagrams
+          </a>
+          . Put Mermaid markup in a code block with a language of `mermaid`. For
+          example:
+          <pre>
+            ```mermaid
+            <br />
+            flowchart
+            <br />
+            &nbsp;&nbsp;A --$gt; B
+            <br />
+            ```
+          </pre>
+        </li>
       </ul>
     </Popover.Body>
   </Popover>
