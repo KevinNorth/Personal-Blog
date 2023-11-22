@@ -177,6 +177,15 @@ blockquote {
     --bs-code-color: #666680;
   }
 
+  code.language-mermaid {
+    display: block;
+
+    svg {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+
   ul {
     list-style: none;
     margin-left: 0;
