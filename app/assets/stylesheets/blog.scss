@@ -200,6 +200,18 @@ $space-between-post-cards: 25px;
               color: white;
             }
           }
+
+          @media (min-width: 500px) and (max-width: 650px) {
+            .card {
+              flex: 1 1 calc(50% - $space-between-post-cards);
+            }
+          }
+
+          @media (max-width: 500px) {
+            .card {
+              flex: 1 1 100%;
+            }
+          }
         }
       }
     }
