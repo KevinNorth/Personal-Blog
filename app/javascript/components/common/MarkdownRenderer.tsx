@@ -2,6 +2,7 @@ import React from 'react';
 import Markdown, { Components } from 'react-markdown';
 import Icon, { isIconName } from './Icon';
 import 'highlight.js/styles/github.css';
+import mermaid from 'mermaid';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import rehypeSlug from 'rehype-slug';
@@ -24,6 +25,15 @@ const iconComponentsConfig: Components = {
 
     // eslint-disable-next-line jsx-a11y/alt-text
     return <img {...props}></img>;
+  },
+  code: async (props) => {
+    const { className, content, key } = props;
+
+    if (className.includes('language-mermaid')) {
+      return mermaid.render(`mermaid-${key}`, content);
+    }
+
+    return <code {...props}></code>;
   },
 };
 

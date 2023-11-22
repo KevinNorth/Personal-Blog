@@ -1,14 +1,15 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import Admin from './components/Admin';
-import getCRSFToken from './lib/getCRSFToken';
 import {
   ApolloClient,
+  ApolloProvider,
   HttpLink,
   InMemoryCache,
-  ApolloProvider,
 } from '@apollo/client';
+import Admin from './components/Admin';
+import getCRSFToken from './lib/getCRSFToken';
+import mermaid from 'mermaid';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -19,6 +20,8 @@ const client = new ApolloClient({
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  mermaid.initialize({ startOnLoad: true });
+
   const domNode = document.createElement('div');
   document.body.appendChild(domNode);
   const root = createRoot(domNode);

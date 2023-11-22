@@ -9,6 +9,7 @@ import {
 } from '@apollo/client';
 import Blog from './components/Blog';
 import getCRSFToken from './lib/getCRSFToken';
+import mermaid from 'mermaid';
 
 const client = new ApolloClient({
   link: new HttpLink({
@@ -23,6 +24,8 @@ const client = new ApolloClient({
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  mermaid.initialize({ startOnLoad: true });
+
   const domNode = document.createElement('div');
   document.body.appendChild(domNode);
   const root = createRoot(domNode);
