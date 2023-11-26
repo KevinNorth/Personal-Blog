@@ -22,6 +22,7 @@
     "css-loader": "^6.8.1",
     "graphql": "^16.8.1",
     "highlight.js": "^11.9.0",
+    "mermaid": "^10.6.1",
     "mini-css-extract-plugin": "^2.7.6",
     "prettier": "^2.8.8",
     "prettier-eslint": "^16.1.1",
