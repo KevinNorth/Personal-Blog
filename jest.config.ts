@@ -88,6 +88,9 @@ const config: Config = {
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   moduleNameMapper: {
+    // false positive
+    // eslint-disable-next-line xss/no-mixed-html
+    mermaid: '<rootDir>/__tests__/mocks/mermaidMock.ts',
     'react-markdown': '<rootDir>/__tests__/mocks/reactMarkdownMock.tsx',
     'rehype-highlight': '<rootDir>/__tests__/mocks/rehypePluginMock.ts',
     'rehype-raw': '<rootDir>/__tests__/mocks/rehypePluginMock.ts',

@@ -341,11 +341,13 @@ exports[`CategoryEditor when given a valid category form when the category is a 
                         className="editor-preview-content"
                       >
                         <div>
-                          Test markdown
-                        </div>
-                        <div>
-                          Props: 
-                          {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[null,null,null]}
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -409,11 +411,13 @@ exports[`CategoryEditor when given a valid category form when the category is a 
                         className="editor-preview-content"
                       >
                         <div>
-                          Test markdown
-                        </div>
-                        <div>
-                          Props: 
-                          {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[null,null,null]}
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -781,11 +785,13 @@ exports[`CategoryEditor when given a valid category form when the category is a 
                         className="editor-preview-content"
                       >
                         <div>
-                          Test markdown
-                        </div>
-                        <div>
-                          Props: 
-                          {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[null,null,null]}
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -849,11 +855,13 @@ exports[`CategoryEditor when given a valid category form when the category is a 
                         className="editor-preview-content"
                       >
                         <div>
-                          Test markdown
-                        </div>
-                        <div>
-                          Props: 
-                          {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[null,null,null]}
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1221,11 +1229,13 @@ exports[`CategoryEditor when given an invalid category form renders as expected 
                         className="editor-preview-content"
                       >
                         <div>
-                          Test markdown
-                        </div>
-                        <div>
-                          Props: 
-                          {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[null,null,null]}
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1289,11 +1299,13 @@ exports[`CategoryEditor when given an invalid category form renders as expected 
                         className="editor-preview-content"
                       >
                         <div>
-                          Test markdown
-                        </div>
-                        <div>
-                          Props: 
-                          {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[null,null,null]}
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
                         </div>
                       </div>
                     </div>
