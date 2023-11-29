@@ -1,6 +1,19 @@
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
 
+export interface PostForm {
+  categoryId: string;
+  markdown: string;
+  order: string;
+  published: boolean;
+  slug: string;
+  subtitle: string;
+  summary: string;
+  title: string;
+  siblingPosts: Partial<Post>[];
+  allCategories: Partial<Category>[];
+}
+
 export type Validation =
   | {
       isValid: false;
@@ -35,18 +48,7 @@ function validatePostForm({
   title,
   siblingPosts,
   allCategories,
-}: {
-  categoryId: string;
-  markdown: string;
-  order: string;
-  published: boolean;
-  slug: string;
-  subtitle: string;
-  summary: string;
-  title: string;
-  siblingPosts: Partial<Post>[];
-  allCategories: Partial<Category>[];
-}): ValidationResults {
+}: PostForm): ValidationResults {
   const validationResults: ValidationResults = [
     'categoryId',
     'markdown',
