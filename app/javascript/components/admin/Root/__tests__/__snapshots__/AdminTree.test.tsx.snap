@@ -1,0 +1,1932 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminTree renders as expected 1`] = `
+<div
+  className="admin-tree container-fluid"
+>
+  <div
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    style={
+      {
+        "height": 1000,
+        "minHeight": 0,
+        "minWidth": 0,
+        "width": "100%",
+      }
+    }
+    tabIndex={0}
+  >
+    <div
+      onClick={[Function]}
+      onScroll={[Function]}
+      style={
+        {
+          "WebkitOverflowScrolling": "touch",
+          "direction": "ltr",
+          "height": 1000,
+          "overflow": "auto",
+          "position": "relative",
+          "width": "100%",
+          "willChange": "transform",
+        }
+      }
+    >
+      <div
+        style={
+          {
+            "height": 945,
+            "left": "0",
+            "position": "absolute",
+            "right": "0",
+            "width": "100%",
+          }
+        }
+      />
+      <div
+        style={
+          {
+            "height": "945px",
+            "pointerEvents": undefined,
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          aria-level={0}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 0,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "0px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Home
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/1"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={0}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 45,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "0px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Accomplishments
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/2"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={1}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 90,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "5px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Applied Systems
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/5"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 135,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Epic Quotes
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/8"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 180,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Parent/Child Agency Refactoring
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/1"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 225,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Copy Quote Algorithm
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/2"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 270,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Applied Analytics
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/9"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 315,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Team Quarterback
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/3"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={1}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 360,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "5px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Research
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/6"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 405,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                GitVS
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/4"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 450,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Presentation at ESEC/FSE 2015
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/5"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={1}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 495,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "5px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Personal Projects
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/7"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 540,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                kevinnorth.dev
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/10"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 585,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Lancaster County Democratic Party
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/11"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 630,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Purchasing New Equipment
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/6"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 675,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Security Training
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/7"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={2}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 720,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "10px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Unity Game Development
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Draft
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/12"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 765,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Your Hope is Unforgivable: a deckbuilding rougelike
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Draft
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/8"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={3}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 810,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="post-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "15px",
+                  }
+                }
+              />
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
+              <span
+                className="label"
+              >
+                Post:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                The Halting Problem: a rhythm game twin-stick shooter
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Draft
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/post/9"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={0}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 855,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "0px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                About Me
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Draft
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/3"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-level={0}
+          aria-selected={false}
+          onClick={[Function]}
+          onFocus={[Function]}
+          role="treeitem"
+          style={
+            {
+              "height": 45,
+              "left": 0,
+              "position": "absolute",
+              "right": undefined,
+              "top": 900,
+              "width": "100%",
+            }
+          }
+          tabIndex={-1}
+        >
+          <div
+            className="category-node row"
+            style={
+              {
+                "paddingLeft": 0,
+              }
+            }
+          >
+            <div
+              className="col-8"
+            >
+              <span
+                className="spacer"
+                style={
+                  {
+                    "paddingLeft": "0px",
+                  }
+                }
+              />
+              <button
+                className="open-toggle btn btn-outline-secondary btn-sm"
+                disabled={false}
+                onClick={[Function]}
+                type="button"
+              >
+                <svg
+                  fill="currentColor"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </button>
+              <span
+                className="label"
+              >
+                Category:
+              </span>
+               
+              <strong
+                className="value"
+              >
+                Contact
+              </strong>
+            </div>
+            <div
+              className="published col-2"
+            >
+              Published
+            </div>
+            <div
+              className="col-2"
+            >
+              <a
+                className="btn btn-primary btn-sm"
+                disabled={false}
+                href="/admin/category/4"
+                onClick={[Function]}
+                onKeyDown={[Function]}
+                role="button"
+                tabIndex={0}
+              >
+                Edit
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
