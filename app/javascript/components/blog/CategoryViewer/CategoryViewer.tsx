@@ -12,7 +12,7 @@ export interface CategoryViewerProps {
   showDefaultCategory?: boolean;
 }
 
-function PostViewer({
+function CategoryViewer({
   showDefaultCategory = false,
 }: CategoryViewerProps): React.ReactElement {
   let category: Partial<Category> | null = null;
@@ -54,4 +54,4 @@ function PostViewer({
   );
 }
 
-export default PostViewer;
+export default CategoryViewer;
