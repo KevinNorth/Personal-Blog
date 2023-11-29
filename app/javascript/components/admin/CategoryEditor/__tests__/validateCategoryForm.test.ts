@@ -29,7 +29,7 @@ function expectAllResultsToBeValid(results: ValidationResults): void {
   Object.values(results).forEach((result) => expectResultToBeValid(result));
 }
 
-describe('test', () => {
+describe('validateCategoryForm()', () => {
   describe('when given a valid category form', () => {
     describe('when the category has no parent', () => {
       it('returns an object with all valid results', () => {
