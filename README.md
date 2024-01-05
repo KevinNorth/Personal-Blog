@@ -48,11 +48,11 @@ The `app/javascript` directory is organized like this:
 
 I decided to focus on getting my website live quickly so I could link to it - and this repo - on my LinkedIn profile. As a result, I accrued a bit of tech debt. Here are the things I'm planning on cleaning up soon:
 
-- [ ] Add more tests to gain near-full code coverage. (In progress: https://github.com/KevinNorth/Personal-Blog/pull/13)
+- [ ] Add more tests to gain near-full code coverage. (Partially complete: https://github.com/KevinNorth/Personal-Blog/pull/13)
 - [x] Clean up the CSS on the admin editor so it's easier to use. (https://github.com/KevinNorth/Personal-Blog/pull/12)
 - [ ] Handle errors on both the frontend and the backend more gracefully.
 - [ ] Shore up the validation logic on models.
-- [ ] Refactor posts and categories into one model. I thought they'd be more different from each other when I started this project, but in retrospect, I only need posts with unique URL slugs on my site.
+- [ ] Refactor posts and categories into one model. I thought they'd be more different from each other when I started this project, but in retrospect, I only need posts with unique URL slugs on my site. (In progress: https://github.com/KevinNorth/Personal-Blog/pull/17)
 - [ ] Clean up the number of configuration files in the repository's root directory.
 
 When I'm caught up on tech debt, there are a couple more features I'm planning to add:
