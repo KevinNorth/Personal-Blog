@@ -1,10 +1,8 @@
+import { mockCategoriesAndPosts } from '../../__tests__/fixtures/allCategoriesAndPosts';
 import { AdminTreeVertex } from '../../components/admin/Root/types';
 import Category from '../../graphql/types/category';
 import organizeCategoriesAndPostsIntoArboristTree from '../organizeCategoriesAndPostsIntoArboristTree';
-import {
-  categoriesAndPostsAsArboristTree,
-  mockCategoriesAndPosts,
-} from './fixtures/allCategoriesAndPosts';
+import { categoriesAndPostsAsArboristTree } from './fixtures/allCategoriesAndPostsAsArboristTree';
 
 describe('test', () => {
   describe('when given an empty array', () => {

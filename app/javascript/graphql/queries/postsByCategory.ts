@@ -8,7 +8,7 @@ import LazyQueryResult, {
   LazyQueryExecuteFunction,
 } from 'graphql/types/lazyQueryResult';
 
-const postByIdQuery = gql`
+export const postByIdQuery = gql`
   query postsByCategoryQuery($categoryId: ID!, $includeUnpublished: Boolean) {
     postsByCategory(
       categoryId: $categoryId

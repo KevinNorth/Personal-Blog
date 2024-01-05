@@ -9,7 +9,7 @@ import LazyQueryResult, {
 import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import QueryResult from '../types/queryResult';
 
-const allCategoriesAndPostsQuery = gql`
+export const allCategoriesAndPostsQuery = gql`
   query allCategoriesAndPostsQuery($includeUnpublished: Boolean) {
     categories(includeUnpublished: $includeUnpublished) {
       ...CategoryFragment

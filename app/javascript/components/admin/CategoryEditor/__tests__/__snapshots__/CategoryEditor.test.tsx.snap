@@ -1,0 +1,1406 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryEditor when given a valid category form when the category is a child category renders as expected 1`] = `
+<div
+  className="category-editor container-fluid"
+>
+  <form
+    className=""
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-title"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-title"
+            size="lg"
+          >
+            Title
+          </label>
+          <input
+            className="form-control form-control-lg is-valid"
+            id="category-title"
+            onChange={[Function]}
+            type="text"
+            value="Test title"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-subtitle"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-subtitle"
+          >
+            Subtitle
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-subtitle"
+            onChange={[Function]}
+            type="text"
+            value="Test subtitle"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-summary"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-summary"
+          >
+            Summary
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-summary"
+            onChange={[Function]}
+            type="text"
+            value="Test summary"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="select-group category-parent"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-parent"
+          >
+            Category
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-6"
+      >
+        <div
+          className="button-group category-published"
+        >
+          <div
+            className="btn-group"
+            role="group"
+          >
+            <input
+              autoComplete="off"
+              checked={false}
+              className="btn-check"
+              disabled={false}
+              id="category-unpublished-button"
+              name="unpublished"
+              onChange={[Function]}
+              type="radio"
+              value="false"
+            />
+            <label
+              className="btn btn-primary"
+              disabled={false}
+              htmlFor="category-unpublished-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              tabIndex={0}
+            >
+              Unpublished
+            </label>
+            <input
+              autoComplete="off"
+              checked={true}
+              className="btn-check"
+              disabled={false}
+              id="category-published-button"
+              name="published"
+              onChange={[Function]}
+              type="radio"
+              value="false"
+            />
+            <label
+              className="btn btn-primary"
+              disabled={false}
+              htmlFor="category-published-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              tabIndex={0}
+            >
+              Published
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-6"
+      >
+        <div
+          className="text-group category-slug"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-slug"
+          >
+            Slug
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-name"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-name"
+          >
+            Name in Navbar
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-name"
+            onChange={[Function]}
+            type="text"
+            value="Test name"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="number-group category-order"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-order"
+          >
+            Order in Navbar
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="editor-group category-body"
+        >
+          <ul
+            className="editor-tabs nav nav-tabs"
+            onKeyDown={[Function]}
+            role="tablist"
+          >
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-split"
+                aria-selected={true}
+                className="nav-link active"
+                data-rr-ui-event-key="split"
+                disabled={false}
+                id="core-markdown-editor-tab-split"
+                onClick={[Function]}
+                role="tab"
+                type="button"
+              >
+                Split Editor
+              </button>
+            </li>
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-editor"
+                aria-selected={false}
+                className="nav-link"
+                data-rr-ui-event-key="editor"
+                disabled={false}
+                id="core-markdown-editor-tab-editor"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+                type="button"
+              >
+                Editor
+              </button>
+            </li>
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-preview"
+                aria-selected={false}
+                className="nav-link"
+                data-rr-ui-event-key="preview"
+                disabled={false}
+                id="core-markdown-editor-tab-preview"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+                type="button"
+              >
+                Preview
+              </button>
+            </li>
+          </ul>
+          <div
+            className="tab-content"
+          >
+            <div
+              aria-labelledby="core-markdown-editor-tab-split"
+              className="tab-pane active"
+              id="core-markdown-editor-tabpane-split"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-input col-6"
+                  >
+                    <textarea
+                      className="form-control"
+                      id="category-body"
+                      onChange={[Function]}
+                      value="Test markdown"
+                    />
+                    <button
+                      className="editor-syntax-help-button btn btn-primary"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      type="button"
+                    >
+                      Syntax Help
+                    </button>
+                  </div>
+                  <div
+                    className="editor-preview-wrapper col-6"
+                  >
+                    <div
+                      className="editor-preview"
+                    >
+                      <div
+                        className="editor-preview-content"
+                      >
+                        <div>
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="core-markdown-editor-tab-editor"
+              className="tab-pane"
+              id="core-markdown-editor-tabpane-editor"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-input col-12"
+                  >
+                    <textarea
+                      className="form-control"
+                      id="category-body"
+                      onChange={[Function]}
+                      value="Test markdown"
+                    />
+                    <button
+                      className="editor-syntax-help-button btn btn-primary"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      type="button"
+                    >
+                      Syntax Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="core-markdown-editor-tab-preview"
+              className="tab-pane"
+              id="core-markdown-editor-tabpane-preview"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-preview-wrapper col-12"
+                  >
+                    <div
+                      className="editor-preview"
+                    >
+                      <div
+                        className="editor-preview-content"
+                      >
+                        <div>
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <footer
+        className="col-12"
+      >
+        <span>
+          Test children
+        </span>
+      </footer>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`CategoryEditor when given a valid category form when the category is a top-level category renders as expected 1`] = `
+<div
+  className="category-editor container-fluid"
+>
+  <form
+    className=""
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-title"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-title"
+            size="lg"
+          >
+            Title
+          </label>
+          <input
+            className="form-control form-control-lg is-valid"
+            id="category-title"
+            onChange={[Function]}
+            type="text"
+            value="Test title"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-subtitle"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-subtitle"
+          >
+            Subtitle
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-subtitle"
+            onChange={[Function]}
+            type="text"
+            value="Test subtitle"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-summary"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-summary"
+          >
+            Summary
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-summary"
+            onChange={[Function]}
+            type="text"
+            value="Test summary"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="select-group category-parent"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-parent"
+          >
+            Category
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-6"
+      >
+        <div
+          className="button-group category-published"
+        >
+          <div
+            className="btn-group"
+            role="group"
+          >
+            <input
+              autoComplete="off"
+              checked={false}
+              className="btn-check"
+              disabled={false}
+              id="category-unpublished-button"
+              name="unpublished"
+              onChange={[Function]}
+              type="radio"
+              value="false"
+            />
+            <label
+              className="btn btn-primary"
+              disabled={false}
+              htmlFor="category-unpublished-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              tabIndex={0}
+            >
+              Unpublished
+            </label>
+            <input
+              autoComplete="off"
+              checked={true}
+              className="btn-check"
+              disabled={false}
+              id="category-published-button"
+              name="published"
+              onChange={[Function]}
+              type="radio"
+              value="false"
+            />
+            <label
+              className="btn btn-primary"
+              disabled={false}
+              htmlFor="category-published-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              tabIndex={0}
+            >
+              Published
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-6"
+      >
+        <div
+          className="text-group category-slug"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-slug"
+          >
+            Slug
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-name"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-name"
+          >
+            Name in Navbar
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-name"
+            onChange={[Function]}
+            type="text"
+            value="Test name"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="number-group category-order"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-order"
+          >
+            Order in Navbar
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="editor-group category-body"
+        >
+          <ul
+            className="editor-tabs nav nav-tabs"
+            onKeyDown={[Function]}
+            role="tablist"
+          >
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-split"
+                aria-selected={true}
+                className="nav-link active"
+                data-rr-ui-event-key="split"
+                disabled={false}
+                id="core-markdown-editor-tab-split"
+                onClick={[Function]}
+                role="tab"
+                type="button"
+              >
+                Split Editor
+              </button>
+            </li>
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-editor"
+                aria-selected={false}
+                className="nav-link"
+                data-rr-ui-event-key="editor"
+                disabled={false}
+                id="core-markdown-editor-tab-editor"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+                type="button"
+              >
+                Editor
+              </button>
+            </li>
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-preview"
+                aria-selected={false}
+                className="nav-link"
+                data-rr-ui-event-key="preview"
+                disabled={false}
+                id="core-markdown-editor-tab-preview"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+                type="button"
+              >
+                Preview
+              </button>
+            </li>
+          </ul>
+          <div
+            className="tab-content"
+          >
+            <div
+              aria-labelledby="core-markdown-editor-tab-split"
+              className="tab-pane active"
+              id="core-markdown-editor-tabpane-split"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-input col-6"
+                  >
+                    <textarea
+                      className="form-control"
+                      id="category-body"
+                      onChange={[Function]}
+                      value="Test markdown"
+                    />
+                    <button
+                      className="editor-syntax-help-button btn btn-primary"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      type="button"
+                    >
+                      Syntax Help
+                    </button>
+                  </div>
+                  <div
+                    className="editor-preview-wrapper col-6"
+                  >
+                    <div
+                      className="editor-preview"
+                    >
+                      <div
+                        className="editor-preview-content"
+                      >
+                        <div>
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="core-markdown-editor-tab-editor"
+              className="tab-pane"
+              id="core-markdown-editor-tabpane-editor"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-input col-12"
+                  >
+                    <textarea
+                      className="form-control"
+                      id="category-body"
+                      onChange={[Function]}
+                      value="Test markdown"
+                    />
+                    <button
+                      className="editor-syntax-help-button btn btn-primary"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      type="button"
+                    >
+                      Syntax Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="core-markdown-editor-tab-preview"
+              className="tab-pane"
+              id="core-markdown-editor-tabpane-preview"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-preview-wrapper col-12"
+                  >
+                    <div
+                      className="editor-preview"
+                    >
+                      <div
+                        className="editor-preview-content"
+                      >
+                        <div>
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <footer
+        className="col-12"
+      >
+        <span>
+          Test children
+        </span>
+      </footer>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`CategoryEditor when given an invalid category form renders as expected 1`] = `
+<div
+  className="category-editor container-fluid"
+>
+  <form
+    className=""
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-title"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-title"
+            size="lg"
+          >
+            Title
+          </label>
+          <input
+            className="form-control form-control-lg is-valid"
+            id="category-title"
+            onChange={[Function]}
+            type="text"
+            value="Test title"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-subtitle"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-subtitle"
+          >
+            Subtitle
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-subtitle"
+            onChange={[Function]}
+            type="text"
+            value="Test subtitle"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-summary"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-summary"
+          >
+            Summary
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-summary"
+            onChange={[Function]}
+            type="text"
+            value="Test summary"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="select-group category-parent"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-parent"
+          >
+            Category
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-6"
+      >
+        <div
+          className="button-group category-published"
+        >
+          <div
+            className="btn-group"
+            role="group"
+          >
+            <input
+              autoComplete="off"
+              checked={false}
+              className="btn-check"
+              disabled={false}
+              id="category-unpublished-button"
+              name="unpublished"
+              onChange={[Function]}
+              type="radio"
+              value="false"
+            />
+            <label
+              className="btn btn-primary"
+              disabled={false}
+              htmlFor="category-unpublished-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              tabIndex={0}
+            >
+              Unpublished
+            </label>
+            <input
+              autoComplete="off"
+              checked={true}
+              className="btn-check"
+              disabled={false}
+              id="category-published-button"
+              name="published"
+              onChange={[Function]}
+              type="radio"
+              value="false"
+            />
+            <label
+              className="btn btn-primary"
+              disabled={false}
+              htmlFor="category-published-button"
+              onClick={[Function]}
+              onKeyDown={[Function]}
+              tabIndex={0}
+            >
+              Published
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-6"
+      >
+        <div
+          className="text-group category-slug"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-slug"
+          >
+            Slug
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="text-group category-name"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-name"
+          >
+            Name in Navbar
+          </label>
+          <input
+            className="form-control is-valid"
+            id="category-name"
+            onChange={[Function]}
+            type="text"
+            value="Test name"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="number-group category-order"
+        >
+          <label
+            className="form-label"
+            htmlFor="category-order"
+          >
+            Order in Navbar
+          </label>
+          <span
+            className="w-100 placeholder-glow"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <div
+          className="editor-group category-body"
+        >
+          <ul
+            className="editor-tabs nav nav-tabs"
+            onKeyDown={[Function]}
+            role="tablist"
+          >
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-split"
+                aria-selected={true}
+                className="nav-link active"
+                data-rr-ui-event-key="split"
+                disabled={false}
+                id="core-markdown-editor-tab-split"
+                onClick={[Function]}
+                role="tab"
+                type="button"
+              >
+                Split Editor
+              </button>
+            </li>
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-editor"
+                aria-selected={false}
+                className="nav-link"
+                data-rr-ui-event-key="editor"
+                disabled={false}
+                id="core-markdown-editor-tab-editor"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+                type="button"
+              >
+                Editor
+              </button>
+            </li>
+            <li
+              className="nav-item"
+              role="presentation"
+            >
+              <button
+                aria-controls="core-markdown-editor-tabpane-preview"
+                aria-selected={false}
+                className="nav-link"
+                data-rr-ui-event-key="preview"
+                disabled={false}
+                id="core-markdown-editor-tab-preview"
+                onClick={[Function]}
+                role="tab"
+                tabIndex={-1}
+                type="button"
+              >
+                Preview
+              </button>
+            </li>
+          </ul>
+          <div
+            className="tab-content"
+          >
+            <div
+              aria-labelledby="core-markdown-editor-tab-split"
+              className="tab-pane active"
+              id="core-markdown-editor-tabpane-split"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-input col-6"
+                  >
+                    <textarea
+                      className="form-control"
+                      id="category-body"
+                      onChange={[Function]}
+                      value="Test markdown"
+                    />
+                    <button
+                      className="editor-syntax-help-button btn btn-primary"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      type="button"
+                    >
+                      Syntax Help
+                    </button>
+                  </div>
+                  <div
+                    className="editor-preview-wrapper col-6"
+                  >
+                    <div
+                      className="editor-preview"
+                    >
+                      <div
+                        className="editor-preview-content"
+                      >
+                        <div>
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="core-markdown-editor-tab-editor"
+              className="tab-pane"
+              id="core-markdown-editor-tabpane-editor"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-input col-12"
+                  >
+                    <textarea
+                      className="form-control"
+                      id="category-body"
+                      onChange={[Function]}
+                      value="Test markdown"
+                    />
+                    <button
+                      className="editor-syntax-help-button btn btn-primary"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onFocus={[Function]}
+                      type="button"
+                    >
+                      Syntax Help
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              aria-labelledby="core-markdown-editor-tab-preview"
+              className="tab-pane"
+              id="core-markdown-editor-tabpane-preview"
+              role="tabpanel"
+            >
+              <div
+                className="category-markdown-editor container-fluid"
+              >
+                <div
+                  className="row"
+                >
+                  <div
+                    className="editor-preview-wrapper col-12"
+                  >
+                    <div
+                      className="editor-preview"
+                    >
+                      <div
+                        className="editor-preview-content"
+                      >
+                        <div>
+                          <div>
+                            Test markdown
+                          </div>
+                          <div>
+                            Props: 
+                            {"components":{},"remarkPlugins":[[null,{"singleTilde":false}]],"rehypePlugins":[[null,{"plainText":["mermaid"]}],null,null]}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <footer
+        className="col-12"
+      >
+        <span>
+          Test children
+        </span>
+      </footer>
+    </div>
+  </form>
+</div>
+`;
+
+exports[`CategoryEditor when loading renders as expected 1`] = `
+<div
+  className="container-fluid"
+>
+  <form
+    className=""
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <span
+          className="w-100 placeholder-glow placeholder-lg"
+        />
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <span
+          className="w-100 placeholder-glow"
+        />
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <span
+          className="w-100 placeholder-glow"
+        />
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-4"
+      >
+        <span
+          className="w-100 placeholder-glow"
+        />
+      </div>
+      <div
+        className="col-8"
+      >
+        <span
+          className="w-100 placeholder-glow"
+        />
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12"
+      >
+        <span
+          className="w-100 placeholder-glow"
+        />
+      </div>
+    </div>
+  </form>
+</div>
+`;

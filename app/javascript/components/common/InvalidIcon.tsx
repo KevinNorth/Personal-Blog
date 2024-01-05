@@ -28,7 +28,11 @@ function InvalidIcon({
   );
 
   return (
-    <OverlayTrigger overlay={tooltip} trigger={'hover'} placement="top">
+    <OverlayTrigger
+      overlay={tooltip}
+      trigger={['hover', 'focus']}
+      placement="top"
+    >
       <XCircle className="invalid-icon" />
     </OverlayTrigger>
   );
