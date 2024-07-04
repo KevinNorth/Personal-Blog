@@ -59,11 +59,13 @@ group :development do
 
   # Linting
   gem 'rubocop', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'rubocop-graphql', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rake', require: false
   gem 'rubocop-rspec', require: false
+  gem 'rubocop-rspec_rails', require: false
 
   gem 'brakeman', '~> 6.0', '>= 6.0.1'
   gem 'bundler-audit', '~> 0.9.1'
