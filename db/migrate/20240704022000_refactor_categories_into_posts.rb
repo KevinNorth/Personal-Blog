@@ -70,10 +70,13 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
 
   def down
     ActiveRecord::Base.transaction do
-      create_table :categories, bulk: true do |t|
+      create_table :categories do |t|
         t.string :name
         t.integer :order
-        t.references :parent_id, null: true, foreign_key: { to_table: :categories }, index: true, default: nil
+        t.references :parent,
+                     null: true,
+                     foreign_key: { to_table: :categories },
+                     index: true
         t.string :title
         t.string :subtitle
         t.string :summary
@@ -86,9 +89,8 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
 
       # First, recreate the categories...
       Post.where(was_category: true).find_each do |post|
-        Category.create(
-          id: post.previous_id_as_category,
-          order: post.previous_order_as_category,
+        new_category = Category.create(
+          order: (Category.maximum(:order) || 0) + 1, # Giving all categories temporary, unique orders
           markdown: post.markdown,
           name: post.name,
           published: post.published,
@@ -97,6 +99,9 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
           summary: post.summary,
           header_image: post.header_image
         )
+
+        new_category.id = post.previous_id_as_category
+        new_category.save!
       end
 
       # ... then, re-associate parent and child categories
@@ -104,6 +109,7 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
         new_category = Category.find(post.previous_id_as_category)
         new_parent = Category.find(post.previous_parent_id_as_category)
         new_category.parent = new_parent
+        new_category.order = post.previous_order_as_category
         new_category.save!
       end
       Post.where(was_category: false).find_each do |post|
@@ -113,13 +119,17 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
         post.save!
       end
 
+      Post.where(was_category: true).delete_all
+
       change_table :posts, bulk: true do |t|
         t.remove_references :parent
         t.remove :name
         t.remove :was_category
         t.remove :previous_id_as_category
+        t.remove :previous_parent_id_as_category
         t.remove :previous_order_as_category
         t.change(:category_id, :bigint, null: false)
+        t.index :category_id
       end
     end
   end
