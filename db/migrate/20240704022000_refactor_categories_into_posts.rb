@@ -25,6 +25,7 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
           published: category.published,
           order: Post.maximum(:order) + 1, # Giving all posts temporary, unique orders
           slug: category.slug,
+          title: category.title,
           subtitle: category.subtitle,
           summary: category.summary,
           author: User.first,
@@ -96,6 +97,7 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
           published: post.published,
           slug: post.slug,
           subtitle: post.subtitle,
+          title: post.title,
           summary: post.summary,
           header_image: post.header_image
         )
