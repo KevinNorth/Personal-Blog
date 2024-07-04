@@ -83,5 +83,6 @@
     "react-test-renderer": "^18.2.0",
     "ts-node": "^10.9.1",
     "webpack-cli": "^5.1.4"
-  }
+  },
+  "packageManager": "pnpm@9.4.0"
 }
