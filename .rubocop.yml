@@ -21,14 +21,6 @@ AllCops:
     - storage/**/*
     - tmp/**/*
     - vendor/**/*
-
-GraphQL/ExtractType:
-  Exclude:
-    - app/graphql/types/query_type.rb
-    - app/graphql/types/mutation_type.rb
-
-GraphQL/ObjectDescription:
-  Exclude:
     # Types that came out of the box when GraphQL was installed
     - app/graphql/mutations/base_mutation.rb
     - app/graphql/personal_rails_blog_schema.rb
@@ -45,6 +37,11 @@ GraphQL/ObjectDescription:
     - app/graphql/types/mutation_type.rb
     - app/graphql/types/node_type.rb
     - app/graphql/types/query_type.rb
+
+GraphQL/ExtractType:
+  Exclude:
+    - app/graphql/types/query_type.rb
+    - app/graphql/types/mutation_type.rb
 
 Metrics/AbcSize:
   Enabled: false
