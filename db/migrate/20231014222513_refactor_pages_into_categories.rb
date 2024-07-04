@@ -3,8 +3,8 @@
 class RefactorPagesIntoCategories < ActiveRecord::Migration[7.1]
   def change
     change_table :posts do |t|
-      t.remove_references :page, null: false, foreign_key: true, index: true
-      t.references :category, null: false, foreign_key: true, index: true
+      t.remove_references :page, null: false, foreign_key: true, index: true # rubocop:disable Rails/NotNullColumn
+      t.references :category, null: false, foreign_key: true, index: true # rubocop:disable Rails/NotNullColumn
     end
 
     change_table :categories do |t|
