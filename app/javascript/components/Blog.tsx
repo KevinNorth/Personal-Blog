@@ -5,7 +5,7 @@ import CategoryViewer from './blog/CategoryViewer/CategoryViewer';
 import Layout from './blog/Layout';
 import PostViewer from './blog/PostViewer/PostViewer';
 
-function Admin() {
+function Blog() {
   return (
     <Layout>
       <Routes>
@@ -20,4 +20,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default Blog;
