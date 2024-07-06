@@ -10,9 +10,9 @@ import useUpdatePostMutation, {
   UpdatePostMutationResponsePayload,
   UpdatePostMutationResult,
 } from '../../../graphql/mutations/updatePost';
-import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
+import getAllCategoriesAndPosts from '../../../graphql/queries/allPosts';
 import getPostById from '../../../graphql/queries/postById';
-import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
+import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByParentAndOwnSlug';
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';

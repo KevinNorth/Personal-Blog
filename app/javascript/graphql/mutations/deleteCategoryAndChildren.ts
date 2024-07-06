@@ -4,47 +4,47 @@ import MutationResult, {
 } from '../types/mutationResult';
 import { MutationOnErrorFunction } from '../types/onErrorFunction';
 
-const deleteCategoryAndChildrenMutation = gql`
-  mutation deletCategoryMutation($id: ID!) {
-    deleteCategoryAndChildren(input: { id: $id }) {
+const deletePostAndChildrenMutation = gql`
+  mutation deletPostMutation($id: ID!) {
+    deletePostAndChildren(input: { id: $id }) {
       errors
       successful
     }
   }
 `;
 
-export interface DeleteCategoryAndChildrenVariables {
+export interface DeletePostAndChildrenVariables {
   id: string;
 }
 
-export interface DeleteCategoryAndChildrenMutationResponsePayload {
+export interface DeletePostAndChildrenMutationResponsePayload {
   successful: boolean;
   errors: string[];
 }
 
-export type DeleteCategoryAndChildrenMutationResult = MutationResult<
-  DeleteCategoryAndChildrenMutationResponsePayload,
-  'deleteCategoryAndChildren'
+export type DeletePostAndChildrenMutationResult = MutationResult<
+  DeletePostAndChildrenMutationResponsePayload,
+  'deletePost'
 >;
 
-function useDeleteCategoryAndChildrenMutation(
-  { id }: DeleteCategoryAndChildrenVariables,
+function useDeletePostAndChildrenMutation(
+  { id }: DeletePostAndChildrenVariables,
   onError: MutationOnErrorFunction = undefined
 ): [
   MutationExecutionFunction<
-    DeleteCategoryAndChildrenMutationResult['data'],
-    DeleteCategoryAndChildrenVariables,
-    'deleteCategoryAndChildren'
+    DeletePostAndChildrenMutationResult['data'],
+    DeletePostAndChildrenVariables,
+    'deletePost'
   >,
-  DeleteCategoryAndChildrenMutationResult
+  DeletePostAndChildrenMutationResult
 ] {
   return useMutation<
-    DeleteCategoryAndChildrenMutationResult['data'],
-    DeleteCategoryAndChildrenVariables
-  >(deleteCategoryAndChildrenMutation, {
+    DeletePostAndChildrenMutationResult['data'],
+    DeletePostAndChildrenVariables
+  >(deletePostAndChildrenMutation, {
     variables: { id },
     onError,
   });
 }
 
-export default useDeleteCategoryAndChildrenMutation;
+export default useDeletePostAndChildrenMutation;

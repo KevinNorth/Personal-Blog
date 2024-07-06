@@ -6,7 +6,7 @@ import useCreateCategoryMutation, {
   CreateCategoryMutationResponsePayload,
   CreateCategoryMutationResult,
 } from '../../../graphql/mutations/createCategory';
-import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
+import getAllCategoriesAndPosts from '../../../graphql/queries/allPosts';
 import Category from '../../../graphql/types/category';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';

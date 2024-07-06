@@ -13,7 +13,7 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { mockCategoriesAndPosts } from '../../../../__tests__/fixtures/allCategoriesAndPosts';
-import { allCategoriesAndPostsQuery } from '../../../../graphql/queries/allCategoriesAndPosts';
+import { allCategoriesAndPostsQuery } from '../../../../graphql/queries/allPosts';
 import CategoryEditor, { CategoryEditorProps } from '../CategoryEditor';
 
 function TestCategoryEditor(

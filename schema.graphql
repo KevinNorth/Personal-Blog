@@ -140,6 +140,11 @@ type Post {
   markdown: String
 
   """
+  Name as it should appear in the nav header
+  """
+  name: String
+
+  """
   Order in which to show posts within a category. Lowest number appears first.
   """
   order: Int
@@ -190,6 +195,11 @@ input PostInput {
   markdown: String!
 
   """
+  Name as it should appear in the nav header
+  """
+  name: String!
+
+  """
   Order in which to show posts within a category. Lowest number appears first.
   """
   order: Int!
@@ -226,6 +236,16 @@ input PostInput {
 }
 
 type Query {
+  """
+  Fetches all posts.
+  """
+  allPosts(
+    """
+    whether to include posts that have not yet been published
+    """
+    includeUnpublished: Boolean = false
+  ): Post
+
   """
   Fetches a Post by ID
   """
@@ -286,9 +306,9 @@ type Query {
     includeUnpublished: Boolean = false
 
     """
-    ID of the post to query
+    ID of the parent post
     """
-    postId: ID!
+    parentId: ID!
   ): [Post!]
 
   """

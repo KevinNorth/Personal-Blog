@@ -1,4 +1,4 @@
-import { NavbarTreeVertex } from '../components/blog/Navbar/types';
+import { AdminTreeVertex } from '../components/admin/Root/types';
 import Post from '../graphql/types/post';
 import sortByOrder from '../lib/sortByOrder';
 
@@ -10,10 +10,10 @@ function buildTreeVertex({
   post: Partial<Post>;
   children?: Partial<Post>[];
   postIdToChildrenMap: Map<string, Partial<Post>[]>;
-}): NavbarTreeVertex {
+}): AdminTreeVertex {
   const sortedChildren = children?.slice().sort(sortByOrder);
 
-  let childVerticies: NavbarTreeVertex[] = [];
+  let childVerticies: AdminTreeVertex[] = [];
   if (sortedChildren) {
     childVerticies = childVerticies.concat(
       sortedChildren.map((child) =>
@@ -28,23 +28,23 @@ function buildTreeVertex({
 
   return {
     id: post.id,
-    name: post.name,
-    slug: post.slug,
+    title: post.title,
     children: childVerticies,
+    graphqlObject: post,
   };
 }
 
 /**
  * Massages a GraphQL query result into the data structure that
- * BlogNavbar expects for the tree prop.
- * @param posts An array Posts Categories queried from GraphQL,
- *  including lists of child posts.
- * @returns A tree that can be dropped directly into the BlogNavbar
- * component as the tree prop.
+ * React Arborist expects for the Tree component's data prop.
+ * @param posts An array of posts queried from GraphQL,
+ *  including lists of children posts' IDs and full child posts.
+ * @returns A tree that can be dropped directly into React Arborist's
+ *  Tree component as the data prop.
  */
-function organizePostsIntoNavbarTree(
+function organizePostsIntoArboristTree(
   posts: Partial<Post>[]
-): NavbarTreeVertex[] {
+): AdminTreeVertex[] {
   const postIdToChildrenMap = new Map<string, Partial<Post>[]>();
   const rootPosts: Partial<Post>[] = [];
 
@@ -57,14 +57,7 @@ function organizePostsIntoNavbarTree(
       rootPosts.push(post);
     }
 
-    const childPostIds = post.children
-      ?.map((child: { id?: string }) => child?.id)
-      .filter((id) => id !== undefined);
-    const childPosts =
-      posts.filter((potentialChild: Partial<Post>) =>
-        childPostIds?.includes(potentialChild.id)
-      ) || [];
-
+    const childPosts = post.children || [];
     postIdToChildrenMap.set(post.id, childPosts);
   });
 
@@ -80,4 +73,4 @@ function organizePostsIntoNavbarTree(
     );
 }
 
-export default organizePostsIntoNavbarTree;
+export default organizePostsIntoArboristTree;

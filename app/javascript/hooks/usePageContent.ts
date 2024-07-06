@@ -1,42 +1,41 @@
 import { useMatch } from 'react-router-dom';
 import fourOhFour from '../components/blog/fourOhFour';
-import getCategoryBySlug from '../graphql/queries/categoryBySlug';
 import getPostBySlug from '../graphql/queries/postBySlug';
-import Category from '../graphql/types/category';
+import getPostByParentAndOwnSlug from '../graphql/queries/postsByParentAndOwnSlug';
 import Post from '../graphql/types/post';
-import useDefaultCategory from './useDefaultCategory';
+import useDefaultPost from './useDefaultPost';
 
 export interface PageContentResult {
   loading: boolean;
-  pageContent: Partial<Category> | Partial<Post> | null;
+  pageContent: Partial<Post> | Partial<Post> | null;
 }
 
 function usePageContent(): PageContentResult {
-  const postRouteMatch = useMatch('/:categorySlug/:postSlug');
+  const postAndParentRouteMatch = useMatch('/:parentSlug/:postSlug');
 
-  if (postRouteMatch) {
-    const { categorySlug, postSlug } = postRouteMatch.params;
-    const { data, loading } = getPostBySlug({
-      categorySlug,
+  if (postAndParentRouteMatch) {
+    const { parentSlug, postSlug } = postAndParentRouteMatch.params;
+    const { data, loading } = getPostByParentAndOwnSlug({
+      parentSlug,
       postSlug,
       includeUnpublished: false,
     });
     return { loading, pageContent: data?.postBySlug || fourOhFour };
   }
 
-  const categoryRouteMatch = useMatch('/:categorySlug');
+  const singlePostRouteMatch = useMatch('/:slug');
 
-  if (categoryRouteMatch) {
-    const { categorySlug } = categoryRouteMatch.params;
-    const { data, loading } = getCategoryBySlug({
-      slug: categorySlug,
+  if (singlePostRouteMatch) {
+    const { slug } = singlePostRouteMatch.params;
+    const { data, loading } = getPostBySlug({
+      slug,
       includeUnpublished: false,
     });
-    return { loading, pageContent: data?.categoryBySlug || fourOhFour };
+    return { loading, pageContent: data?.postBySlug || fourOhFour };
   }
 
-  const { loading, defaultCategory } = useDefaultCategory();
-  return { loading, pageContent: defaultCategory };
+  const { loading, defaultPost } = useDefaultPost();
+  return { loading, pageContent: defaultPost };
 }
 
 export default usePageContent;

@@ -3,7 +3,7 @@ import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import getCategoryBySlug from '../../../graphql/queries/categoryBySlug';
 import Category from '../../../graphql/types/category';
-import useDefaultCategory from '../../../hooks/useDefaultCategory';
+import useDefaultCategory from '../../../hooks/useDefaultPost';
 import MarkdownRenderer from '../../common/MarkdownRenderer';
 import fourOhFour from '../fourOhFour';
 import CategoryFooter from './CategoryFooter';

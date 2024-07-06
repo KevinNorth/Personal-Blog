@@ -1,5 +1,5 @@
 import React from 'react';
-import getPostsByCategory from '../../../graphql/queries/postsByCategory';
+import getPostsByCategory from '../../../graphql/queries/postsByParentAndOwnSlug';
 import PostCard from './PostCard';
 
 export interface CategoryFooterProps {

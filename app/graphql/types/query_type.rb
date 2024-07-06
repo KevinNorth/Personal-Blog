@@ -19,6 +19,14 @@ module Types
       argument :login, String, required: true, description: 'login to look up'
     end
 
+    field :all_posts, PostType, description: 'Fetches all posts.' do
+      argument :include_unpublished, Boolean,
+               required: false,
+               default_value: false,
+               description: 'whether to include posts that have not yet been published',
+               require_logged_in: true
+    end
+
     field :post_by_slug, PostType, description: 'Fetches a post by its URL slug.' do
       argument :include_unpublished, Boolean,
                required: false,
@@ -39,7 +47,7 @@ module Types
     end
 
     field :posts_by_parent, [PostType], null: true, description: 'Fetches all Posts that belong to a parent Post' do
-      argument :post_id, ID, required: true, description: 'ID of the post to query'
+      argument :parent_id, ID, required: true, description: 'ID of the parent post'
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
@@ -72,7 +80,15 @@ module Types
       User.find_by(login:)
     end
 
-    def parent(parent_id:, include_unpublished:)
+    def all_posts(include_unpublished:)
+      if include_unpublished
+        Posts.all
+      else
+        Posts.where(published: true)
+      end
+    end
+
+    def posts_by_parent(parent_id:, include_unpublished:)
       if include_unpublished
         Post.joins(:parent).where(parent: { id: parent_id })
       else

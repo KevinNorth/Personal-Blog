@@ -11,8 +11,8 @@ import {
   Row,
   ToggleButton,
 } from 'react-bootstrap';
-import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allCategoriesAndPosts';
-import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByCategory';
+import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allPosts';
+import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByParentAndOwnSlug';
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
 import InvalidIcon from '../../common/InvalidIcon';

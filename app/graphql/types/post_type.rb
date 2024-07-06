@@ -11,6 +11,7 @@ module Types
     field :header_image, String, description: 'URL of image to show at the top of the page'
     field :id, ID, null: false, description: 'Unique database ID'
     field :markdown, String, description: 'Contents of the post as Markdown'
+    field :name, String, description: 'Name as it should appear in the nav header'
     field :order, Integer, description: 'Order in which to show posts within a category. Lowest number appears first.'
     field :parent, PostType, null: false, description: "The post under which this post will appear. Null if it's a top-level post."
     field :published, Boolean, description: 'Whether this post should be visible to non-admin users'

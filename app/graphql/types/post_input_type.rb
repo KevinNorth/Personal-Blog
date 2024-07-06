@@ -5,6 +5,7 @@ module Types
     description 'Attributes that need to be set to create or update a post]'
 
     argument :markdown, String, required: true, description: 'Contents of the post as Markdown'
+    argument :name, String, required: true, description: 'Name as it should appear in the nav header'
     argument :order, Int, required: true,
                           description: 'Order in which to show posts within a category. Lowest number appears first.'
     argument :parent_id, ID, required: false,

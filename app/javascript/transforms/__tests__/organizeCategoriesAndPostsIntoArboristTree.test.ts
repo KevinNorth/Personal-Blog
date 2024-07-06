@@ -1,7 +1,7 @@
 import { mockCategoriesAndPosts } from '../../__tests__/fixtures/allCategoriesAndPosts';
 import { AdminTreeVertex } from '../../components/admin/Root/types';
 import Category from '../../graphql/types/category';
-import organizeCategoriesAndPostsIntoArboristTree from '../organizeCategoriesAndPostsIntoArboristTree';
+import organizeCategoriesAndPostsIntoArboristTree from '../organizePostsIntoArboristTree';
 import { categoriesAndPostsAsArboristTree } from './fixtures/allCategoriesAndPostsAsArboristTree';
 
 describe('test', () => {

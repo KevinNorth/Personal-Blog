@@ -10,7 +10,7 @@ import useUpdateCategoryMutation, {
   UpdateCategoryMutationResponsePayload,
   UpdateCategoryMutationResult,
 } from '../../../graphql/mutations/updateCategory';
-import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
+import getAllCategoriesAndPosts from '../../../graphql/queries/allPosts';
 import getCategoryById from '../../../graphql/queries/categoryById';
 import Category from '../../../graphql/types/category';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';

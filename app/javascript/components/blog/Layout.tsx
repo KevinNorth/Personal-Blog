@@ -1,9 +1,9 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { Github } from 'react-bootstrap-icons';
-import getAllCategoriesAndPosts from '../../graphql/queries/allCategoriesAndPosts';
+import getAllCategoriesAndPosts from '../../graphql/queries/allPosts';
 import usePageContent from '../../hooks/usePageContent';
-import organizeCategoriesAndPostsIntoNavbarTree from '../../transforms/organizeCategoriesAndPostsIntoNavbarTree';
+import organizePostsIntoNavbarTree from '../../transforms/organizeCategoriesAndPostsIntoNavbarTree';
 import BlogNavbar from './Navbar/BlogNavbar';
 
 export interface LayoutProps {
@@ -16,9 +16,7 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
 
   let navbarTree = [];
   if (!allCategoriesLoading && allCategoriesData.categories) {
-    navbarTree = organizeCategoriesAndPostsIntoNavbarTree(
-      allCategoriesData.categories
-    );
+    navbarTree = organizePostsIntoNavbarTree(allCategoriesData.categories);
   }
 
   return (
