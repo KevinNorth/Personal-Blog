@@ -7,7 +7,7 @@ import useCreatePostMutation, {
   CreatePostMutationResult,
 } from '../../../graphql/mutations/createPost';
 import getAllCategoriesAndPosts from '../../../graphql/queries/allPosts';
-import getPostsByCategory from '../../../graphql/queries/postsByParentAndOwnSlug';
+import getPostsByCategory from '../../../graphql/queries/postByParentAndOwnSlug';
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';

@@ -12,7 +12,7 @@ import useUpdatePostMutation, {
 } from '../../../graphql/mutations/updatePost';
 import getAllCategoriesAndPosts from '../../../graphql/queries/allPosts';
 import getPostById from '../../../graphql/queries/postById';
-import { lazyGetPostsByCategory } from '../../../graphql/queries/postsByParentAndOwnSlug';
+import { lazyGetPostsByCategory } from '../../../graphql/queries/postByParentAndOwnSlug';
 import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';

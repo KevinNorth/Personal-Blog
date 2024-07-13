@@ -38,7 +38,7 @@ export interface PostsByParentVariables {
 function getPostsByParent(
   { parentId, includeUnpublished = false }: PostsByParentVariables,
   onError: QueryOnErrorFunction = undefined
-): QueryResult<{ postBySlug: Partial<Post> }, PostsByParentVariables> {
+): QueryResult<{ postsByParent: Partial<Post>[] }, PostsByParentVariables> {
   return useQuery(postsByParentQuery, {
     variables: { parentId, includeUnpublished },
     fetchPolicy: 'cache-and-network',

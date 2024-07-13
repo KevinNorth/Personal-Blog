@@ -43,7 +43,7 @@ function TopLevelBlogNavbarItem({
 
   if (thisVertex.children.length === 0) {
     return (
-      <NavItem className="leaf-category">
+      <NavItem className="leaf-post">
         <NavLink href={url}>{thisVertex.name}</NavLink>
       </NavItem>
     );
@@ -52,12 +52,12 @@ function TopLevelBlogNavbarItem({
   const childrenNavItems = createChildNavbarItems(thisVertex.children, 0);
 
   return (
-    <NavItem className="category-with-dropdown">
-      <NavLink href={url} className="top-level-category-link">
+    <NavItem className="post-with-dropdown">
+      <NavLink href={url} className="top-level-post-link">
         {thisVertex.name}
       </NavLink>
       <NavDropdown
-        className="top-level-category-dropdown-button"
+        className="top-level-post-dropdown-button"
         title={<ChevronDown />}
       >
         {childrenNavItems}

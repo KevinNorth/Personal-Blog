@@ -1,7 +1,7 @@
 import { useMatch } from 'react-router-dom';
 import fourOhFour from '../components/blog/fourOhFour';
+import getPostByParentAndOwnSlug from '../graphql/queries/postByParentAndOwnSlug';
 import getPostBySlug from '../graphql/queries/postBySlug';
-import getPostByParentAndOwnSlug from '../graphql/queries/postsByParentAndOwnSlug';
 import Post from '../graphql/types/post';
 import useDefaultPost from './useDefaultPost';
 
