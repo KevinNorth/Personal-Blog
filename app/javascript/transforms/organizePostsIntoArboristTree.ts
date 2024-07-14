@@ -57,7 +57,9 @@ function organizePostsIntoArboristTree(
       rootPosts.push(post);
     }
 
-    const childPosts = post.children || [];
+    const childPosts = posts.filter(
+      (childPost) => childPost.parent?.id === post.id
+    );
     postIdToChildrenMap.set(post.id, childPosts);
   });
 

@@ -1,17 +1,17 @@
-import Category from '../../../graphql/types/category';
 import Post from '../../../graphql/types/post';
 
 export interface PostForm {
-  categoryId: string;
   markdown: string;
+  name: string;
   order: string;
+  parentId: string;
   published: boolean;
   slug: string;
   subtitle: string;
   summary: string;
   title: string;
   siblingPosts: Partial<Post>[];
-  allCategories: Partial<Category>[];
+  allPosts: Partial<Post>[];
 }
 
 export type Validation =
@@ -25,9 +25,10 @@ export type Validation =
     };
 
 export interface ValidationResults {
-  categoryId: Validation;
+  name: Validation;
   markdown: Validation;
   order: Validation;
+  parentId: Validation;
   published: Validation;
   slug: Validation;
   subtitle: Validation;
@@ -36,9 +37,10 @@ export interface ValidationResults {
 }
 
 function validatePostForm({
-  categoryId,
+  parentId,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   markdown,
+  name,
   order,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   published,
@@ -47,12 +49,13 @@ function validatePostForm({
   summary,
   title,
   siblingPosts,
-  allCategories,
+  allPosts,
 }: PostForm): ValidationResults {
   const validationResults: ValidationResults = [
-    'categoryId',
     'markdown',
+    'name',
     'order',
+    'parentId',
     'published',
     'slug',
     'subtitle',
@@ -66,7 +69,7 @@ function validatePostForm({
     {}
   ) as ValidationResults;
 
-  const usedSlugs = siblingPosts.map((p) => p.slug);
+  const usedSlugs = allPosts.map((p) => p.slug);
   const usedOrders = siblingPosts.map((p) => p.order);
 
   if (title === '') {
@@ -90,6 +93,13 @@ function validatePostForm({
     };
   }
 
+  if (name === '') {
+    validationResults.name = {
+      isValid: false,
+      invalidReason: 'Name must not be blank.',
+    };
+  }
+
   if (order === '') {
     validationResults.order = {
       isValid: false,
@@ -103,8 +113,7 @@ function validatePostForm({
   } else if (usedOrders.includes(Number(order))) {
     validationResults.order = {
       isValid: false,
-      invalidReason:
-        "Order cannot match another post's order in this category.",
+      invalidReason: "Order cannot match a sibling post's order.",
     };
   }
 
@@ -116,19 +125,19 @@ function validatePostForm({
   } else if (usedSlugs.includes(slug)) {
     validationResults.slug = {
       isValid: false,
-      invalidReason: 'Slug is already used by another post in this category.',
+      invalidReason: 'Slug is already used by another post.',
     };
   }
 
-  if (categoryId === '') {
-    validationResults.categoryId = {
+  if (parentId === '') {
+    validationResults.parentId = {
       isValid: false,
-      invalidReason: 'Category must not be blank.',
+      invalidReason: 'Parent must not be blank.',
     };
-  } else if (!allCategories.map((c) => c.id).includes(categoryId)) {
-    validationResults.categoryId = {
+  } else if (!allPosts.map((c) => c.id).includes(parentId)) {
+    validationResults.parentId = {
       isValid: false,
-      invalidReason: 'Selected category does not exist.',
+      invalidReason: 'Selected parent does not exist.',
     };
   }
 

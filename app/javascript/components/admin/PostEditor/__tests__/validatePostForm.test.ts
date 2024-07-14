@@ -1,25 +1,24 @@
-import { mockCategoriesAndPosts } from '../../../../__tests__/fixtures/allCategoriesAndPosts';
+import { mockPosts } from '../../../../__tests__/fixtures/allPosts';
 import validatePostForm, {
   PostForm,
   Validation,
   ValidationResults,
 } from '../validatePostForm';
 
-const parentCategory = mockCategoriesAndPosts.find(
-  (category) => category.id === '6'
-);
+const parent = mockPosts.find((parent) => parent.id === '6');
 
 const validForm: PostForm = {
   markdown: 'Test',
+  name: 'Test',
   order: '10',
   published: true,
   slug: 'test',
   subtitle: 'Test',
   summary: 'Test',
   title: 'Test',
-  allCategories: mockCategoriesAndPosts,
-  categoryId: '6',
-  siblingPosts: parentCategory.posts,
+  allPosts: mockPosts,
+  parentId: '6',
+  siblingPosts: parent.children,
 };
 
 function expectResultToBeValid(result: Validation): void {
@@ -57,35 +56,51 @@ describe('validatePostForm()', () => {
     });
   });
 
-  describe('when categoryId is invalid', () => {
-    describe('when categoryId is blank', () => {
+  describe('when name is empty', () => {
+    it('returns a validation warning', () => {
+      const postForm: PostForm = {
+        ...validForm,
+        name: '',
+      };
+
+      const results = validatePostForm(postForm);
+
+      expect(results.name).toEqual({
+        isValid: false,
+        invalidReason: 'Name must not be blank.',
+      });
+    });
+  });
+
+  describe('when parentId is invalid', () => {
+    describe('when parentId is blank', () => {
       it('returns a validation warning', () => {
         const postForm: PostForm = {
           ...validForm,
-          categoryId: '',
+          parentId: '',
         };
 
         const results = validatePostForm(postForm);
 
-        expect(results.categoryId).toEqual({
+        expect(results.parentId).toEqual({
           isValid: false,
-          invalidReason: 'Category must not be blank.',
+          invalidReason: 'Parent must not be blank.',
         });
       });
     });
 
-    describe('when categoryId does not match an existing category', () => {
+    describe('when parentId does not match an existing post', () => {
       it('returns a validation warning', () => {
         const postForm: PostForm = {
           ...validForm,
-          categoryId: '999',
+          parentId: '999',
         };
 
         const results = validatePostForm(postForm);
 
-        expect(results.categoryId).toEqual({
+        expect(results.parentId).toEqual({
           isValid: false,
-          invalidReason: 'Selected category does not exist.',
+          invalidReason: 'Selected parent does not exist.',
         });
       });
     });
@@ -151,8 +166,7 @@ describe('validatePostForm()', () => {
 
         expect(results.order).toEqual({
           isValid: false,
-          invalidReason:
-            "Order cannot match another post's order in this category.",
+          invalidReason: "Order cannot match a sibling post's order.",
         });
       });
     });
@@ -186,8 +200,23 @@ describe('validatePostForm()', () => {
 
         expect(results.slug).toEqual({
           isValid: false,
-          invalidReason:
-            'Slug is already used by another post in this category.',
+          invalidReason: 'Slug is already used by another post.',
+        });
+      });
+    });
+
+    describe('when slug is already used by a non-sibling post', () => {
+      it('returns a validation warning', () => {
+        const postForm: PostForm = {
+          ...validForm,
+          slug: 'index',
+        };
+
+        const results = validatePostForm(postForm);
+
+        expect(results.slug).toEqual({
+          isValid: false,
+          invalidReason: 'Slug is already used by another post.',
         });
       });
     });

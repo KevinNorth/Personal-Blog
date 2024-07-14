@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { NavigateFunction, useNavigate, useParams } from 'react-router-dom';
 import { FetchResult } from '@apollo/client';
-import useDeletePost, {
-  DeletePostMutationResponsePayload,
-  DeletePostMutationResult,
-} from '../../../graphql/mutations/deletePost';
+import useDeletePostAndChildren, {
+  DeletePostAndChildrenMutationResponsePayload,
+  DeletePostAndChildrenMutationResult,
+} from '../../../graphql/mutations/deletePostAndChildren';
 import useUpdatePostMutation, {
   UpdatePostMutationResponsePayload,
   UpdatePostMutationResult,
 } from '../../../graphql/mutations/updatePost';
-import getAllCategoriesAndPosts from '../../../graphql/queries/allPosts';
+import getAllPosts from '../../../graphql/queries/allPosts';
 import getPostById from '../../../graphql/queries/postById';
-import { lazyGetPostsByCategory } from '../../../graphql/queries/postByParentAndOwnSlug';
-import Category from '../../../graphql/types/category';
+import { lazyGetPostsByParent } from '../../../graphql/queries/postsByParent';
 import Post from '../../../graphql/types/post';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
@@ -54,16 +53,17 @@ function updatePostCallback(
 }
 
 function deletePostCallback(
-  result: FetchResult<DeletePostMutationResult['data']>,
+  result: FetchResult<DeletePostAndChildrenMutationResult['data']>,
   sendToast: (toast: React.ReactElement) => void,
   navigate: NavigateFunction
 ): void {
   const data =
     (
       result.data as {
-        deletePost: DeletePostMutationResponsePayload;
+        deletePostAndChildren: DeletePostAndChildrenMutationResponsePayload;
       }
-    )?.deletePost || (result.data as DeletePostMutationResponsePayload);
+    )?.deletePostAndChildren ||
+    (result.data as DeletePostAndChildrenMutationResponsePayload);
 
   const errors = grabErrorsFromMutationResult(result, data);
 
@@ -100,38 +100,39 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
   const post = loading ? null : data.postById;
 
   const [hasSetInitialValues, indicateHasSetInitialValues] = useState(false);
-  const [title, setTitle] = useState('');
+  const [markdown, setMarkdown] = useState('');
+  const [name, setName] = useState('');
+  const [order, setOrder] = useState('0');
+  const [parentId, setParentId] = useState('');
+  const [published, setPublished] = useState(false);
+  const [slug, setSlug] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [summary, setSummary] = useState('');
-  const [slug, setSlug] = useState('');
-  const [published, setPublished] = useState(false);
-  const [markdown, setMarkdown] = useState('');
-  const [order, setOrder] = useState('0');
-  const [categoryId, setCategoryId] = useState('');
+  const [title, setTitle] = useState('');
 
   const navigate = useNavigate();
 
-  const { data: allCategoriesData, loading: loadingAllCategories } =
-    getAllCategoriesAndPosts({ includeUnpublished: true });
-  const allCategories = !loadingAllCategories
-    ? (allCategoriesData as { categories: Partial<Category>[] }).categories
+  const { data: allPostsData, loading: loadingAllPsots } = getAllPosts({
+    includeUnpublished: true,
+  });
+  const allPosts = !loadingAllPsots
+    ? (allPostsData as { posts: Partial<Post>[] }).posts
     : [];
 
   const [
-    getPostsByCategory,
+    getPostsByParent,
     {
-      data: postsByCategoryData,
+      data: postsByParentData,
       loading: loadingSiblingPosts,
-      called: calledGetPostsByCategory,
+      called: calledGetPostsByParent,
     },
-  ] = lazyGetPostsByCategory({ categoryId, includeUnpublished: true });
+  ] = lazyGetPostsByParent({ parentId, includeUnpublished: true });
   const siblingPosts =
-    calledGetPostsByCategory && !loadingSiblingPosts
-      ? (postsByCategoryData as { postsByCategory: Partial<Post>[] })
-        .postsByCategory
+    calledGetPostsByParent && !loadingSiblingPosts
+      ? (postsByParentData as { postsByParent: Partial<Post>[] }).postsByParent
       : [];
   const otherSiblingPosts =
-    loadingSiblingPosts || !calledGetPostsByCategory
+    loadingSiblingPosts || !calledGetPostsByParent
       ? []
       : siblingPosts.filter((p) => p.id !== id);
 
@@ -139,9 +140,10 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
     {
       id,
       postAttributes: {
-        categoryId,
         markdown,
+        name,
         order: Number(order),
+        parentId,
         published,
         slug,
         subtitle,
@@ -158,7 +160,7 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
       )
   );
 
-  const [deletePost, { loading: loadingDeletePost }] = useDeletePost(
+  const [deletePost, { loading: loadingDeletePost }] = useDeletePostAndChildren(
     { id },
     (error) =>
       sendToast(
@@ -171,30 +173,32 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
 
   if (!loading && !hasSetInitialValues) {
     indicateHasSetInitialValues(true);
-    getPostsByCategory({
-      variables: { categoryId: post.category?.id, includeUnpublished: true },
+    getPostsByParent({
+      variables: { parentId: post.parent?.id, includeUnpublished: true },
     });
     setTitle(post.title);
     setSubtitle(post.subtitle);
+    setName(post.name);
     setSummary(post.summary);
     setSlug(post.slug);
     setPublished(post.published);
     setMarkdown(post.markdown);
     setOrder(String(post.order));
-    setCategoryId(post.category?.id || null);
+    setParentId(post.parent?.id || null);
   }
 
   const validationResults = validatePostForm({
     markdown,
+    name,
     order,
-    categoryId,
+    parentId,
     published,
     slug,
     subtitle,
     summary,
     title,
     siblingPosts: otherSiblingPosts,
-    allCategories: allCategories,
+    allPosts: allPosts,
   });
 
   const isPostValid = Object.values(validationResults).every(
@@ -205,25 +209,27 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
     <PostEditor
       loading={loading || loadingUpdatePost || loadingDeletePost}
       id={post?.id || ''}
-      categoryId={categoryId}
       markdown={markdown}
+      name={name}
       order={order}
+      parentId={parentId}
       published={published}
       slug={slug}
       subtitle={subtitle}
       summary={summary}
       title={title}
-      onCategoryIdChange={(newCategoryId) => {
-        setCategoryId(newCategoryId);
-        getPostsByCategory({
+      onMarkdownChange={setMarkdown}
+      onNameChange={setName}
+      onOrderChange={setOrder}
+      onParentIdChange={(newCategoryId) => {
+        setParentId(newCategoryId);
+        getPostsByParent({
           variables: {
             categoryId: newCategoryId,
             includeUnpublished: true,
           },
         });
       }}
-      onMarkdownChange={setMarkdown}
-      onOrderChange={setOrder}
       onPublishedChange={setPublished}
       onSlugChange={setSlug}
       onSubtitleChange={setSubtitle}
@@ -246,7 +252,9 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
           onConfirmationClick={() =>
             deletePost({ variables: { id } }).then((result) =>
               deletePostCallback(
-                result as FetchResult<DeletePostMutationResult['data']>,
+                result as FetchResult<
+                  DeletePostAndChildrenMutationResult['data']
+                >,
                 sendToast,
                 navigate
               )
@@ -256,7 +264,7 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
         <Button
           disabled={
             !isPostValid ||
-            loadingAllCategories ||
+            loadingAllPsots ||
             loadingDeletePost ||
             loadingUpdatePost
           }
@@ -265,9 +273,10 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
               variables: {
                 id: id,
                 postAttributes: {
-                  categoryId,
                   markdown,
+                  name,
                   order: Number(order),
+                  parentId,
                   published,
                   slug,
                   subtitle,

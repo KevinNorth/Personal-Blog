@@ -1,6 +1,9 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useLazyQuery, useQuery } from '@apollo/client';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
+import LazyQueryResult, {
+  LazyQueryExecuteFunction,
+} from '../types/lazyQueryResult';
 import { QueryOnErrorFunction } from '../types/onErrorFunction';
 import Post from '../types/post';
 import QueryResult from '../types/queryResult';
@@ -47,3 +50,16 @@ function getPostsByParent(
 }
 
 export default getPostsByParent;
+
+export function lazyGetPostsByParent(
+  { includeUnpublished = false }: PostsByParentVariables,
+  onError: QueryOnErrorFunction = undefined
+): [
+  LazyQueryExecuteFunction<Partial<Post>[], PostsByParentVariables, 'posts'>,
+  LazyQueryResult<Partial<Post>[], PostsByParentVariables, 'posts'>
+] {
+  return useLazyQuery(postsByParentQuery, {
+    variables: { includeUnpublished },
+    onError,
+  });
+}

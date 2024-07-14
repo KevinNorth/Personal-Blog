@@ -72,7 +72,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -90,29 +90,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -132,7 +130,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/1"
+                href="/admin/post/1"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -162,7 +160,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -180,29 +178,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -222,7 +218,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/2"
+                href="/admin/post/2"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -252,7 +248,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -270,29 +266,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -312,7 +306,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/5"
+                href="/admin/post/5"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -342,7 +336,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -360,29 +354,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -402,7 +394,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/8"
+                href="/admin/post/8"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -490,7 +482,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/1"
+                href="/admin/post/21"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -578,7 +570,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/2"
+                href="/admin/post/22"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -608,7 +600,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -626,29 +618,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -668,7 +658,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/9"
+                href="/admin/post/9"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -756,7 +746,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/3"
+                href="/admin/post/23"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -786,7 +776,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -804,29 +794,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -846,7 +834,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/6"
+                href="/admin/post/6"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -934,7 +922,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/4"
+                href="/admin/post/24"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1022,7 +1010,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/5"
+                href="/admin/post/25"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1052,7 +1040,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -1070,29 +1058,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -1112,7 +1098,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/7"
+                href="/admin/post/7"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1142,7 +1128,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -1160,29 +1146,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -1202,7 +1186,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/10"
+                href="/admin/post/10"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1232,7 +1216,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -1250,29 +1234,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -1292,7 +1274,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/11"
+                href="/admin/post/11"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1380,7 +1362,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/6"
+                href="/admin/post/26"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1468,7 +1450,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/7"
+                href="/admin/post/27"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1498,7 +1480,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -1516,29 +1498,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -1558,7 +1538,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/12"
+                href="/admin/post/12"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1646,7 +1626,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/8"
+                href="/admin/post/28"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1734,7 +1714,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/post/9"
+                href="/admin/post/29"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1764,7 +1744,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -1782,29 +1762,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -1824,7 +1802,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/3"
+                href="/admin/post/3"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"
@@ -1854,7 +1832,7 @@ exports[`AdminTree renders as expected 1`] = `
           tabIndex={-1}
         >
           <div
-            className="category-node row"
+            className="post-node row"
             style={
               {
                 "paddingLeft": 0,
@@ -1872,29 +1850,27 @@ exports[`AdminTree renders as expected 1`] = `
                   }
                 }
               />
-              <button
-                className="open-toggle btn btn-outline-secondary btn-sm"
-                disabled={false}
-                onClick={[Function]}
-                type="button"
+              <svg
+                fill="currentColor"
+                height="1em"
+                viewBox="0 0 16 16"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
               >
-                <svg
-                  fill="currentColor"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  width="1em"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </button>
+                <path
+                  d="M7.5 3.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm-.861 1.542 1.33.886 1.854-1.855a.25.25 0 0 1 .289-.047L11 4.75V7a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 7v-.5s1.54-1.274 1.639-1.208zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"
+                />
+                <path
+                  d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"
+                />
+              </svg>
               <span
                 className="label"
               >
-                Category:
+                Post:
               </span>
                
               <strong
@@ -1914,7 +1890,7 @@ exports[`AdminTree renders as expected 1`] = `
               <a
                 className="btn btn-primary btn-sm"
                 disabled={false}
-                href="/admin/category/4"
+                href="/admin/post/4"
                 onClick={[Function]}
                 onKeyDown={[Function]}
                 role="button"

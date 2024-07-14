@@ -11,9 +11,8 @@ import {
   Row,
   ToggleButton,
 } from 'react-bootstrap';
-import { lazyGetAllCategoriesAndPosts } from '../../../graphql/queries/allPosts';
-import { lazyGetPostsByCategory } from '../../../graphql/queries/postByParentAndOwnSlug';
-import Category from '../../../graphql/types/category';
+import { lazyGetAllPosts } from '../../../graphql/queries/allPosts';
+import { lazyGetPostsByParent } from '../../../graphql/queries/postsByParent';
 import Post from '../../../graphql/types/post';
 import InvalidIcon from '../../common/InvalidIcon';
 import Editor from '../Editor/Editor';
@@ -24,17 +23,19 @@ export interface PostEditorProps {
   children: React.ReactNode;
   loading: boolean;
   id: string;
-  categoryId: string;
   markdown: string;
+  name: string;
   order: string;
+  parentId: string;
   published: boolean;
   slug: string;
   subtitle: string;
   summary: string;
   title: string;
-  onCategoryIdChange: (value: string) => void;
   onMarkdownChange: (value: string) => void;
+  onNameChange: (value: string) => void;
   onOrderChange: (value: string) => void;
+  onParentIdChange: (value: string) => void;
   onPublishedChange: (value: boolean) => void;
   onSlugChange: (value: string) => void;
   onSubtitleChange: (value: string) => void;
@@ -47,16 +48,18 @@ export default function PostEditor({
   loading,
   id,
   markdown,
+  name,
   order,
+  parentId,
   published,
   slug,
   subtitle,
   summary,
   title,
-  categoryId,
-  onCategoryIdChange,
   onMarkdownChange,
+  onNameChange,
   onOrderChange,
+  onParentIdChange,
   onPublishedChange,
   onSlugChange,
   onSubtitleChange,
@@ -64,32 +67,27 @@ export default function PostEditor({
   onTitleChange,
 }: PostEditorProps): React.ReactElement {
   const [
-    getAllCategoriesAndPosts,
-    {
-      data: allCategoriesAndPostsData,
-      loading: loadingCategories,
-      called: calledGetAllCategoriesAndPosts,
-    },
-  ] = lazyGetAllCategoriesAndPosts({ includeUnpublished: true });
-  const categories =
-    calledGetAllCategoriesAndPosts && !loadingCategories
-      ? (allCategoriesAndPostsData as { categories: Partial<Category>[] })
-        .categories
+    getAllPosts,
+    { data: allPostsData, loading: loadingPosts, called: calledGetAllPosts },
+  ] = lazyGetAllPosts({ includeUnpublished: true });
+  const posts =
+    calledGetAllPosts && !loadingPosts
+      ? (allPostsData as { posts: Partial<Post>[] }).posts
       : [];
 
   const [
-    getPostsByCategory,
+    getPostsByParent,
     {
-      data: postsByCategoryData,
+      data: postsByParentData,
       loading: loadingSiblingPosts,
-      called: calledGetPostsByCategory,
+      called: calledGetPostsByParent,
     },
-  ] = lazyGetPostsByCategory({ categoryId, includeUnpublished: true });
+  ] = lazyGetPostsByParent({ parentId, includeUnpublished: true });
   const siblingPosts =
-    (postsByCategoryData as { postsByCategory: Partial<Post>[] })
+    (postsByParentData as { postsByCategory: Partial<Post>[] })
       ?.postsByCategory || [];
   const otherSiblingPosts =
-    loadingSiblingPosts || !calledGetPostsByCategory
+    loadingSiblingPosts || !calledGetPostsByParent
       ? []
       : siblingPosts.filter((p) => p.id !== id);
 
@@ -97,17 +95,18 @@ export default function PostEditor({
     return <LoadingEditor />;
   }
 
-  if (!calledGetPostsByCategory) {
-    getPostsByCategory();
+  if (!calledGetPostsByParent) {
+    getPostsByParent();
   }
 
-  if (!calledGetAllCategoriesAndPosts) {
-    getAllCategoriesAndPosts();
+  if (!calledGetAllPosts) {
+    getAllPosts();
   }
 
   const validationResults = validatePostForm({
-    categoryId,
+    parentId,
     markdown,
+    name,
     order,
     published,
     slug,
@@ -115,7 +114,7 @@ export default function PostEditor({
     summary,
     title,
     siblingPosts: otherSiblingPosts,
-    allCategories: categories || [],
+    allPosts: posts || [],
   });
 
   return (
@@ -145,7 +144,7 @@ export default function PostEditor({
           </Col>
         </Row>
         <Row>
-          <Col xs={12}>
+          <Col xs={6}>
             <Form.Group
               className="text-group post-subtitle"
               controlId="post-subtitle"
@@ -162,6 +161,23 @@ export default function PostEditor({
                 id="post-subtitle-invalid"
                 isInvalid={!validationResults.subtitle.isValid}
                 invalidReason={validationResults.subtitle.invalidReason}
+              />
+            </Form.Group>
+          </Col>
+          <Col xs={6}>
+            <Form.Group className="text-group post-name" controlId="post-name">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                isValid={validationResults.name.isValid}
+                isInvalid={!validationResults.name.isValid}
+                type="text"
+                value={name}
+                onChange={(event) => onNameChange(event.target.value)}
+              />
+              <InvalidIcon
+                id="post-name-invalid"
+                isInvalid={!validationResults.name.isValid}
+                invalidReason={validationResults.name.invalidReason}
               />
             </Form.Group>
           </Col>
@@ -191,43 +207,43 @@ export default function PostEditor({
         <Row>
           <Col xs={12}>
             <Form.Group
-              className="text-group post-category"
-              controlId="post-category"
+              className="text-group post-parent"
+              controlId="post-parent"
             >
               <Form.Label>Category</Form.Label>
-              {loadingCategories ? (
+              {loadingPosts ? (
                 <Placeholder animation="glow" className="w-100" />
               ) : (
                 <>
                   <Form.Select
-                    aria-label="Select the post's category"
-                    isValid={validationResults.categoryId.isValid}
-                    isInvalid={!validationResults.categoryId.isValid}
-                    value={categoryId}
+                    aria-label="Select the post's parent"
+                    isValid={validationResults.parentId.isValid}
+                    isInvalid={!validationResults.parentId.isValid}
+                    value={parentId}
                     onChange={(event) => {
                       const newValue = event.target.value;
                       // Update which posts we compare against to make sure
                       // we properly validate slug and order
-                      getPostsByCategory({
+                      getPostsByParent({
                         variables: {
                           categoryId: newValue,
                           includeUnplished: true,
                         },
                       });
-                      onCategoryIdChange(newValue);
+                      onParentIdChange(newValue);
                     }}
                   >
-                    <option value="">Select Category</option>
-                    {categories.map((category: Partial<Category>) => (
-                      <option value={category.id} key={category.id}>
-                        {category.name}
+                    <option value="">Select Parent</option>
+                    {posts.map((post: Partial<Post>) => (
+                      <option value={post.id} key={post.id}>
+                        {post.name}
                       </option>
                     ))}
                   </Form.Select>
                   <InvalidIcon
-                    id="post-category-invalid"
-                    isInvalid={!validationResults.categoryId.isValid}
-                    invalidReason={validationResults.categoryId.invalidReason}
+                    id="post-parent-invalid"
+                    isInvalid={!validationResults.parentId.isValid}
+                    invalidReason={validationResults.parentId.invalidReason}
                   />
                 </>
               )}
@@ -272,7 +288,7 @@ export default function PostEditor({
               controlId="post-order"
             >
               <FormLabel>Order in Navbar</FormLabel>
-              {loadingSiblingPosts || !calledGetPostsByCategory ? (
+              {loadingSiblingPosts || !calledGetPostsByParent ? (
                 <Placeholder animation="glow" className="w-100" />
               ) : (
                 <>
@@ -298,7 +314,7 @@ export default function PostEditor({
           <Col xs={12}>
             <FormGroup className="text-group post-slug" controlId="post-slug">
               <FormLabel>Slug</FormLabel>
-              {loadingSiblingPosts || !calledGetPostsByCategory ? (
+              {loadingSiblingPosts || !calledGetPostsByParent ? (
                 <Placeholder animation="glow" className="w-100" />
               ) : (
                 <>

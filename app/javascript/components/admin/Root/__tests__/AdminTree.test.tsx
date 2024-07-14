@@ -4,7 +4,7 @@
 import React from 'react';
 import snapshotRenderer from 'react-test-renderer';
 import { act } from '@testing-library/react';
-import { categoriesAndPostsAsArboristTree } from '../../../../transforms/__tests__/fixtures/allCategoriesAndPostsAsArboristTree';
+import { allPostsAsArboristTree } from '../../../../transforms/__tests__/fixtures/allPostsAsArboristTree';
 import AdminTree from '../AdminTree';
 
 describe('AdminTree', () => {
@@ -12,11 +12,7 @@ describe('AdminTree', () => {
     let wrapper;
     act(() => {
       wrapper = snapshotRenderer.create(
-        <AdminTree
-          height={1000}
-          indentSize={5}
-          tree={categoriesAndPostsAsArboristTree}
-        />
+        <AdminTree height={1000} indentSize={5} tree={allPostsAsArboristTree} />
       );
     });
     expect(wrapper.toJSON()).toMatchSnapshot();

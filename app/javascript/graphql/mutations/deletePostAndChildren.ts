@@ -5,7 +5,7 @@ import MutationResult, {
 import { MutationOnErrorFunction } from '../types/onErrorFunction';
 
 const deletePostAndChildrenMutation = gql`
-  mutation deletPostMutation($id: ID!) {
+  mutation deletPostAndChildrenMutation($id: ID!) {
     deletePostAndChildren(input: { id: $id }) {
       errors
       successful
@@ -24,7 +24,7 @@ export interface DeletePostAndChildrenMutationResponsePayload {
 
 export type DeletePostAndChildrenMutationResult = MutationResult<
   DeletePostAndChildrenMutationResponsePayload,
-  'deletePost'
+  'deletePostAndChildren'
 >;
 
 function useDeletePostAndChildrenMutation(
