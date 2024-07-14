@@ -47,12 +47,7 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
           new_post.order = new_post.previous_order_as_category
         end
 
-        begin
-          new_post.save!
-        rescue => e
-          byebug
-          throw e
-        end
+        new_post.save!
       end
 
       # ... and finally, we reassociate the pre-existing posts with the posts
