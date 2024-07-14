@@ -10,11 +10,8 @@ export interface BlogNavbarProps {
 }
 
 function BlogNavbar({ tree, loading }: BlogNavbarProps): React.ReactElement {
-  const navbarItems = tree.map((topLevelCategory) => (
-    <TopLevelBlogNavbarItem
-      thisVertex={topLevelCategory}
-      key={topLevelCategory.id}
-    />
+  const navbarItems = tree.map((topLevelPost) => (
+    <TopLevelBlogNavbarItem thisVertex={topLevelPost} key={topLevelPost.id} />
   ));
 
   return (

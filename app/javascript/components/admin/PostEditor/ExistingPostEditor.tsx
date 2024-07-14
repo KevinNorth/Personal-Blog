@@ -221,11 +221,11 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
       onMarkdownChange={setMarkdown}
       onNameChange={setName}
       onOrderChange={setOrder}
-      onParentIdChange={(newCategoryId) => {
-        setParentId(newCategoryId);
+      onParentIdChange={(newParentId) => {
+        setParentId(newParentId);
         getPostsByParent({
           variables: {
-            categoryId: newCategoryId,
+            newParentId,
             includeUnpublished: true,
           },
         });
@@ -242,7 +242,7 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
             disabled: loadingDeletePost || loadingUpdatePost,
           }}
           confirmationButtonText="Delete"
-          confirmationPopoverId="delete-post-confirmation"
+          confirmationPopoverId="delete-post-and-children-confirmation"
           confirmationText="This will delete this post. Are you sure?"
           outerButtonProps={{
             className: 'delete-button',

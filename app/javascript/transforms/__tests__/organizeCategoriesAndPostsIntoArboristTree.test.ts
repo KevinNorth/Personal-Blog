@@ -369,7 +369,7 @@ describe('test', () => {
         },
       ];
 
-      const category9Children: Post[] = [
+      const post9Children: Post[] = [
         {
           __typename: 'Post',
           children: [],
@@ -401,7 +401,7 @@ describe('test', () => {
         ...post6Children,
         ...post7Children,
         ...post8Children,
-        ...category9Children,
+        ...post9Children,
       ];
 
       const expectedTree: AdminTreeVertex[] = [
@@ -440,9 +440,9 @@ describe('test', () => {
                   graphqlObject: post6Children[0],
                   children: [
                     {
-                      id: category9Children[0].id,
-                      title: category9Children[0].title,
-                      graphqlObject: category9Children[0],
+                      id: post9Children[0].id,
+                      title: post9Children[0].title,
+                      graphqlObject: post9Children[0],
                       children: [],
                     },
                   ],

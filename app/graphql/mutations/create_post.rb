@@ -13,7 +13,7 @@ module Mutations
     def resolve(post_attributes:)
       post = Post.build(
         author: context[:current_user],
-        category_id: post_attributes.category_id,
+        parent_id: post_attributes.parent_id,
         markdown: post_attributes.markdown,
         order: post_attributes.order,
         published: post_attributes.published,

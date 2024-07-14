@@ -55,7 +55,7 @@ RSpec.describe 'post_by_parent', type: :request do
           expect(actual_post_ids).to match_array(expected_post_ids)
         end
 
-        describe 'when the category does not have associated posts' do
+        describe 'when the parent does not have associated children' do
           before do
             all_children.each(&:destroy)
           end
@@ -68,7 +68,7 @@ RSpec.describe 'post_by_parent', type: :request do
       end
 
       describe 'when the include_unpublished argument is false' do
-        it "responds with the category's published posts" do
+        it "responds with the parent's published children" do
           query = get_query(parent_id: parent.id, include_unpublished: false)
 
           post graphql_path, params: { query: }
@@ -95,7 +95,7 @@ RSpec.describe 'post_by_parent', type: :request do
       end
     end
 
-    describe 'when the category is not published' do
+    describe 'when the parent is not published' do
       let(:author) { create(:user) }
       let!(:parent) { create(:post, author:, published: false) }
       let!(:published_children) { create_list(:post, 3, author:, parent:, published: true) }

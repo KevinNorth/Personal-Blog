@@ -92,7 +92,7 @@ RSpec.describe 'post_by_parent_and_own_slug', type: :request do
 
         before do
           # Unpublished posts should not appear in the query response.
-          # Since these posts aren't in posts_in_category, the shared example
+          # Since these posts aren't in children_posts, the shared example
           # won't be expecting them in its assertions.
           create_list(:post, 3, parent: db_post, author:, published: false)
         end

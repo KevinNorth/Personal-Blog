@@ -7,7 +7,7 @@ export interface PostFooterProps {
   parentSlug: string;
 }
 
-function CategoryFooter({
+function PostFooter({
   parentId,
   parentSlug,
 }: PostFooterProps): React.ReactElement {
@@ -36,4 +36,4 @@ function CategoryFooter({
   );
 }
 
-export default CategoryFooter;
+export default PostFooter;

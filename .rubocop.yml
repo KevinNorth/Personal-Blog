@@ -82,7 +82,7 @@ Rails/RakeEnvironment:
     - lib/tasks/use_pnpm_in_jsbundling_rails.rake
     - Rakefile
 
-# I deliberately want to allow post.order and category.order to
+# I deliberately want to allow post.order to
 # be set to the same value in the underlying database because
 # I'm thinking through how I'm going to implement reording items
 # and it seems to me the most straightforward approaches require

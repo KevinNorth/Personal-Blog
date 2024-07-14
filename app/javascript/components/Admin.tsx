@@ -1,8 +1,6 @@
 import React, { cloneElement, isValidElement, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { SendToastFunction } from '../types/toastable';
-import ExistingCategoryEditor from './admin/CategoryEditor/ExistingCategoryEditor';
-import NewCategoryEditor from './admin/CategoryEditor/NewCategoryEditor';
 import Layout from './admin/Layout';
 import ExistingPostEditor from './admin/PostEditor/ExistingPostEditor';
 import NewPostEditor from './admin/PostEditor/NewPostEditor';
@@ -57,14 +55,6 @@ function Admin() {
   return (
     <Layout toasts={toasts}>
       <Routes>
-        <Route
-          path="/category/new"
-          element={<NewCategoryEditor sendToast={sendToast} />}
-        />
-        <Route
-          path="/category/:id"
-          element={<ExistingCategoryEditor sendToast={sendToast} />}
-        />
         <Route
           path="/post/new"
           element={<NewPostEditor sendToast={sendToast} />}

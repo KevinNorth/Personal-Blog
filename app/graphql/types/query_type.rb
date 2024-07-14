@@ -70,7 +70,7 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories and posts that have not yet been published',
+               description: 'whether to include posts that have not yet been published',
                require_logged_in: true
     end
 

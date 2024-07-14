@@ -84,8 +84,8 @@ export default function PostEditor({
     },
   ] = lazyGetPostsByParent({ parentId, includeUnpublished: true });
   const siblingPosts =
-    (postsByParentData as { postsByCategory: Partial<Post>[] })
-      ?.postsByCategory || [];
+    (postsByParentData as { postsByParent: Partial<Post>[] })?.postsByParent ||
+    [];
   const otherSiblingPosts =
     loadingSiblingPosts || !calledGetPostsByParent
       ? []
@@ -210,7 +210,7 @@ export default function PostEditor({
               className="text-group post-parent"
               controlId="post-parent"
             >
-              <Form.Label>Category</Form.Label>
+              <Form.Label>Parent</Form.Label>
               {loadingPosts ? (
                 <Placeholder animation="glow" className="w-100" />
               ) : (
@@ -226,7 +226,7 @@ export default function PostEditor({
                       // we properly validate slug and order
                       getPostsByParent({
                         variables: {
-                          categoryId: newValue,
+                          parentId: newValue,
                           includeUnplished: true,
                         },
                       });

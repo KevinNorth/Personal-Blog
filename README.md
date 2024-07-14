@@ -57,9 +57,9 @@ I decided to focus on getting my website live quickly so I could link to it - an
 
 When I'm caught up on tech debt, there are a couple more features I'm planning to add:
 
-- [ ] Use ActiveStorage to upload images for each category and post, allowing them to show different header images on each page.
+- [ ] Use ActiveStorage to upload images for each post, allowing them to show different header images on each page.
   - I'd like to include thumbnail images on the cards for posts as well.
-- [ ] Add a post tag system so I can tag posts and categories with the technologies I used for each project.
+- [ ] Add a post tag system so I can tag posts with the technologies I used for each project.
 - [ ] Use Webpack's `SplitChunksPlugin` to avoid serving one large JS payload. https://webpack.js.org/plugins/split-chunks-plugin/
 - [ ] Switch from jsbundling-rails to [Shakapacker](https://github.com/shakacode/shakapacker) and set up hot reloading in my dev environment.
 
@@ -87,12 +87,12 @@ I haven't tried working on this project without a Docker container, so I don't r
 
 ### Prepare the databsae
 
-`rake db:seed` populates the database with an initial user and some categories and posts. This is run for you if you run `setup.sh` or use a Docker dev container.
+`rake db:seed` populates the database with an initial user and some posts. This is run for you if you run `setup.sh` or use a Docker dev container.
 
 If you don't use `rake db:seed`, there are two Rake tasks to help you get your database set up:
 
-- `rake new_instance:create_initial_categories` adds two categories to the database. These two categories are expected to be present by the 404 page.
 - `rake "auth:create_user\[Full Name, login\]"` adds a user to the database. You will be prompted to enter a password for the user when you run this command.
+- `rake new_instance:create_initial_posts` adds two posts to the database. These two posts are expected to be present by the 404 page. You must create a user with `rake auth:create_user` before running this script.
 
 ### Run the server
 
@@ -123,7 +123,7 @@ To lint the frontend, run `pnpm run lint`. To format frontend code via Prettier,
 
 I'm hosting my website on [Render](https://render.com/). Render is configured to automatically deploy whenever there are changes to main published to GitHub in this repository.
 
-My deployment manifest is [`render.yaml`](https://github.com/KevinNorth/Personal-Blog/blob/main/render.yaml) in the repo's root directory. You can use it to [deploy your own instance to Render](https://render.com/docs/deploy-rails). After deploying, [run the commands to menaully set up the initial categories and admin user](#prepare-the-databsae).
+My deployment manifest is [`render.yaml`](https://github.com/KevinNorth/Personal-Blog/blob/main/render.yaml) in the repo's root directory. You can use it to [deploy your own instance to Render](https://render.com/docs/deploy-rails). After deploying, [run the commands to menaully set up the initial posts and admin user](#prepare-the-databsae).
 
 ### VS Code recommended
 
