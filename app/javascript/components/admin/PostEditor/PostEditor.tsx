@@ -72,7 +72,7 @@ export default function PostEditor({
   ] = lazyGetAllPosts({ includeUnpublished: true });
   const posts =
     calledGetAllPosts && !loadingPosts
-      ? (allPostsData as { posts: Partial<Post>[] }).posts
+      ? (allPostsData as { allPosts: Partial<Post>[] }).allPosts
       : [];
 
   const [

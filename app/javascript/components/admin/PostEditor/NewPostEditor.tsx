@@ -65,7 +65,7 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
   });
 
   const allPosts = !loadingAllPosts
-    ? (allPostsData as { posts: Partial<Post>[] }).posts
+    ? (allPostsData as { allPosts: Partial<Post>[] }).allPosts
     : [];
 
   const { data: postsByParentData, refetch: refetchPostsByParent } =

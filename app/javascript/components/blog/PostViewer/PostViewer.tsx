@@ -34,7 +34,7 @@ function PostViewer({
         includeUnpublished: false,
       });
 
-      post = data?.postBySlug;
+      post = data?.postByParentAndOwnSlug;
       loading = postLoading;
     } else {
       const { data, loading: postLoading } = getPostBySlug({

@@ -37,7 +37,7 @@ export interface AllPostsVariables {
 function getAllPosts(
   { includeUnpublished = false }: AllPostsVariables,
   onError: QueryOnErrorFunction = undefined
-): QueryResult<{ posts: Partial<Post>[] }, AllPostsVariables> {
+): QueryResult<{ allPosts: Partial<Post>[] }, AllPostsVariables> {
   return useQuery(allPostsQuery, {
     variables: { includeUnpublished },
     fetchPolicy: 'cache-and-network',
@@ -49,8 +49,8 @@ export function lazyGetAllPosts(
   { includeUnpublished = false }: AllPostsVariables,
   onError: QueryOnErrorFunction = undefined
 ): [
-  LazyQueryExecuteFunction<Partial<Post>[], AllPostsVariables, 'posts'>,
-  LazyQueryResult<Partial<Post>[], AllPostsVariables, 'posts'>
+  LazyQueryExecuteFunction<Partial<Post>[], AllPostsVariables, 'allPosts'>,
+  LazyQueryResult<Partial<Post>[], AllPostsVariables, 'allPosts'>
 ] {
   return useLazyQuery(allPostsQuery, {
     variables: { includeUnpublished },

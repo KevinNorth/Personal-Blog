@@ -20,7 +20,7 @@ function usePageContent(): PageContentResult {
       postSlug,
       includeUnpublished: false,
     });
-    return { loading, pageContent: data?.postBySlug || fourOhFour };
+    return { loading, pageContent: data?.postByParentAndOwnSlug || fourOhFour };
   }
 
   const singlePostRouteMatch = useMatch('/:slug');

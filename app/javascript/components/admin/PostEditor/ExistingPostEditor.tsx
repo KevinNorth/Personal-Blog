@@ -112,11 +112,11 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
 
   const navigate = useNavigate();
 
-  const { data: allPostsData, loading: loadingAllPsots } = getAllPosts({
+  const { data: allPostsData, loading: loadingAllPosts } = getAllPosts({
     includeUnpublished: true,
   });
-  const allPosts = !loadingAllPsots
-    ? (allPostsData as { posts: Partial<Post>[] }).posts
+  const allPosts = !loadingAllPosts
+    ? (allPostsData as { allPosts: Partial<Post>[] }).allPosts
     : [];
 
   const [
@@ -264,7 +264,7 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
         <Button
           disabled={
             !isPostValid ||
-            loadingAllPsots ||
+            loadingAllPosts ||
             loadingDeletePost ||
             loadingUpdatePost
           }

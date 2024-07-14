@@ -48,7 +48,10 @@ function getPostByParentAndOwnSlug(
     includeUnpublished = false,
   }: PostByParentAndOwnSlugVariables,
   onError: QueryOnErrorFunction = undefined
-): QueryResult<{ postBySlug: Partial<Post> }, PostByParentAndOwnSlugVariables> {
+): QueryResult<
+  { postByParentAndOwnSlug: Partial<Post> },
+  PostByParentAndOwnSlugVariables
+> {
   return useQuery(postByParentAndOwnSlugQuery, {
     variables: { parentSlug, postSlug, includeUnpublished },
     fetchPolicy: 'cache-and-network',

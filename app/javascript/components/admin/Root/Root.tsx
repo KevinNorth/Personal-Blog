@@ -10,11 +10,11 @@ export default function Root(): React.ReactElement {
   });
 
   const tree = useMemo(() => {
-    if (loading || !data?.posts) {
+    if (loading || !data?.allPosts) {
       return [];
     }
 
-    return organizePostsIntoArboristTree(data.posts);
+    return organizePostsIntoArboristTree(data.allPosts);
   }, [data]);
 
   // These are a lot of React hooks, but they're the canonical pattern

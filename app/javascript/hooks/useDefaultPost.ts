@@ -16,7 +16,7 @@ function useDefaultPost(): DefaultPostResult {
     return { loading: true, defaultPost: null };
   }
 
-  const defaultPost = grabFirstTopLevelPost(data.posts);
+  const defaultPost = grabFirstTopLevelPost(data.allPosts);
   return { loading: false, defaultPost };
 }
 

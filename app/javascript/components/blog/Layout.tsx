@@ -16,8 +16,8 @@ export default function Layout({ children }: LayoutProps): React.ReactElement {
   const { loading: pageContentLoading, pageContent } = usePageContent();
 
   let navbarTree = [];
-  if (!allPostsLoading && allPostsData.posts) {
-    navbarTree = organizePostsIntoNavbarTree(allPostsData.posts);
+  if (!allPostsLoading && allPostsData.allPosts) {
+    navbarTree = organizePostsIntoNavbarTree(allPostsData.allPosts);
   }
 
   return (
