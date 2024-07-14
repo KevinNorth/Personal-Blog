@@ -13,13 +13,23 @@ module Types
 
     field :user_by_id, UserType, null: true, description: 'Fetches a user by ID' do
       argument :id, ID, required: true, description: 'ID to query'
+      argument :include_unpublished_posts, Boolean,
+               required: false,
+               default_value: false,
+               description: 'whether to include posts by the user that have not yet been published',
+               require_logged_in: true
     end
 
     field :user_by_login, UserType, null: true, description: 'Fetches a user by login' do
       argument :login, String, required: true, description: 'login to look up'
+      argument :include_unpublished_posts, Boolean,
+               required: false,
+               default_value: false,
+               description: 'whether to include posts by the user that have not yet been published',
+               require_logged_in: true
     end
 
-    field :all_posts, PostType, description: 'Fetches all posts.' do
+    field :all_posts, [PostType], description: 'Fetches all posts.' do
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
@@ -72,19 +82,36 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    def user_by_id(id:)
-      User.find_by(id:)
+    def user_by_id(id:, include_unpublished_posts:)
+      user = User.find_by(id:)
+
+      if user && !include_unpublished_posts
+        user.posts = user.posts.select { |post| post.published }
+      end
+
+      return user
     end
 
-    def user_by_login(login:)
-      User.find_by(login:)
+    def user_by_login(login:, include_unpublished_posts:)
+      user = User.find_by(login:)
+
+      if user && !include_unpublished_posts
+        user.posts = user.posts.select { |post| post.published }
+      end
+
+      return user
     end
 
     def all_posts(include_unpublished:)
       if include_unpublished
-        Posts.all
+        Post.all
       else
-        Posts.where(published: true)
+        result = Post.where(published: true)
+
+        return result.map do |post|
+          post.children = post.children.where(published: true)
+          post
+        end  
       end
     end
 
@@ -92,7 +119,12 @@ module Types
       if include_unpublished
         Post.joins(:parent).where(parent: { id: parent_id })
       else
-        Post.joins(:parent).where(published: true, parent: { id: parent_id, published: true })
+        result = Post.joins(:parent).where(published: true, parent: { id: parent_id, published: true })
+
+        return result.map do |post|
+          post.children = post.children.where(published: true)
+          post
+        end
       end
     end
 
@@ -100,7 +132,13 @@ module Types
       if include_unpublished
         Post.find_by(id:)
       else
-        Post.joins(:category).find_by(published: true, id:, category: { published: true })
+        result = Post.find_by(id:, published: true)
+
+        if result
+          result.children = result.children.where(published: true)
+        end
+
+        return result
       end
     end
 
@@ -108,7 +146,13 @@ module Types
       if include_unpublished
         Post.find_by(slug:)
       else
-        Post.eager_load(:children).joins('AND children.published = true').find_by(slug:, published: true)
+        result = Post.find_by(slug:, published: true)
+
+        if result
+          result.children = result.children.where(published: true)
+        end
+
+        return result
       end
     end
 
@@ -116,8 +160,14 @@ module Types
       if include_unpublished
         Post.joins(:parent).find_by(slug: post_slug, parent: { slug: parent_slug })
       else
-        Post.joins(:parent).find_by(published: true, slug: post_slug,
+        result = Post.joins(:parent).find_by(published: true, slug: post_slug,
                                       parent: { published: true, slug: parent_slug })
+
+        if result
+          result.children = result.children.where(published: true)
+        end
+
+        return result
       end
     end
   end

@@ -43,5 +43,6 @@ FactoryBot.define do
     subtitle { 'Subtitle' }
     summary { 'Summary' }
     title { 'Title' }
+    name { 'Name' }
   end
 end

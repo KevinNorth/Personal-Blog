@@ -35,7 +35,6 @@
 #  fk_rails_...  (parent_id => posts.id)
 #
 class Post < ApplicationRecord
-  has_many :posts, dependent: :destroy
   has_many :children, class_name: 'Post', foreign_key: :parent_id, inverse_of: :parent, dependent: :nullify
   belongs_to :parent, class_name: 'Post', inverse_of: :children, optional: true
   belongs_to :category, optional: true
@@ -52,4 +51,5 @@ class Post < ApplicationRecord
   # ]
 
   validates :order, uniqueness: { scope: :parent_id }
+  validates :slug, uniqueness: true
 end
