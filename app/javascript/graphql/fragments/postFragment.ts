@@ -12,6 +12,7 @@ const POST_FRAGMENT = gql`
     subtitle
     summary
     title
+    name
     updatedAt
   }
 `;

@@ -27,8 +27,7 @@ RSpec.describe 'user_by_login', type: :request do
   describe 'when given login argument for a user that exists' do
     let(:login) { 'test' }
     let!(:user) { create(:user, login:) }
-    let(:category) { create(:category) }
-    let!(:posts_by_user) { create_list(:post, 3, author: user, category:) }
+    let!(:posts_by_user) { create_list(:post, 3, author: user) }
 
     it 'responds with the corresponding user' do
       query = get_query(login:)

@@ -207,7 +207,7 @@ $admin-header-height: 80px;
   .admin-tree {
     text-overflow: ellipsis;
 
-    .category-node, .post-node {
+    .post-node {
       border-bottom-color: grey;
       border-bottom-width: 1px;
       border-bottom-style: solid;
@@ -216,6 +216,7 @@ $admin-header-height: 80px;
       [class^='col'], [class*=' col'] {
         overflow: hidden;
         display: -webkit-box;
+        line-clamp: 1;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
       }
@@ -237,9 +238,7 @@ $admin-header-height: 80px;
       :not(:last-child) {
         margin-bottom: 3px;
       }
-    }
 
-    .category-node {
       .open-toggle {
         @extend %transparent-button;
         width: 20px;
@@ -249,7 +248,7 @@ $admin-header-height: 80px;
   }
 }
 
-.category-editor, .post-editor {
+.post-editor {
   .row {
     max-height: inherit;
     margin: 1rem 0;
@@ -292,7 +291,7 @@ $admin-header-height: 80px;
   }
 }
 
-.category-markdown-editor, .post-markdown-editor {
+.post-markdown-editor {
   height: 80vh;
   max-height: 80vh;
 
@@ -349,7 +348,7 @@ $admin-header-height: 80px;
 }
 
 @media(max-width: 900px) {
-  .category-markdown-editor, .post-markdown-editor {
+  .post-markdown-editor {
     height: 50vh;
     min-height: 50vh;
   }
@@ -373,7 +372,7 @@ $admin-header-height: 80px;
   }
 }
 
-#delete-post-confirmation, #delete-category-and-children-confirmation {
+#delete-post-and-children-confirmation {
   .popover-body .row:first-of-type {
     margin-bottom: 1rem;
   }

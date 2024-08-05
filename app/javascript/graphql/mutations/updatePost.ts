@@ -1,5 +1,4 @@
 import { gql, useMutation } from '@apollo/client';
-import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import { MutationOnErrorFunction } from '../types/onErrorFunction';
@@ -18,19 +17,24 @@ const updatePostMutation = gql`
         author {
           ...UserFragment
         }
-        category {
-          ...CategoryFragment
-          parent {
-            id
-          }
+        parent {
+          id
           children {
             id
           }
         }
+        children {
+          ...PostFragment
+          author {
+            ...UserFragment
+          }
+        }
+        author {
+          ...UserFragment
+        }
       }
     }
   }
-  ${CATEGORY_FRAGMENT}
   ${POST_FRAGMENT}
   ${USER_FRAGMENT}
 `;

@@ -1,20 +1,20 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import getAllCategoriesAndPostsQuery from '../../../graphql/queries/allCategoriesAndPosts';
-import organizeCategoriesAndPostsIntoArboristTree from '../../../transforms/organizeCategoriesAndPostsIntoArboristTree';
+import getAllPosts from '../../../graphql/queries/allPosts';
+import organizePostsIntoArboristTree from '../../../transforms/organizePostsIntoArboristTree';
 import AdminTree from './AdminTree';
 
 export default function Root(): React.ReactElement {
-  const { data, loading } = getAllCategoriesAndPostsQuery({
+  const { data, loading } = getAllPosts({
     includeUnpublished: true,
   });
 
   const tree = useMemo(() => {
-    if (loading || !data?.categories) {
+    if (loading || !data?.allPosts) {
       return [];
     }
 
-    return organizeCategoriesAndPostsIntoArboristTree(data.categories);
+    return organizePostsIntoArboristTree(data.allPosts);
   }, [data]);
 
   // These are a lot of React hooks, but they're the canonical pattern

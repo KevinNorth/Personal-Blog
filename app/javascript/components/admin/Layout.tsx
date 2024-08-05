@@ -37,10 +37,7 @@ export default function Layout({
           <Navbar>
             <Nav defaultActiveKey={location.pathname}>
               <Nav.Link eventKey="/" href="/admin">
-                See All Categories and Posts
-              </Nav.Link>
-              <Nav.Link eventKey="/category/new" href="/admin/category/new">
-                New Category
+                See All Posts
               </Nav.Link>
               <Nav.Link eventKey="/post/new" href="/admin/post/new">
                 New Post

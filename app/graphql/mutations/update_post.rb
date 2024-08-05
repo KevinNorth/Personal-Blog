@@ -22,8 +22,9 @@ module Mutations
       end
 
       post.assign_attributes(
-        category_id: post_attributes.category_id,
+        parent_id: post_attributes.parent_id,
         markdown: post_attributes.markdown,
+        name: post_attributes.name,
         order: post_attributes.order,
         published: post_attributes.published,
         slug: post_attributes.slug,

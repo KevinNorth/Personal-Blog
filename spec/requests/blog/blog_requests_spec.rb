@@ -11,7 +11,7 @@ RSpec.describe 'blog requests' do
 
     describe 'when React Router bits appear in the URL' do
       it 'still renders the blog app' do
-        get '/category/post'
+        get '/post'
         expect(response).to render_template :blog
       end
     end

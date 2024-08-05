@@ -11,7 +11,10 @@ function LoadingEditor(): React.ReactElement {
           </Col>
         </Row>
         <Row>
-          <Col xs={12}>
+          <Col xs={6}>
+            <Placeholder animation="glow" className="w-100" />
+          </Col>
+          <Col xs={6}>
             <Placeholder animation="glow" className="w-100" />
           </Col>
         </Row>

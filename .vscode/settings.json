@@ -1,5 +1,5 @@
 {
-    "ruby.rubocop.executePath": "/usr/local/rvm/gems/ruby-3.2.2/gems/rubocop-1.57.1/exe/",
+    "ruby.rubocop.executePath": "/usr/local/rvm/gems/ruby-3.2.2/gems/rubocop-1.64.1/exe/",
     "ruby.rubocop.configFilePath": "/workspaces/Personal-Blog/.rubocop.yml",
     "editor.tabSize": 2,
     "javascript.format.enable": false,

@@ -1,7 +1,8 @@
 interface PostInput {
-  categoryId: string;
   markdown: string;
+  name: string;
   order: number;
+  parentId: string;
   published: boolean;
   slug: string;
   subtitle: string;

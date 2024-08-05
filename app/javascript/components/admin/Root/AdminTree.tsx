@@ -19,7 +19,7 @@ function AdminTree({
     <Container fluid className="admin-tree">
       <Tree
         initialData={tree}
-        idAccessor={(vertex) => `${vertex.type}${vertex.id}`}
+        idAccessor={(vertex) => `${vertex.id}`}
         openByDefault={true}
         width="100%"
         height={height}

@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-import CATEGORY_FRAGMENT from '../fragments/categoryFragment';
 import POST_FRAGMENT from '../fragments/postFragment';
 import USER_FRAGMENT from '../fragments/userFragment';
 import { QueryOnErrorFunction } from '../types/onErrorFunction';
@@ -10,16 +9,13 @@ export const postByIdQuery = gql`
   query postByIdQuery($id: ID!, $includeUnpublished: Boolean) {
     postById(id: $id, includeUnpublished: $includeUnpublished) {
       ...PostFragment
-      category {
-        ...CategoryFragment
-        parent {
-          id
-        }
-        children {
-          id
-        }
-        posts {
-          id
+      parent {
+        id
+      }
+      children {
+        ...PostFragment
+        author {
+          ...UserFragment
         }
       }
       author {
@@ -27,7 +23,6 @@ export const postByIdQuery = gql`
       }
     }
   }
-  ${CATEGORY_FRAGMENT}
   ${POST_FRAGMENT}
   ${USER_FRAGMENT}
 `;

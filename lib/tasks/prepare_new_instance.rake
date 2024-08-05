@@ -2,8 +2,10 @@
 
 namespace :new_instance do
   desc 'Creates pages that the 404 page assumes exists'
-  task create_initial_categories: :environment do
-    Category.create!(
+  task create_initial_posts: :environment do
+    raise 'Create a user before running this task' unless User.exists?
+
+    Post.create!(
       markdown: 'Hello!',
       name: 'Home',
       order: 0,
@@ -12,10 +14,11 @@ namespace :new_instance do
       subtitle: 'Welcome',
       summary: '-',
       title: 'Home',
-      parent: nil
+      parent: nil,
+      author: User.first
     )
 
-    Category.create!(
+    Post.create!(
       markdown: 'Contact me at:',
       name: 'Contact',
       order: 100,
@@ -24,7 +27,8 @@ namespace :new_instance do
       subtitle: "Let's chat!",
       summary: '-',
       title: 'Contact',
-      parent: nil
+      parent: nil,
+      author: User.first
     )
   end
 end

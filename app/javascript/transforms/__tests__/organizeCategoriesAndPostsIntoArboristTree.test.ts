@@ -1,22 +1,26 @@
-import { mockCategoriesAndPosts } from '../../__tests__/fixtures/allCategoriesAndPosts';
+import { mockPosts } from '../../__tests__/fixtures/allPosts';
 import { AdminTreeVertex } from '../../components/admin/Root/types';
-import Category from '../../graphql/types/category';
-import organizeCategoriesAndPostsIntoArboristTree from '../organizeCategoriesAndPostsIntoArboristTree';
-import { categoriesAndPostsAsArboristTree } from './fixtures/allCategoriesAndPostsAsArboristTree';
+import Post from '../../graphql/types/post';
+import organizePostsIntoArboristTree from '../organizePostsIntoArboristTree';
+import { allPostsAsArboristTree } from './fixtures/allPostsAsArboristTree';
 
 describe('test', () => {
   describe('when given an empty array', () => {
     it('returns an empty array', () => {
-      expect(organizeCategoriesAndPostsIntoArboristTree([])).toEqual([]);
+      expect(organizePostsIntoArboristTree([])).toEqual([]);
     });
   });
 
-  describe('when given only top-level categories', () => {
-    it('return a flat structure', () => {
-      const categories: Category[] = [
+  describe('when given only top-level posts', () => {
+    it('returns a flat structure', () => {
+      const posts: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '1',
@@ -24,7 +28,6 @@ describe('test', () => {
           name: 'Test 1',
           order: 1,
           parent: null,
-          posts: [],
           published: true,
           slug: 'test-1',
           subtitle: 'Test 1',
@@ -33,8 +36,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '2',
@@ -42,7 +49,6 @@ describe('test', () => {
           name: 'Test 2',
           order: 2,
           parent: null,
-          posts: [],
           published: true,
           slug: 'test-2',
           subtitle: 'Test 2',
@@ -51,8 +57,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '3',
@@ -60,7 +70,6 @@ describe('test', () => {
           name: 'Test 3',
           order: 3,
           parent: null,
-          posts: [],
           published: true,
           slug: 'test-3',
           subtitle: 'Test 3',
@@ -70,157 +79,31 @@ describe('test', () => {
         },
       ];
 
-      const expectedTree = categories.map(
-        (category): AdminTreeVertex => ({
-          id: category.id,
-          title: category.title,
-          type: 'Category',
+      const expectedTree = posts.map(
+        (post): AdminTreeVertex => ({
+          id: post.id,
+          title: post.title,
           children: [],
-          graphqlObject: category,
+          graphqlObject: post,
         })
       );
 
-      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(
-        expectedTree
-      );
+      expect(organizePostsIntoArboristTree(posts)).toEqual(expectedTree);
     });
   });
 
-  describe('when given categories with posts', () => {
-    it('includes the posts in the tree', () => {
-      const categories: Category[] = [
-        {
-          __typename: 'Category',
-          children: [],
-          createdAt: '2023-10-28',
-          headerImage: null,
-          id: '1',
-          markdown: 'Lorem Ipsum',
-          name: 'Test 1',
-          order: 1,
-          parent: null,
-          posts: [
-            {
-              __typename: 'Post',
-              createdAt: '2023-10-28',
-              headerImage: null,
-              id: '1',
-              markdown: 'Lorem Ipsum',
-              order: 1,
-              published: true,
-              slug: 'post-1',
-              subtitle: 'Post 1',
-              summary: 'Post 1',
-              title: 'Post 1',
-              updatedAt: '2023-10-28',
-            },
-            {
-              __typename: 'Post',
-              createdAt: '2023-10-28',
-              headerImage: null,
-              id: '2',
-              markdown: 'Lorem Ipsum',
-              order: 2,
-              published: true,
-              slug: 'post-2',
-              subtitle: 'Post 2',
-              summary: 'Post 2',
-              title: 'Post 2',
-              updatedAt: '2023-10-28',
-            },
-          ],
-          published: true,
-          slug: 'test-1',
-          subtitle: 'Test 1',
-          summary: 'Test 1',
-          title: 'Test 1',
-          updatedAt: '2023-10-28',
-        },
-        {
-          __typename: 'Category',
-          children: [],
-          createdAt: '2023-10-28',
-          headerImage: null,
-          id: '2',
-          markdown: 'Lorem Ipsum',
-          name: 'Test 2',
-          order: 2,
-          parent: null,
-          posts: [],
-          published: true,
-          slug: 'test-2',
-          subtitle: 'Test 2',
-          summary: 'Test 2',
-          title: 'Test 2',
-          updatedAt: '2023-10-28',
-        },
-        {
-          __typename: 'Category',
-          children: [],
-          createdAt: '2023-10-28',
-          headerImage: null,
-          id: '3',
-          markdown: 'Lorem Ipsum',
-          name: 'Test 3',
-          order: 3,
-          parent: null,
-          posts: [
-            {
-              __typename: 'Post',
-              createdAt: '2023-10-28',
-              headerImage: null,
-              id: '3',
-              markdown: 'Lorem Ipsum',
-              order: 1, // Posts in different categories can have the same order
-              published: true,
-              slug: 'post-3',
-              subtitle: 'Post 3',
-              summary: 'Post 3',
-              title: 'Post 3',
-              updatedAt: '2023-10-28',
-            },
-          ],
-          published: true,
-          slug: 'test-3',
-          subtitle: 'Test 3',
-          summary: 'Test 3',
-          title: 'Test 3',
-          updatedAt: '2023-10-28',
-        },
-      ];
-
-      const expectedTree = categories.map(
-        (category): AdminTreeVertex => ({
-          id: category.id,
-          title: category.title,
-          type: 'Category',
-          children: category.posts.map(
-            (post): AdminTreeVertex => ({
-              id: post.id,
-              title: post.title,
-              type: 'Post',
-              children: null,
-              graphqlObject: post,
-            })
-          ),
-          graphqlObject: category,
-        })
-      );
-
-      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(
-        expectedTree
-      );
-    });
-  });
-
-  describe('when given nested categories', () => {
+  describe('when given nested posts', () => {
     it('renders the correct tree', () => {
       // There's a lot of test data here. There's no magic to it,
       // I just wrote all of it by hand!
-      const rootCategories: Category[] = [
+      const rootPosts: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '4' }, { id: '5' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '1',
@@ -228,7 +111,6 @@ describe('test', () => {
           name: 'Test 1',
           order: 1,
           parent: null,
-          posts: [],
           published: true,
           slug: 'test-1',
           subtitle: 'Test 1',
@@ -237,8 +119,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '6' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '2',
@@ -246,7 +132,6 @@ describe('test', () => {
           name: 'Test 2',
           order: 2,
           parent: null,
-          posts: [],
           published: true,
           slug: 'test-2',
           subtitle: 'Test 2',
@@ -255,8 +140,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '7' }, { id: '8' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '3',
@@ -264,7 +153,6 @@ describe('test', () => {
           name: 'Test 3',
           order: 3,
           parent: null,
-          posts: [],
           published: true,
           slug: 'test-3',
           subtitle: 'Test 3',
@@ -274,10 +162,14 @@ describe('test', () => {
         },
       ];
 
-      const category1Children: Category[] = [
+      const post1Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '4',
@@ -285,7 +177,6 @@ describe('test', () => {
           name: 'Test 1-4',
           order: 1,
           parent: { id: '1' },
-          posts: [],
           published: true,
           slug: 'test-4',
           subtitle: 'Test 1-4',
@@ -294,8 +185,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '5',
@@ -303,7 +198,6 @@ describe('test', () => {
           name: 'Test 1-5',
           order: 2,
           parent: { id: '1' },
-          posts: [],
           published: true,
           slug: 'test-5',
           subtitle: 'Test 1-5',
@@ -313,10 +207,14 @@ describe('test', () => {
         },
       ];
 
-      const category2Children: Category[] = [
+      const post2Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '9' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '6',
@@ -324,7 +222,6 @@ describe('test', () => {
           name: 'Test 2-6',
           order: 1,
           parent: { id: '2' },
-          posts: [],
           published: true,
           slug: 'test-6',
           subtitle: 'Test 2-6',
@@ -334,10 +231,14 @@ describe('test', () => {
         },
       ];
 
-      const category3Children: Category[] = [
+      const post3Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '10' }, { id: '11' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '7',
@@ -345,7 +246,6 @@ describe('test', () => {
           name: 'Test 3-7',
           order: 1,
           parent: { id: '3' },
-          posts: [],
           published: true,
           slug: 'test-7',
           subtitle: 'Test 3-7',
@@ -354,8 +254,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '12' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '8',
@@ -363,7 +267,6 @@ describe('test', () => {
           name: 'Test 3-8',
           order: 2,
           parent: { id: '3' },
-          posts: [],
           published: true,
           slug: 'test-8',
           subtitle: 'Test 3-8',
@@ -373,10 +276,14 @@ describe('test', () => {
         },
       ];
 
-      const category6Children: Category[] = [
+      const post6Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [{ id: '13' }],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '9',
@@ -384,7 +291,6 @@ describe('test', () => {
           name: 'Test 2-6-9',
           order: 1,
           parent: { id: '6' },
-          posts: [],
           published: true,
           slug: 'test-9',
           subtitle: 'Test 2-6-9',
@@ -394,10 +300,14 @@ describe('test', () => {
         },
       ];
 
-      const category7Children: Category[] = [
+      const post7Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '10',
@@ -405,7 +315,6 @@ describe('test', () => {
           name: 'Test 3-7-10',
           order: 1,
           parent: { id: '7' },
-          posts: [],
           published: true,
           slug: 'test-10',
           subtitle: 'Test 3-7-10',
@@ -414,8 +323,12 @@ describe('test', () => {
           updatedAt: '2023-10-28',
         },
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '11',
@@ -423,7 +336,6 @@ describe('test', () => {
           name: 'Test 3-7-11',
           order: 2,
           parent: { id: '7' },
-          posts: [],
           published: true,
           slug: 'test-11',
           subtitle: 'Test 3-7-11',
@@ -433,10 +345,14 @@ describe('test', () => {
         },
       ];
 
-      const category8Children: Category[] = [
+      const post8Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '12',
@@ -444,7 +360,6 @@ describe('test', () => {
           name: 'Test 3-8-12',
           order: 1,
           parent: { id: '8' },
-          posts: [],
           published: true,
           slug: 'test-9',
           subtitle: 'Test 3-8-12',
@@ -454,10 +369,14 @@ describe('test', () => {
         },
       ];
 
-      const category9Children: Category[] = [
+      const post9Children: Post[] = [
         {
-          __typename: 'Category',
+          __typename: 'Post',
           children: [],
+          author: {
+            __typename: 'User',
+            id: '1',
+          },
           createdAt: '2023-10-28',
           headerImage: null,
           id: '13',
@@ -465,7 +384,6 @@ describe('test', () => {
           name: 'Test 2-6-9-13',
           order: 1,
           parent: { id: '9' },
-          posts: [],
           published: true,
           slug: 'test-13',
           subtitle: 'Test 2-6-9-13',
@@ -475,63 +393,56 @@ describe('test', () => {
         },
       ];
 
-      const categories: Category[] = [
-        ...rootCategories,
-        ...category1Children,
-        ...category2Children,
-        ...category3Children,
-        ...category6Children,
-        ...category7Children,
-        ...category8Children,
-        ...category9Children,
+      const posts: Post[] = [
+        ...rootPosts,
+        ...post1Children,
+        ...post2Children,
+        ...post3Children,
+        ...post6Children,
+        ...post7Children,
+        ...post8Children,
+        ...post9Children,
       ];
 
       const expectedTree: AdminTreeVertex[] = [
         {
-          id: rootCategories[0].id,
-          title: rootCategories[0].title,
-          type: 'Category',
-          graphqlObject: rootCategories[0],
+          id: rootPosts[0].id,
+          title: rootPosts[0].title,
+          graphqlObject: rootPosts[0],
           children: [
             {
-              id: category1Children[0].id,
-              title: category1Children[0].title,
-              type: 'Category',
-              graphqlObject: category1Children[0],
+              id: post1Children[0].id,
+              title: post1Children[0].title,
+              graphqlObject: post1Children[0],
               children: [],
             },
             {
-              id: category1Children[1].id,
-              title: category1Children[1].title,
-              type: 'Category',
-              graphqlObject: category1Children[1],
+              id: post1Children[1].id,
+              title: post1Children[1].title,
+              graphqlObject: post1Children[1],
               children: [],
             },
           ],
         },
         {
-          id: rootCategories[1].id,
-          title: rootCategories[1].title,
-          type: 'Category',
-          graphqlObject: rootCategories[1],
+          id: rootPosts[1].id,
+          title: rootPosts[1].title,
+          graphqlObject: rootPosts[1],
           children: [
             {
-              id: category2Children[0].id,
-              title: category2Children[0].title,
-              type: 'Category',
-              graphqlObject: category2Children[0],
+              id: post2Children[0].id,
+              title: post2Children[0].title,
+              graphqlObject: post2Children[0],
               children: [
                 {
-                  id: category6Children[0].id,
-                  title: category6Children[0].title,
-                  type: 'Category',
-                  graphqlObject: category6Children[0],
+                  id: post6Children[0].id,
+                  title: post6Children[0].title,
+                  graphqlObject: post6Children[0],
                   children: [
                     {
-                      id: category9Children[0].id,
-                      title: category9Children[0].title,
-                      type: 'Category',
-                      graphqlObject: category9Children[0],
+                      id: post9Children[0].id,
+                      title: post9Children[0].title,
+                      graphqlObject: post9Children[0],
                       children: [],
                     },
                   ],
@@ -541,44 +452,38 @@ describe('test', () => {
           ],
         },
         {
-          id: rootCategories[2].id,
-          title: rootCategories[2].title,
-          type: 'Category',
-          graphqlObject: rootCategories[2],
+          id: rootPosts[2].id,
+          title: rootPosts[2].title,
+          graphqlObject: rootPosts[2],
           children: [
             {
-              id: category3Children[0].id,
-              title: category3Children[0].title,
-              type: 'Category',
-              graphqlObject: category3Children[0],
+              id: post3Children[0].id,
+              title: post3Children[0].title,
+              graphqlObject: post3Children[0],
               children: [
                 {
-                  id: category7Children[0].id,
-                  title: category7Children[0].title,
-                  type: 'Category',
-                  graphqlObject: category7Children[0],
+                  id: post7Children[0].id,
+                  title: post7Children[0].title,
+                  graphqlObject: post7Children[0],
                   children: [],
                 },
                 {
-                  id: category7Children[1].id,
-                  title: category7Children[1].title,
-                  type: 'Category',
-                  graphqlObject: category7Children[1],
+                  id: post7Children[1].id,
+                  title: post7Children[1].title,
+                  graphqlObject: post7Children[1],
                   children: [],
                 },
               ],
             },
             {
-              id: category3Children[1].id,
-              title: category3Children[1].title,
-              type: 'Category',
-              graphqlObject: category3Children[1],
+              id: post3Children[1].id,
+              title: post3Children[1].title,
+              graphqlObject: post3Children[1],
               children: [
                 {
-                  id: category8Children[0].id,
-                  title: category8Children[0].title,
-                  type: 'Category',
-                  graphqlObject: category8Children[0],
+                  id: post8Children[0].id,
+                  title: post8Children[0].title,
+                  graphqlObject: post8Children[0],
                   children: [],
                 },
               ],
@@ -587,17 +492,15 @@ describe('test', () => {
         },
       ];
 
-      expect(organizeCategoriesAndPostsIntoArboristTree(categories)).toEqual(
-        expectedTree
-      );
+      expect(organizePostsIntoArboristTree(posts)).toEqual(expectedTree);
     });
   });
 
   describe('when given a realistic input', () => {
     it('produces the correct tree', () => {
-      expect(
-        organizeCategoriesAndPostsIntoArboristTree(mockCategoriesAndPosts)
-      ).toEqual(categoriesAndPostsAsArboristTree);
+      expect(organizePostsIntoArboristTree(mockPosts)).toEqual(
+        allPostsAsArboristTree
+      );
     });
   });
 });

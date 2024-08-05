@@ -27,7 +27,7 @@ $space-between-post-cards: 25px;
       max-width: 800px;
       margin: 0 auto;
 
-      .blog-categories {
+      .blog-posts {
         margin-right: auto;
       }
 
@@ -58,7 +58,7 @@ $space-between-post-cards: 25px;
       // White line to visually group subitems when the responsive navbar is
       // rearranged vertically on small screens
       @media (max-width: 768px) {
-        .category-with-dropdown .dropdown-menu {
+        .post-with-dropdown .dropdown-menu {
           border-left-color: white;
           border-left-style: solid;
           border-left-width: 2px;
@@ -78,16 +78,16 @@ $space-between-post-cards: 25px;
         }
       }
 
-      .category-with-dropdown {
-        .leaf-category, .top-level-category-link {
+      .post-with-dropdown {
+        .leaf-post, .top-level-post-link {
           vertical-align: top;
         }
 
-        .top-level-category-link {
+        .top-level-post-link {
           padding-right: 0px;
         }
 
-        .top-level-category-dropdown-button {
+        .top-level-post-dropdown-button {
           .dropdown-toggle {
             padding-left: 0.5rem;
             padding-right: 0.5rem;

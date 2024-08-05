@@ -14,12 +14,13 @@ RSpec.describe 'post_by_id', type: :request do
           author {
             id
           }
-          category {
+          parent {
             id
           }
           createdAt
           id
           markdown
+          name
           order
           published
           slug
@@ -43,6 +44,7 @@ RSpec.describe 'post_by_id', type: :request do
       expect(result).to include(
         'id' => db_post.id.to_s,
         'markdown' => db_post.markdown,
+        'name' => db_post.name,
         'order' => db_post.order,
         'published' => db_post.published,
         'slug' => db_post.slug,
@@ -55,7 +57,7 @@ RSpec.describe 'post_by_id', type: :request do
       expect(DateTime.parse(result['updatedAt'])).to eq(strip_milliseconds(db_post.updated_at))
 
       expect(result['author']['id']).to eq(db_post.author.id.to_s)
-      expect(result['category']['id']).to eq(db_post.category.id.to_s)
+      expect(result['parent']['id']).to eq(db_post.parent.id.to_s)
     end
   end
 
@@ -74,8 +76,8 @@ RSpec.describe 'post_by_id', type: :request do
   describe 'when given id argument for a post that exists' do
     describe 'when the post is published' do
       let(:author) { create(:user) }
-      let(:category) { create(:category) }
-      let!(:db_post) { create(:post, author:, category:, published: true) }
+      let(:parent) { create(:post, author:) }
+      let!(:db_post) { create(:post, author:, parent:, published: true) }
 
       describe 'when include_unpublished is false' do
         let(:include_unpublished) { false }
@@ -92,8 +94,8 @@ RSpec.describe 'post_by_id', type: :request do
 
     describe 'when the post is not published' do
       let(:author) { create(:user) }
-      let(:category) { create(:category) }
-      let!(:db_post) { create(:post, author:, category:, published: false) }
+      let(:parent) { create(:post, author:) }
+      let!(:db_post) { create(:post, author:, parent:, published: false) }
 
       describe 'when include_unpublished is false' do
         let(:include_unpublished) { false }

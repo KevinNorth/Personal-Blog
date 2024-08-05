@@ -13,44 +13,55 @@ module Types
 
     field :user_by_id, UserType, null: true, description: 'Fetches a user by ID' do
       argument :id, ID, required: true, description: 'ID to query'
+      argument :include_unpublished_posts, Boolean,
+               required: false,
+               default_value: false,
+               description: 'whether to include posts by the user that have not yet been published',
+               require_logged_in: true
     end
 
     field :user_by_login, UserType, null: true, description: 'Fetches a user by login' do
       argument :login, String, required: true, description: 'login to look up'
-    end
-
-    field :categories, [CategoryType], null: false, description: 'Fetches all Categories' do
-      argument :include_unpublished, Boolean,
+      argument :include_unpublished_posts, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories that have not yet been published',
+               description: 'whether to include posts by the user that have not yet been published',
                require_logged_in: true
     end
 
-    field :category_by_id, CategoryType, description: 'Fetches a category by its ID.' do
-      argument :id, ID, required: true, description: 'ID to query'
+    field :all_posts, [PostType], description: 'Fetches all posts.' do
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories that have not yet been published',
+               description: 'whether to include posts that have not yet been published',
                require_logged_in: true
     end
 
-    field :category_by_slug, CategoryType, description: 'Fetches a category by its URL slug.' do
+    field :post_by_slug, PostType, description: 'Fetches a post by its URL slug.' do
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories that have not yet been published',
+               description: 'whether to include posts that have not yet been published',
                require_logged_in: true
       argument :slug, String, required: true, description: 'the slug to look up'
     end
 
-    field :posts_by_category, [PostType], null: true, description: 'Fetches all Posts that belong to a Category' do
-      argument :category_id, ID, required: true, description: 'ID of the category to query'
+    field :post_by_parent_and_own_slug, PostType, null: true, description: "Fetches a Post by combining its URL slug and its parent's URL slug" do
+      argument :parent_slug, String, required: true, description: "the slug of the post's parent"
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories and posts that have not yet been published',
+               description: 'whether to include posts that have not yet been published',
+               require_logged_in: true
+      argument :post_slug, String, required: true, description: "the post's slug"
+    end
+
+    field :posts_by_parent, [PostType], null: true, description: 'Fetches all Posts that belong to a parent Post' do
+      argument :parent_id, ID, required: true, description: 'ID of the parent post'
+      argument :include_unpublished, Boolean,
+               required: false,
+               default_value: false,
+               description: 'whether to include posts that have not yet been published',
                require_logged_in: true
     end
 
@@ -59,18 +70,8 @@ module Types
       argument :include_unpublished, Boolean,
                required: false,
                default_value: false,
-               description: 'whether to include categories and posts that have not yet been published',
+               description: 'whether to include posts that have not yet been published',
                require_logged_in: true
-    end
-
-    field :post_by_slug, PostType, null: true, description: 'Fetches a Post by URL slug' do
-      argument :category_slug, String, required: true, description: "the slug of the post's category"
-      argument :include_unpublished, Boolean,
-               required: false,
-               default_value: false,
-               description: 'whether to include categories and posts that have not yet been published',
-               require_logged_in: true
-      argument :post_slug, String, required: true, description: "the post's slug"
     end
 
     def node(id:)
@@ -81,43 +82,49 @@ module Types
       ids.map { |id| context.schema.object_from_id(id, context) }
     end
 
-    def user_by_id(id:)
-      User.find_by(id:)
+    def user_by_id(id:, include_unpublished_posts:)
+      user = User.find_by(id:)
+
+      if user && !include_unpublished_posts
+        user.posts = user.posts.select { |post| post.published }
+      end
+
+      return user
     end
 
-    def user_by_login(login:)
-      User.find_by(login:)
+    def user_by_login(login:, include_unpublished_posts:)
+      user = User.find_by(login:)
+
+      if user && !include_unpublished_posts
+        user.posts = user.posts.select { |post| post.published }
+      end
+
+      return user
     end
 
-    def categories(include_unpublished:)
+    def all_posts(include_unpublished:)
       if include_unpublished
-        Category.all
+        Post.all
       else
-        Category.eager_load(:posts).joins('AND posts.published = true').where(published: true)
+        result = Post.where(published: true)
+
+        return result.map do |post|
+          post.children = post.children.where(published: true)
+          post
+        end  
       end
     end
 
-    def category_by_id(id:, include_unpublished:)
+    def posts_by_parent(parent_id:, include_unpublished:)
       if include_unpublished
-        Category.find_by(id:)
+        Post.joins(:parent).where(parent: { id: parent_id })
       else
-        Category.eager_load(:posts).joins('AND posts.published = true').find_by(id:, published: true)
-      end
-    end
+        result = Post.joins(:parent).where(published: true, parent: { id: parent_id, published: true })
 
-    def category_by_slug(slug:, include_unpublished:)
-      if include_unpublished
-        Category.find_by(slug:)
-      else
-        Category.eager_load(:posts).joins('AND posts.published = true').find_by(slug:, published: true)
-      end
-    end
-
-    def posts_by_category(category_id:, include_unpublished:)
-      if include_unpublished
-        Post.joins(:category).where(category: { id: category_id })
-      else
-        Post.joins(:category).where(published: true, category: { id: category_id, published: true })
+        return result.map do |post|
+          post.children = post.children.where(published: true)
+          post
+        end
       end
     end
 
@@ -125,16 +132,42 @@ module Types
       if include_unpublished
         Post.find_by(id:)
       else
-        Post.joins(:category).find_by(published: true, id:, category: { published: true })
+        result = Post.find_by(id:, published: true)
+
+        if result
+          result.children = result.children.where(published: true)
+        end
+
+        return result
       end
     end
 
-    def post_by_slug(category_slug:, post_slug:, include_unpublished:)
+    def post_by_slug(slug:, include_unpublished:)
       if include_unpublished
-        Post.joins(:category).find_by(slug: post_slug, category: { slug: category_slug })
+        Post.find_by(slug:)
       else
-        Post.joins(:category).find_by(published: true, slug: post_slug,
-                                      category: { published: true, slug: category_slug })
+        result = Post.find_by(slug:, published: true)
+
+        if result
+          result.children = result.children.where(published: true)
+        end
+
+        return result
+      end
+    end
+
+    def post_by_parent_and_own_slug(parent_slug:, post_slug:, include_unpublished:)
+      if include_unpublished
+        Post.joins(:parent).find_by(slug: post_slug, parent: { slug: parent_slug })
+      else
+        result = Post.joins(:parent).find_by(published: true, slug: post_slug,
+                                      parent: { published: true, slug: parent_slug })
+
+        if result
+          result.children = result.children.where(published: true)
+        end
+
+        return result
       end
     end
   end

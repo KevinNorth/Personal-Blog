@@ -1,4 +1,3 @@
-import Category from './category';
 import User from './user';
 
 export interface PostWithoutRelationships {
@@ -8,6 +7,7 @@ export interface PostWithoutRelationships {
   id: NonNullable<string>;
   markdown: string;
   order: number;
+  name: string;
   published: boolean;
   slug: string;
   subtitle: string;
@@ -18,7 +18,8 @@ export interface PostWithoutRelationships {
 
 interface Post extends PostWithoutRelationships {
   author: Partial<User>;
-  category: Partial<Category>;
+  parent: Partial<Post>;
+  children: Partial<Post>[];
 }
 
 export default Post;

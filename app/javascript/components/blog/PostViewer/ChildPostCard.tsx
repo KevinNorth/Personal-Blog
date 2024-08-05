@@ -2,13 +2,16 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import Post from '../../../graphql/types/post';
 
-export interface PostCardProps {
+export interface ChildPostCardProps {
   post: Partial<Post>;
-  categorySlug: string;
+  parentSlug: string;
 }
 
-function PostCard({ post, categorySlug }: PostCardProps): React.ReactElement {
-  const url = `${encodeURIComponent(categorySlug)}/${encodeURIComponent(
+function ChildPostCard({
+  post,
+  parentSlug,
+}: ChildPostCardProps): React.ReactElement {
+  const url = `${encodeURIComponent(parentSlug)}/${encodeURIComponent(
     post.slug
   )}`;
 
@@ -21,4 +24,4 @@ function PostCard({ post, categorySlug }: PostCardProps): React.ReactElement {
   );
 }
 
-export default PostCard;
+export default ChildPostCard;
