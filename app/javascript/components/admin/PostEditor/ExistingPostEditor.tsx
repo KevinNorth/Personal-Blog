@@ -128,13 +128,16 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
     },
   ] = lazyGetPostsByParent({ parentId, includeUnpublished: true });
   const siblingPosts =
-    calledGetPostsByParent && !loadingSiblingPosts
-      ? (postsByParentData as { postsByParent: Partial<Post>[] }).postsByParent
+    calledGetPostsByParent && !loadingSiblingPosts && postsByParentData
+      ? (postsByParentData as { posts: Partial<Post>[] }).posts
       : [];
   const otherSiblingPosts =
-    loadingSiblingPosts || !calledGetPostsByParent
-      ? []
-      : siblingPosts.filter((p) => p.id !== id);
+    calledGetPostsByParent &&
+    !loadingSiblingPosts &&
+    postsByParentData &&
+    siblingPosts
+      ? siblingPosts.filter((p) => p.id !== id)
+      : [];
 
   const [updatePost, { loading: loadingUpdatePost }] = useUpdatePostMutation(
     {
@@ -176,27 +179,28 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
     getPostsByParent({
       variables: { parentId: post.parent?.id, includeUnpublished: true },
     });
-    setTitle(post.title);
-    setSubtitle(post.subtitle);
-    setName(post.name);
-    setSummary(post.summary);
-    setSlug(post.slug);
-    setPublished(post.published);
-    setMarkdown(post.markdown);
+    setTitle(post.title || '');
+    setSubtitle(post.subtitle || '');
+    setName(post.name || '');
+    setSummary(post.summary || '');
+    setSlug(post.slug || '');
+    setPublished(post.published || false);
+    setMarkdown(post.markdown || '');
     setOrder(String(post.order));
     setParentId(post.parent?.id || null);
   }
 
   const validationResults = validatePostForm({
-    markdown,
-    name,
-    order,
+    id,
+    markdown: markdown || '',
+    name: name || '',
+    order: order || '',
     parentId,
-    published,
-    slug,
-    subtitle,
-    summary,
-    title,
+    published: published || false,
+    slug: slug || '',
+    subtitle: subtitle || '',
+    summary: summary || '',
+    title: title || '',
     siblingPosts: otherSiblingPosts,
     allPosts: allPosts,
   });

@@ -22,7 +22,7 @@ module Mutations
       end
 
       post.assign_attributes(
-        post_id: post_attributes.parent_id,
+        parent_id: post_attributes.parent_id,
         markdown: post_attributes.markdown,
         order: post_attributes.order,
         published: post_attributes.published,

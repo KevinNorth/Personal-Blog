@@ -1,10 +1,11 @@
 import Post from '../../../graphql/types/post';
 
 export interface PostForm {
+  id: string | null;
   markdown: string;
   name: string;
   order: string;
-  parentId: string;
+  parentId: string | null;
   published: boolean;
   slug: string;
   subtitle: string;
@@ -37,6 +38,7 @@ export interface ValidationResults {
 }
 
 function validatePostForm({
+  id,
   parentId,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   markdown,
@@ -69,7 +71,8 @@ function validatePostForm({
     {}
   ) as ValidationResults;
 
-  const usedSlugs = allPosts.map((p) => p.slug);
+  const allOtherPosts = allPosts.filter((p) => String(p.id) !== id);
+  const usedSlugs = allOtherPosts.map((p) => p.slug);
   const usedOrders = siblingPosts.map((p) => p.order);
 
   if (title === '') {
@@ -86,10 +89,10 @@ function validatePostForm({
     };
   }
 
-  if (summary === '') {
+  if (parentId && parentId !== '' && summary === '') {
     validationResults.summary = {
       isValid: false,
-      invalidReason: 'Summary must not be blank.',
+      invalidReason: 'Summary must not be blank when there is a parent post.',
     };
   }
 
@@ -129,12 +132,11 @@ function validatePostForm({
     };
   }
 
-  if (parentId === '') {
-    validationResults.parentId = {
-      isValid: false,
-      invalidReason: 'Parent must not be blank.',
-    };
-  } else if (!allPosts.map((c) => c.id).includes(parentId)) {
+  if (
+    parentId !== '' &&
+    parentId !== null &&
+    !allPosts.map((c) => c.id).includes(parentId)
+  ) {
     validationResults.parentId = {
       isValid: false,
       invalidReason: 'Selected parent does not exist.',

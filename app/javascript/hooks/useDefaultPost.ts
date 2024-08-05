@@ -12,7 +12,7 @@ function useDefaultPost(): DefaultPostResult {
     includeUnpublished: false,
   });
 
-  if (loading) {
+  if (loading || !data) {
     return { loading: true, defaultPost: null };
   }
 

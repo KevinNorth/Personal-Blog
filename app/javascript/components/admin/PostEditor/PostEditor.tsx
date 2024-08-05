@@ -104,15 +104,16 @@ export default function PostEditor({
   }
 
   const validationResults = validatePostForm({
+    id,
     parentId,
-    markdown,
-    name,
-    order,
-    published,
-    slug,
-    subtitle,
-    summary,
-    title,
+    markdown: markdown || '',
+    name: name || '',
+    order: order || '',
+    published: published || false,
+    slug: slug || '',
+    subtitle: subtitle || '',
+    summary: summary || '',
+    title: title || '',
     siblingPosts: otherSiblingPosts,
     allPosts: posts || [],
   });
@@ -132,7 +133,7 @@ export default function PostEditor({
                 isInvalid={!validationResults.title.isValid}
                 size="lg"
                 type="text"
-                value={title}
+                value={title || ''}
                 onChange={(event) => onTitleChange(event.target.value)}
               />
               <InvalidIcon
@@ -154,7 +155,7 @@ export default function PostEditor({
                 isValid={validationResults.subtitle.isValid}
                 isInvalid={!validationResults.subtitle.isValid}
                 type="text"
-                value={subtitle}
+                value={subtitle || ''}
                 onChange={(event) => onSubtitleChange(event.target.value)}
               />
               <InvalidIcon
@@ -171,7 +172,7 @@ export default function PostEditor({
                 isValid={validationResults.name.isValid}
                 isInvalid={!validationResults.name.isValid}
                 type="text"
-                value={name}
+                value={name || ''}
                 onChange={(event) => onNameChange(event.target.value)}
               />
               <InvalidIcon
@@ -193,7 +194,7 @@ export default function PostEditor({
                 isValid={validationResults.summary.isValid}
                 isInvalid={!validationResults.summary.isValid}
                 type="text"
-                value={summary}
+                value={summary || ''}
                 onChange={(event) => onSummaryChange(event.target.value)}
               />
               <InvalidIcon
@@ -219,7 +220,7 @@ export default function PostEditor({
                     aria-label="Select the post's parent"
                     isValid={validationResults.parentId.isValid}
                     isInvalid={!validationResults.parentId.isValid}
-                    value={parentId}
+                    value={parentId || ''}
                     onChange={(event) => {
                       const newValue = event.target.value;
                       // Update which posts we compare against to make sure
@@ -233,7 +234,7 @@ export default function PostEditor({
                       onParentIdChange(newValue);
                     }}
                   >
-                    <option value="">Select Parent</option>
+                    <option value="">(No parent)</option>
                     {posts.map((post: Partial<Post>) => (
                       <option value={post.id} key={post.id}>
                         {post.name}
@@ -322,7 +323,7 @@ export default function PostEditor({
                     isValid={validationResults.slug.isValid}
                     isInvalid={!validationResults.slug.isValid}
                     type="text"
-                    value={slug}
+                    value={slug || ''}
                     onChange={(event) => onSlugChange(event.target.value)}
                   />
                   <InvalidIcon
@@ -343,7 +344,7 @@ export default function PostEditor({
             >
               <Editor
                 alreadyInsideForm
-                markdown={markdown}
+                markdown={markdown || ''}
                 onChange={onMarkdownChange}
                 className="post-markdown-editor"
               />
