@@ -15,7 +15,7 @@ module Types
     argument :published, Boolean, required: true, description: 'Whether this post should be visible to non-admin users'
     argument :slug, String, required: true, description: 'The slug to use in the URL to this post'
     argument :subtitle, String, required: true, description: 'Subtitle of the post'
-    argument :summary, String, required: true,
+    argument :summary, String, required: false,
                                description: "Summary to appear on card at the bottom of the parent's page"
     argument :title, String, required: true, description: 'Title of the post'
   end
