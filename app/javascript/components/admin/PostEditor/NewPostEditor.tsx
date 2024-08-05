@@ -98,6 +98,7 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
   );
 
   const validationResults = validatePostForm({
+    id: null,
     markdown,
     name,
     order,
@@ -118,7 +119,7 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
   return (
     <PostEditor
       loading={false}
-      id={''}
+      id={null}
       markdown={markdown}
       order={order}
       name={name}
