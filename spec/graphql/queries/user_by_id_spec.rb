@@ -26,8 +26,7 @@ RSpec.describe 'user_by_id', type: :request do
 
   describe 'when given id argument for a user that exists' do
     let!(:user) { create(:user) }
-    let(:category) { create(:category) }
-    let!(:posts_by_user) { create_list(:post, 3, author: user, category:) }
+    let!(:posts_by_user) { create_list(:post, 3, author: user) }
 
     it 'responds with the corresponding user' do
       query = get_query(id: user.id)

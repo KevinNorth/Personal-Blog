@@ -10,10 +10,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# These might end up being similar to the categories and posts that appear on the live website,
+# These might end up being similar to the posts that appear on the live website,
 # but of course, these are just dummy data that is dumped into local dev to make development
 # more convenient. I figure that adding so much dummy data makes it easier for me to test
-# different levels of nesting categories and categories with one post versus many.
+# different levels of nesting posts.
 
 def seed
   user = User.create(
@@ -23,9 +23,9 @@ def seed
     password_confirmation: '12345'
   )
 
-  categories = {}
+  posts = {}
 
-  categories[:home] = Category.create(
+  posts[:home] = Post.create(
     name: 'Home',
     title: 'Home',
     subtitle: "Give me a hard problem and cut me loose. I'll make the impossible seem effortless.",
@@ -34,9 +34,10 @@ def seed
     order: 1,
     slug: 'index',
     published: true,
-    parent: nil
+    parent: nil,
+    author: user
   )
-  categories[:accomplishments] = Category.create(
+  posts[:accomplishments] = Post.create(
     name: 'Accomplishments',
     title: 'Accomplishments',
     subtitle: 'No ordinary developer.',
@@ -45,9 +46,10 @@ def seed
     order: 2,
     published: true,
     slug: 'accomplishments',
-    parent: nil
+    parent: nil,
+    author: user
   )
-  categories[:about] = Category.create(
+  posts[:about] = Post.create(
     name: 'About',
     title: 'About Me',
     subtitle: 'A mind at home in complexity.',
@@ -56,9 +58,10 @@ def seed
     order: 3,
     slug: 'about',
     published: false,
-    parent: nil
+    parent: nil,
+    author: user
   )
-  categories[:contact] = Category.create(
+  posts[:contact] = Post.create(
     name: 'Contact',
     title: 'Contact',
     subtitle: "Let's chat!",
@@ -67,10 +70,11 @@ def seed
     order: 4,
     slug: 'contact',
     published: true,
-    parent: nil
+    parent: nil,
+    author: user
   )
 
-  categories[:applied_systems] = Category.create(
+  posts[:applied_systems] = Post.create(
     name: 'Applied Systems',
     title: 'Applied Systems',
     subtitle: 'Career Milestones',
@@ -79,9 +83,10 @@ def seed
     order: 1,
     slug: 'applied-systems',
     published: true,
-    parent: categories[:accomplishments]
+    parent: posts[:accomplishments],
+    author: user
   )
-  categories[:research] = Category.create(
+  posts[:research] = Post.create(
     name: 'Research',
     title: 'Research',
     subtitle: "Master's Degree in Computer Science",
@@ -90,9 +95,10 @@ def seed
     order: 2,
     slug: 'research',
     published: true,
-    parent: categories[:accomplishments]
+    parent: posts[:accomplishments],
+    author: user
   )
-  categories[:personal] = Category.create(
+  posts[:personal] = Post.create(
     name: 'Personal Projects',
     title: 'Personal Projects',
     subtitle: 'My mind does not turn off at 5pm.',
@@ -101,10 +107,11 @@ def seed
     order: 3,
     slug: 'personal-projects',
     published: true,
-    parent: categories[:accomplishments]
+    parent: posts[:accomplishments],
+    author: user
   )
 
-  categories[:epic_quotes] = Category.create(
+  posts[:epic_quotes] = Post.create(
     name: 'Epic Quotes',
     title: 'Epic Quotes',
     subtitle: 'A Ruby on Rails/React webapp',
@@ -113,9 +120,10 @@ def seed
     order: 1,
     slug: 'epic-quotes',
     published: true,
-    parent: categories[:applied_systems]
+    parent: posts[:applied_systems],
+    author: user
   )
-  categories[:applied_analytics] = Category.create(
+  posts[:applied_analytics] = Post.create(
     name: 'Applied Anaylitics',
     title: 'Applied Analytics',
     subtitle: 'A Looker and BigQuery project',
@@ -124,10 +132,11 @@ def seed
     order: 2,
     slug: 'applied-analytics',
     published: true,
-    parent: categories[:applied_systems]
+    parent: posts[:applied_systems],
+    author: user
   )
 
-  categories[:website] = Category.create(
+  posts[:website] = Post.create(
     name: 'This Website',
     title: 'kevinnorth.dev',
     subtitle: "You're looking at it now.",
@@ -136,9 +145,10 @@ def seed
     order: 1,
     slug: 'this-website',
     published: true,
-    parent: categories[:personal]
+    parent: posts[:personal],
+    author: user
   )
-  categories[:lcdp] = Category.create(
+  posts[:lcdp] = Post.create(
     name: 'Democratic Party',
     title: 'Lancaster County Democratic Party',
     subtitle: 'Using my unique skills to serve my community.',
@@ -147,9 +157,10 @@ def seed
     order: 2,
     slug: 'democratic-party',
     published: true,
-    parent: categories[:personal]
+    parent: posts[:personal],
+    author: user
   )
-  categories[:unity] = Category.create(
+  posts[:unity] = Post.create(
     name: 'Unity Game Development',
     title: 'Unity Game Development',
     subtitle: 'C# for Fun',
@@ -158,10 +169,12 @@ def seed
     order: 3,
     slug: 'game-development',
     published: false,
-    parent: categories[:personal]
+    parent: posts[:personal],
+    author: user
   )
 
   Post.create(
+    name: 'Saving a Major Client',
     title: 'Parent/Child Agency Refactoring',
     subtitle: 'Saving a Major Client',
     summary: "When we couldn't onboard a major client, I refactored our entire backend to keep them.",
@@ -170,10 +183,11 @@ def seed
     slug: 'backend-refactor',
     published: true,
     author: user,
-    category: categories[:epic_quotes]
+    parent: posts[:epic_quotes]
   )
 
   Post.create(
+    name: 'Copy Quote Algorithm',
     title: 'Copy Quote Algorithm',
     subtitle: 'Rails Metaprogramming and Graph Theory',
     summary: 'An algorithm I wrote uses the right kind of cleverness to require virtually no further maintenance.',
@@ -182,10 +196,11 @@ def seed
     slug: 'copy-quote-algorithm',
     published: true,
     author: user,
-    category: categories[:epic_quotes]
+    parent: posts[:epic_quotes]
   )
 
   Post.create(
+    name: 'Team Quarterback',
     title: 'Team Quarterback',
     subtitle: 'On time and under budget.',
     summary: 'I served as team lead for a critical six-month project.',
@@ -194,10 +209,11 @@ def seed
     slug: 'team-quarterback',
     published: true,
     author: user,
-    category: categories[:applied_analytics]
+    parent: posts[:applied_analytics]
   )
 
   Post.create(
+    name: 'GitVS',
     title: 'GitVS',
     subtitle: 'A practical combination of Git, visualization, and music',
     summary: 'A tool to explore Git history that combines traditional visualizations with sound.',
@@ -206,10 +222,11 @@ def seed
     slug: 'gitvs',
     published: true,
     author: user,
-    category: categories[:research]
+    parent: posts[:research]
   )
 
   Post.create(
+    name: 'Teaching Assistanceship',
     title: 'Teaching Assistanceship',
     subtitle: 'Happy to help.',
     summary: 'One-on-one mentoring, weekly lectures, grading daily homework to tests to major projects.',
@@ -218,10 +235,11 @@ def seed
     slug: 'teaching',
     published: true,
     author: user,
-    category: categories[:reserach]
+    parent: posts[:reserach]
   )
 
   Post.create(
+    name: 'ESEC/FSE 2015',
     title: 'Presentation at ESEC/FSE 2015',
     subtitle: 'Public speaking is no problem.',
     summary: 'A presentation at a research conference in Italy.',
@@ -230,10 +248,11 @@ def seed
     slug: 'research-conference',
     published: true,
     author: user,
-    category: categories[:research]
+    parent: posts[:research]
   )
 
   Post.create(
+    name: 'Purchasing New Equipment',
     title: 'Purchasing New Equipment',
     subtitle: 'Enabling democrats to get work done.',
     summary: 'Replacing decades-old computers with new laptops and tablets.',
@@ -242,10 +261,11 @@ def seed
     slug: 'purchasing-new-equipment',
     published: true,
     author: user,
-    category: categories[:lcdp]
+    parent: posts[:lcdp]
   )
 
   Post.create(
+    name: 'Security Training',
     title: 'Security Training',
     subtitle: 'Doing my part to keep democracy safe.',
     summary: 'Provided security training to the board and other volunteers.',
@@ -254,10 +274,11 @@ def seed
     slug: 'security-training',
     published: true,
     author: user,
-    category: categories[:lcdp]
+    parent: posts[:lcdp]
   )
 
   Post.create(
+    name: 'Deckbuilding Rougelike',
     title: 'Your Hope is Unforgivable: a deckbuilding rougelike',
     subtitle: 'Smart design up-front for faster development later.',
     summary: 'Inspired by Redux, I built this game on a highly flexible state management architecture.',
@@ -266,10 +287,11 @@ def seed
     slug: 'your-hope-is-unforgivable',
     published: false,
     author: user,
-    category: categories[:unity]
+    parent: posts[:unity]
   )
 
   Post.create(
+    name: 'Twin-Stick Shooter',
     title: 'The Halting Problem: a rhythm game twin-stick shooter',
     subtitle: 'A potent integration of C# language features, Unity tooling, and third-party libraries.',
     summary: 'Digging deep into the source of third-party libraries I licensed, ' \
@@ -279,7 +301,7 @@ def seed
     slug: 'the-halting-problem',
     published: false,
     author: user,
-    category: categories[:unity]
+    parent: posts[:unity]
   )
 end
 

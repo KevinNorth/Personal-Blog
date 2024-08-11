@@ -10,7 +10,7 @@ function grabErrorsFromMutationResult(
       return result.errors.map((error) => error.message);
     }
     // result.errors is an ApolloError. (Not sure why Apollo behaves
-    // this way but it's what I observe wihle debugging.)
+    // this way but it's what I observe while debugging.)
     return [(result.errors as unknown as ApolloError).message];
   }
 

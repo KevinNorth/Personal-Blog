@@ -7,23 +7,23 @@ RSpec.describe 'post_by_slug', type: :request do
     sign_in create(:user)
   end
 
-  def get_query(post_slug:, category_slug:, include_unpublished:)
+  def get_query(slug:, include_unpublished:)
     <<~GQL
       query {
         postBySlug(
-          postSlug: "#{post_slug}"
-          categorySlug: "#{category_slug}"
+          slug: "#{slug}"
           includeUnpublished: #{include_unpublished}
         ) {
           author {
             id
           }
-          category {
+          parent {
             id
           }
           createdAt
           id
           markdown
+          name
           order
           published
           slug
@@ -38,7 +38,7 @@ RSpec.describe 'post_by_slug', type: :request do
 
   shared_examples 'responds with post' do
     it 'responds with the corresponding post' do
-      query = get_query(post_slug: db_post.slug, category_slug: category.slug, include_unpublished:)
+      query = get_query(slug: db_post.slug, include_unpublished:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -47,6 +47,7 @@ RSpec.describe 'post_by_slug', type: :request do
       expect(result).to include(
         'id' => db_post.id.to_s,
         'markdown' => db_post.markdown,
+        'name' => db_post.name,
         'order' => db_post.order,
         'published' => db_post.published,
         'slug' => db_post.slug,
@@ -59,13 +60,13 @@ RSpec.describe 'post_by_slug', type: :request do
       expect(DateTime.parse(result['updatedAt'])).to eq(strip_milliseconds(db_post.updated_at))
 
       expect(result['author']['id']).to eq(db_post.author.id.to_s)
-      expect(result['category']['id']).to eq(db_post.category.id.to_s)
+      expect(result['parent']['id']).to eq(db_post.parent.id.to_s)
     end
   end
 
   shared_examples 'responds with null' do
     it 'responds with null' do
-      query = get_query(post_slug:, category_slug:, include_unpublished:)
+      query = get_query(slug:, include_unpublished:)
 
       post graphql_path, params: { query: }
       json = JSON.parse(response.body)
@@ -75,51 +76,31 @@ RSpec.describe 'post_by_slug', type: :request do
     end
   end
 
-  describe 'when given category_slug argument for a category that exists' do
-    let(:category_slug) { 'test-category-slug' }
-    let(:category) { create(:category, slug: category_slug) }
+  describe 'when given slug argument for a post that exists' do
+    describe 'when the post is published' do
+      let(:author) { create(:user) }
+      let(:slug) { 'test-post-slug' }
+      let(:parent) { create(:post, author:, published: true) }
+      let!(:db_post) { create(:post, slug:, author:, parent:, published: true) }
 
-    describe 'when given post_slug argument for a post that exists' do
-      describe 'when the post is published' do
-        let(:author) { create(:user) }
-        let(:post_slug) { 'test-post-slug' }
-        let!(:db_post) { create(:post, slug: post_slug, author:, category:, published: true) }
+      describe 'when include_unpublished is false' do
+        let(:include_unpublished) { false }
 
-        describe 'when include_unpublished is false' do
-          let(:include_unpublished) { false }
-
-          include_examples 'responds with post'
-        end
-
-        describe 'when include_unpublished is true' do
-          let(:include_unpublished) { true }
-
-          include_examples 'responds with post'
-        end
+        include_examples 'responds with post'
       end
 
-      describe 'when the post is not published' do
-        let(:author) { create(:user) }
-        let(:category) { create(:category) }
-        let!(:db_post) { create(:post, author:, category:, published: false) }
-        let(:post_slug) { 'test-post-slug' }
+      describe 'when include_unpublished is true' do
+        let(:include_unpublished) { true }
 
-        describe 'when include_unpublished is false' do
-          let(:include_unpublished) { false }
-
-          include_examples 'responds with null'
-        end
-
-        describe 'when include_unpublished is true' do
-          let(:include_unpublished) { true }
-
-          include_examples 'responds with post'
-        end
+        include_examples 'responds with post'
       end
     end
 
-    describe 'when given post_slug arugment that does not match a post' do
-      let(:post_slug) { 'this-slug-does-not-exist' }
+    describe 'when the post is not published' do
+      let(:author) { create(:user) }
+      let(:slug) { 'test-post-slug' }
+      let(:parent) { create(:post, author:, published: true) }
+      let!(:db_post) { create(:post, slug:, author:, parent:, published: false) }
 
       describe 'when include_unpublished is false' do
         let(:include_unpublished) { false }
@@ -130,14 +111,13 @@ RSpec.describe 'post_by_slug', type: :request do
       describe 'when include_unpublished is true' do
         let(:include_unpublished) { true }
 
-        include_examples 'responds with null'
+        include_examples 'responds with post'
       end
     end
   end
 
-  describe 'when given category_slug argument that does not match a category' do
-    let(:category_slug) { 'this-slug-does-not-exist' }
-    let(:post_slug) { 'neither-does-this-one' }
+  describe 'when given slug arugment that does not match a post' do
+    let(:slug) { 'this-slug-does-not-exist' }
 
     describe 'when include_unpublished is false' do
       let(:include_unpublished) { false }

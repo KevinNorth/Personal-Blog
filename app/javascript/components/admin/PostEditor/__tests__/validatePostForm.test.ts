@@ -1,25 +1,29 @@
-import { mockCategoriesAndPosts } from '../../../../__tests__/fixtures/allCategoriesAndPosts';
+import { mockPosts } from '../../../../__tests__/fixtures/allPosts';
 import validatePostForm, {
   PostForm,
   Validation,
   ValidationResults,
 } from '../validatePostForm';
 
-const parentCategory = mockCategoriesAndPosts.find(
-  (category) => category.id === '6'
+const parent = mockPosts.find((parent) => parent.id === '6');
+const post = mockPosts.find((post) => post.parent?.id === parent.id);
+const siblings = mockPosts.filter(
+  (sibling) => sibling.parent?.id === parent.id && sibling.id !== post.id
 );
 
 const validForm: PostForm = {
-  markdown: 'Test',
-  order: '10',
-  published: true,
-  slug: 'test',
-  subtitle: 'Test',
-  summary: 'Test',
-  title: 'Test',
-  allCategories: mockCategoriesAndPosts,
-  categoryId: '6',
-  siblingPosts: parentCategory.posts,
+  id: post.id,
+  markdown: post.markdown,
+  name: post.name,
+  order: String(post.order),
+  published: post.published,
+  slug: post.slug,
+  subtitle: post.subtitle,
+  summary: post.summary,
+  title: post.title,
+  parentId: parent.id,
+  allPosts: mockPosts,
+  siblingPosts: siblings,
 };
 
 function expectResultToBeValid(result: Validation): void {
@@ -55,37 +59,79 @@ describe('validatePostForm()', () => {
         expectAllResultsToBeValid(results);
       });
     });
-  });
 
-  describe('when categoryId is invalid', () => {
-    describe('when categoryId is blank', () => {
-      it('returns a validation warning', () => {
+    describe('when id is null', () => {
+      it('still returns an object with all valid results', () => {
         const postForm: PostForm = {
           ...validForm,
-          categoryId: '',
+          id: null,
+          // This case is useful when creating a new post, before it's been saved to
+          // the database. So we remove it from the list of all posts to simulate that.
+          allPosts: mockPosts.filter((otherPost) => otherPost.id !== post.id),
         };
 
         const results = validatePostForm(postForm);
 
-        expect(results.categoryId).toEqual({
-          isValid: false,
-          invalidReason: 'Category must not be blank.',
-        });
+        expectAllResultsToBeValid(results);
       });
     });
 
-    describe('when categoryId does not match an existing category', () => {
-      it('returns a validation warning', () => {
+    describe('when parentId is blank', () => {
+      it('still returns an object with all valid results', () => {
         const postForm: PostForm = {
           ...validForm,
-          categoryId: '999',
+          parentId: '',
         };
 
         const results = validatePostForm(postForm);
 
-        expect(results.categoryId).toEqual({
+        expectAllResultsToBeValid(results);
+      });
+    });
+
+    describe('when parentId is null', () => {
+      it('still returns an object with all valid results', () => {
+        const postForm: PostForm = {
+          ...validForm,
+          parentId: null,
+        };
+
+        const results = validatePostForm(postForm);
+
+        expectAllResultsToBeValid(results);
+      });
+    });
+  });
+
+  describe('when name is empty', () => {
+    it('returns a validation warning', () => {
+      const postForm: PostForm = {
+        ...validForm,
+        name: '',
+      };
+
+      const results = validatePostForm(postForm);
+
+      expect(results.name).toEqual({
+        isValid: false,
+        invalidReason: 'Name must not be blank.',
+      });
+    });
+  });
+
+  describe('when parentId is invalid', () => {
+    describe('when parentId does not match an existing post', () => {
+      it('returns a validation warning', () => {
+        const postForm: PostForm = {
+          ...validForm,
+          parentId: '999',
+        };
+
+        const results = validatePostForm(postForm);
+
+        expect(results.parentId).toEqual({
           isValid: false,
-          invalidReason: 'Selected category does not exist.',
+          invalidReason: 'Selected parent does not exist.',
         });
       });
     });
@@ -144,16 +190,33 @@ describe('validatePostForm()', () => {
       it('returns a validation warning', () => {
         const postForm: PostForm = {
           ...validForm,
-          order: '1',
+          order: String(siblings[0].order),
         };
 
         const results = validatePostForm(postForm);
 
         expect(results.order).toEqual({
           isValid: false,
-          invalidReason:
-            "Order cannot match another post's order in this category.",
+          invalidReason: "Order cannot match a sibling post's order.",
         });
+      });
+    });
+
+    describe('when order is a number already used, but not by a sibling post', () => {
+      it('does not return a validation warning', () => {
+        const invalidOrders = [post.order, ...siblings.map((s) => s.order)];
+        const usedButValidOrder = mockPosts.find(
+          (p) => !invalidOrders.includes(p.order)
+        ).order;
+
+        const postForm: PostForm = {
+          ...validForm,
+          order: String(usedButValidOrder),
+        };
+
+        const results = validatePostForm(postForm);
+
+        expectAllResultsToBeValid(results);
       });
     });
   });
@@ -179,15 +242,30 @@ describe('validatePostForm()', () => {
       it('returns a validation warning', () => {
         const postForm: PostForm = {
           ...validForm,
-          slug: 'gitvs',
+          slug: siblings[0].slug,
         };
 
         const results = validatePostForm(postForm);
 
         expect(results.slug).toEqual({
           isValid: false,
-          invalidReason:
-            'Slug is already used by another post in this category.',
+          invalidReason: 'Slug is already used by another post.',
+        });
+      });
+    });
+
+    describe('when slug is already used by a non-sibling post', () => {
+      it('returns a validation warning', () => {
+        const postForm: PostForm = {
+          ...validForm,
+          slug: 'index',
+        };
+
+        const results = validatePostForm(postForm);
+
+        expect(results.slug).toEqual({
+          isValid: false,
+          invalidReason: 'Slug is already used by another post.',
         });
       });
     });
@@ -210,17 +288,35 @@ describe('validatePostForm()', () => {
   });
 
   describe('when summary is empty', () => {
-    it('returns a validation warning', () => {
-      const postForm: PostForm = {
-        ...validForm,
-        summary: '',
-      };
+    describe('when the post has a parent post', () => {
+      it('returns a validation warning', () => {
+        const postForm: PostForm = {
+          ...validForm,
+          summary: '',
+        };
 
-      const results = validatePostForm(postForm);
+        const results = validatePostForm(postForm);
 
-      expect(results.summary).toEqual({
-        isValid: false,
-        invalidReason: 'Summary must not be blank.',
+        expect(results.summary).toEqual({
+          isValid: false,
+          invalidReason:
+            'Summary must not be blank when there is a parent post.',
+        });
+      });
+    });
+
+    describe('when the post does not have a parent post', () => {
+      it('does not return a validation warning', () => {
+        const postForm: PostForm = {
+          ...validForm,
+          summary: '',
+          parentId: '',
+          siblingPosts: [],
+        };
+
+        const results = validatePostForm(postForm);
+
+        expectAllResultsToBeValid(results);
       });
     });
   });

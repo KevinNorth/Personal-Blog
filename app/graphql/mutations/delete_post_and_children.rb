@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Mutations
-  class DeletePost < BaseMutation
-    description 'Deletes a post'
+  class DeletePostAndChildren < BaseMutation
+    description 'Deletes a post, its children post, and their children and posts'
 
     argument :id, ID, required: true, description: 'The ID of the post to delete'
 

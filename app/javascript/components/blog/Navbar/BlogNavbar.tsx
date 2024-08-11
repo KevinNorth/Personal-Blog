@@ -10,11 +10,8 @@ export interface BlogNavbarProps {
 }
 
 function BlogNavbar({ tree, loading }: BlogNavbarProps): React.ReactElement {
-  const categoryNavbarItems = tree.map((topLevelCategory) => (
-    <TopLevelBlogNavbarItem
-      thisVertex={topLevelCategory}
-      key={topLevelCategory.id}
-    />
+  const navbarItems = tree.map((topLevelPost) => (
+    <TopLevelBlogNavbarItem thisVertex={topLevelPost} key={topLevelPost.id} />
   ));
 
   return (
@@ -28,8 +25,8 @@ function BlogNavbar({ tree, loading }: BlogNavbarProps): React.ReactElement {
             <Navbar.Brand href="/">Kevin North</Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar-toggle" />
             <Navbar.Collapse id="navbar-toggle">
-              <Nav className="blog-categories" navbarScroll>
-                {categoryNavbarItems}
+              <Nav className="blog-posts" navbarScroll>
+                {navbarItems}
               </Nav>
               <Nav className="social-media">
                 <Nav.Item>

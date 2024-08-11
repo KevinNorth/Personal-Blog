@@ -1,31 +1,30 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 import { Github } from 'react-bootstrap-icons';
-import getAllCategoriesAndPosts from '../../graphql/queries/allCategoriesAndPosts';
+import getAllPosts from '../../graphql/queries/allPosts';
 import usePageContent from '../../hooks/usePageContent';
-import organizeCategoriesAndPostsIntoNavbarTree from '../../transforms/organizeCategoriesAndPostsIntoNavbarTree';
+import organizePostsIntoNavbarTree from '../../transforms/organizePostsIntoNavbarTree';
 import BlogNavbar from './Navbar/BlogNavbar';
 
 export interface LayoutProps {
   children: React.ReactNode;
 }
 export default function Layout({ children }: LayoutProps): React.ReactElement {
-  const { loading: allCategoriesLoading, data: allCategoriesData } =
-    getAllCategoriesAndPosts({ includeUnpublished: false });
+  const { loading: allPostsLoading, data: allPostsData } = getAllPosts({
+    includeUnpublished: false,
+  });
   const { loading: pageContentLoading, pageContent } = usePageContent();
 
   let navbarTree = [];
-  if (!allCategoriesLoading && allCategoriesData.categories) {
-    navbarTree = organizeCategoriesAndPostsIntoNavbarTree(
-      allCategoriesData.categories
-    );
+  if (!allPostsLoading && allPostsData.allPosts) {
+    navbarTree = organizePostsIntoNavbarTree(allPostsData.allPosts);
   }
 
   return (
     <div className="blog">
       <header>
         <div className="blog-nav">
-          <BlogNavbar tree={navbarTree} loading={allCategoriesLoading} />
+          <BlogNavbar tree={navbarTree} loading={allPostsLoading} />
         </div>
       </header>
       <article className="blog-content">

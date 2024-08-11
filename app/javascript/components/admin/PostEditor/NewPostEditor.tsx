@@ -6,9 +6,8 @@ import useCreatePostMutation, {
   CreatePostMutationResponsePayload,
   CreatePostMutationResult,
 } from '../../../graphql/mutations/createPost';
-import getAllCategoriesAndPosts from '../../../graphql/queries/allCategoriesAndPosts';
-import getPostsByCategory from '../../../graphql/queries/postsByCategory';
-import Category from '../../../graphql/types/category';
+import getAllPosts from '../../../graphql/queries/allPosts';
+import getPostsByParent from '../../../graphql/queries/postsByParent';
 import Post from '../../../graphql/types/post';
 import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMutationResult';
 import Toastable, { SendToastFunction } from '../../../types/toastable';
@@ -49,38 +48,39 @@ function createPostCallback(
 }
 
 function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
-  const [title, setTitle] = useState('');
+  const [markdown, setMarkdown] = useState('');
+  const [name, setName] = useState('');
+  const [parentId, setParentId] = useState(null);
+  const [published, setPublished] = useState(false);
+  const [order, setOrder] = useState('0');
+  const [slug, setSlug] = useState('');
   const [subtitle, setSubtitle] = useState('');
   const [summary, setSummary] = useState('');
-  const [slug, setSlug] = useState('');
-  const [published, setPublished] = useState(false);
-  const [markdown, setMarkdown] = useState('');
-  const [order, setOrder] = useState('0');
-  const [categoryId, setCategoryId] = useState(null);
+  const [title, setTitle] = useState('');
 
   const navigate = useNavigate();
 
-  const { data: allCategoriesData, loading: loadingAllCategories } =
-    getAllCategoriesAndPosts({
-      includeUnpublished: true,
-    });
+  const { data: allPostsData, loading: loadingAllPosts } = getAllPosts({
+    includeUnpublished: true,
+  });
 
-  const allCategories = !loadingAllCategories
-    ? (allCategoriesData as { categories: Partial<Category>[] }).categories
+  const allPosts = !loadingAllPosts
+    ? (allPostsData as { allPosts: Partial<Post>[] }).allPosts
     : [];
 
-  const { data: postsByCategoryData, refetch: refetchPostsByCategory } =
-    getPostsByCategory({ categoryId, includeUnpublished: true });
+  const { data: postsByParentData, refetch: refetchPostsByParent } =
+    getPostsByParent({ parentId, includeUnpublished: true });
   const siblingPosts =
-    (postsByCategoryData as { postsByCategory: Partial<Post>[] })
-      ?.postsByCategory || [];
+    (postsByParentData as { postsByParent: Partial<Post>[] })?.postsByParent ||
+    [];
 
   const [createPost, { loading: loadingCreatePost }] = useCreatePostMutation(
     {
       postAttributes: {
-        categoryId,
+        name,
         markdown,
         order: Number(order),
+        parentId,
         published,
         slug,
         subtitle,
@@ -98,16 +98,18 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
   );
 
   const validationResults = validatePostForm({
-    categoryId,
+    id: null,
     markdown,
+    name,
     order,
+    parentId,
     published,
     slug,
     subtitle,
     summary,
     title,
     siblingPosts,
-    allCategories,
+    allPosts: allPosts,
   });
 
   const isPostValid = Object.values(validationResults).every(
@@ -117,24 +119,26 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
   return (
     <PostEditor
       loading={false}
-      id={''}
-      categoryId={categoryId}
+      id={null}
       markdown={markdown}
       order={order}
+      name={name}
+      parentId={parentId}
       published={published}
       slug={slug}
       subtitle={subtitle}
       summary={summary}
       title={title}
-      onCategoryIdChange={(newCategoryId) => {
-        setCategoryId(newCategoryId);
-        refetchPostsByCategory({
-          categoryId: newCategoryId,
+      onMarkdownChange={setMarkdown}
+      onNameChange={setName}
+      onOrderChange={setOrder}
+      onParentIdChange={(newParentId) => {
+        setParentId(newParentId);
+        refetchPostsByParent({
+          parentId: newParentId,
           includeUnpublished: true,
         });
       }}
-      onMarkdownChange={setMarkdown}
-      onOrderChange={setOrder}
       onPublishedChange={setPublished}
       onSlugChange={setSlug}
       onSubtitleChange={setSubtitle}
@@ -143,14 +147,15 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
     >
       <div>
         <Button
-          disabled={!isPostValid || loadingAllCategories || loadingCreatePost}
+          disabled={!isPostValid || loadingAllPosts || loadingCreatePost}
           onClick={() =>
             createPost({
               variables: {
                 postAttributes: {
-                  categoryId,
                   markdown,
+                  name,
                   order: Number(order),
+                  parentId,
                   published,
                   slug,
                   subtitle,

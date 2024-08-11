@@ -1,10 +1,9 @@
-import Category from '../../graphql/types/category';
 import Post from '../../graphql/types/post';
 
 // I could create a separate 404 component, and that might be the more reasonable
 // approach... I have an entire system set up to render Markdown posts, though, so
 // I figured I'd just take advantage of it!
-const fourOhFour: Partial<Post> | Partial<Category> = {
+const fourOhFour: Partial<Post> = {
   title: '404',
   subtitle: 'Page not found',
   markdown:
@@ -17,7 +16,7 @@ const fourOhFour: Partial<Post> | Partial<Category> = {
     ' - [Contact me](/contact) if something seems wrong\n' +
     ' - Or enjoy this picture of my cats, Leroy and Jasper:\n' +
     '\n' +
-    '![They are very good bois](/images/cats.jpg)',
+    '![They are very good boys](/images/cats.jpg)',
 };
 
 export default fourOhFour;
