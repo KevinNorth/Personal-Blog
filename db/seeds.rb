@@ -74,7 +74,7 @@ def seed
     author: user
   )
 
-  posts[:applied_systems] = Posts.create(
+  posts[:applied_systems] = Post.create(
     name: 'Applied Systems',
     title: 'Applied Systems',
     subtitle: 'Career Milestones',
@@ -174,6 +174,7 @@ def seed
   )
 
   Post.create(
+    name: 'Saving a Major Client',
     title: 'Parent/Child Agency Refactoring',
     subtitle: 'Saving a Major Client',
     summary: "When we couldn't onboard a major client, I refactored our entire backend to keep them.",
@@ -186,6 +187,7 @@ def seed
   )
 
   Post.create(
+    name: 'Copy Quote Algorithm',
     title: 'Copy Quote Algorithm',
     subtitle: 'Rails Metaprogramming and Graph Theory',
     summary: 'An algorithm I wrote uses the right kind of cleverness to require virtually no further maintenance.',
@@ -198,6 +200,7 @@ def seed
   )
 
   Post.create(
+    name: 'Team Quarterback',
     title: 'Team Quarterback',
     subtitle: 'On time and under budget.',
     summary: 'I served as team lead for a critical six-month project.',
@@ -210,6 +213,7 @@ def seed
   )
 
   Post.create(
+    name: 'GitVS',
     title: 'GitVS',
     subtitle: 'A practical combination of Git, visualization, and music',
     summary: 'A tool to explore Git history that combines traditional visualizations with sound.',
@@ -222,6 +226,7 @@ def seed
   )
 
   Post.create(
+    name: 'Teaching Assistanceship',
     title: 'Teaching Assistanceship',
     subtitle: 'Happy to help.',
     summary: 'One-on-one mentoring, weekly lectures, grading daily homework to tests to major projects.',
@@ -234,6 +239,7 @@ def seed
   )
 
   Post.create(
+    name: 'ESEC/FSE 2015',
     title: 'Presentation at ESEC/FSE 2015',
     subtitle: 'Public speaking is no problem.',
     summary: 'A presentation at a research conference in Italy.',
@@ -246,6 +252,7 @@ def seed
   )
 
   Post.create(
+    name: 'Purchasing New Equipment',
     title: 'Purchasing New Equipment',
     subtitle: 'Enabling democrats to get work done.',
     summary: 'Replacing decades-old computers with new laptops and tablets.',
@@ -258,6 +265,7 @@ def seed
   )
 
   Post.create(
+    name: 'Security Training',
     title: 'Security Training',
     subtitle: 'Doing my part to keep democracy safe.',
     summary: 'Provided security training to the board and other volunteers.',
@@ -270,6 +278,7 @@ def seed
   )
 
   Post.create(
+    name: 'Deckbuilding Rougelike',
     title: 'Your Hope is Unforgivable: a deckbuilding rougelike',
     subtitle: 'Smart design up-front for faster development later.',
     summary: 'Inspired by Redux, I built this game on a highly flexible state management architecture.',
@@ -282,6 +291,7 @@ def seed
   )
 
   Post.create(
+    name: 'Twin-Stick Shooter',
     title: 'The Halting Problem: a rhythm game twin-stick shooter',
     subtitle: 'A potent integration of C# language features, Unity tooling, and third-party libraries.',
     summary: 'Digging deep into the source of third-party libraries I licensed, ' \
