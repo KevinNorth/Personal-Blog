@@ -58,6 +58,12 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
         post.save!
       end
 
+      # While we're at it, make sure existing posts have names
+      Post.where(name: [nil, '']).find_each do |post|
+        post.name = post.title
+        post.save!
+      end
+
       remove_index :posts, column: :category_id
       remove_index :categories, column: :parent_id
       drop_table :categories, force: :cascade
@@ -109,14 +115,23 @@ class RefactorCategoriesIntoPosts < ActiveRecord::Migration[7.1]
         new_category.order = post.previous_order_as_category
         new_category.save!
       end
-      Post.where(was_category: false).find_each do |post|
-        new_parent_category = Category.find(post.parent.previous_id_as_category)
-        post.category = new_parent_category
-        post.parent = nil
-        post.save!
-      end
 
-      Post.where(was_category: true).delete_all
+      # Finally, reassociate posts
+      Post.connection.disable_referential_integrity do
+        Post.where(was_category: false).where.not(parent: nil).find_each do |post|
+          new_parent_category = post.parent && Category.find(post.parent.previous_id_as_category)
+          post.category = new_parent_category
+          post.parent = nil
+
+          if Post.exists?(category: new_parent_category, order: post.order)
+            post.order = Post.where(category: new_parent_category).maximum(:order) + 1
+          end
+
+          post.save!(validate: false)
+        end
+
+        Post.where(was_category: true).delete_all
+      end
 
       change_table :posts, bulk: true do |t|
         t.remove_references :parent
