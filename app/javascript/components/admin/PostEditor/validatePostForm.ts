@@ -1,4 +1,5 @@
 import Post from '../../../graphql/types/post';
+import isPostADescendantOfAnother from '../../../lib/isPostADescendantOfAnother';
 
 export interface PostForm {
   id: string | null;
@@ -132,15 +133,30 @@ function validatePostForm({
     };
   }
 
-  if (
-    parentId !== '' &&
-    parentId !== null &&
-    !allPosts.map((c) => c.id).includes(parentId)
-  ) {
-    validationResults.parentId = {
-      isValid: false,
-      invalidReason: 'Selected parent does not exist.',
-    };
+  if (parentId !== '' && parentId !== null) {
+    if (!allPosts.map((c) => c.id).includes(parentId)) {
+      validationResults.parentId = {
+        isValid: false,
+        invalidReason: 'Selected parent does not exist.',
+      };
+    } else if (id && id !== '') {
+      const thisPost = allPosts.find((post) => String(post.id) == id);
+
+      if (
+        thisPost &&
+        isPostADescendantOfAnother({
+          potentialAncestor: thisPost,
+          potentialDescendant: thisPost,
+          allPosts,
+        })
+      ) {
+        validationResults.parentId = {
+          isValid: false,
+          invalidReason:
+            'Selecting this parent would make this post an ancestor of itself.',
+        };
+      }
+    }
   }
 
   return validationResults;

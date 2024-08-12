@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   ButtonGroup,
   Col,
@@ -14,10 +14,12 @@ import {
 import { lazyGetAllPosts } from '../../../graphql/queries/allPosts';
 import { lazyGetPostsByParent } from '../../../graphql/queries/postsByParent';
 import Post from '../../../graphql/types/post';
+import findDescendantsOfPost from '../../../lib/findDescendantsOfPost';
+import organizePostsIntoSelectOptions from '../../../transforms/trees/organizePostsIntoSelectOptions';
 import InvalidIcon from '../../common/InvalidIcon';
 import Editor from '../Editor/Editor';
 import LoadingEditor from './LoadingEditor';
-import validatePostForm from './validatePostForm';
+import validatePostForm, { ValidationResults } from './validatePostForm';
 
 export interface PostEditorProps {
   children: React.ReactNode;
@@ -103,20 +105,55 @@ export default function PostEditor({
     getAllPosts();
   }
 
-  const validationResults = validatePostForm({
-    id,
-    parentId,
-    markdown: markdown || '',
-    name: name || '',
-    order: order || '',
-    published: published || false,
-    slug: slug || '',
-    subtitle: subtitle || '',
-    summary: summary || '',
-    title: title || '',
-    siblingPosts: otherSiblingPosts,
-    allPosts: posts || [],
-  });
+  const selectParentOptions = React.useMemo<ReactElement[]>(() => {
+    if (!id || id === '') {
+      return organizePostsIntoSelectOptions({
+        posts,
+        postsToDisable: [],
+      });
+    }
+
+    const thisPost = posts.find((post) => String(post.id) === String(id));
+    const descendants = findDescendantsOfPost(thisPost, posts).descendants;
+    const postsToDisable = [thisPost, ...descendants];
+
+    return organizePostsIntoSelectOptions({
+      posts,
+      postsToDisable,
+    });
+  }, [id, posts]);
+
+  const validationResults = React.useMemo<ValidationResults>(
+    () =>
+      validatePostForm({
+        id,
+        parentId,
+        markdown: markdown || '',
+        name: name || '',
+        order: order || '',
+        published: published || false,
+        slug: slug || '',
+        subtitle: subtitle || '',
+        summary: summary || '',
+        title: title || '',
+        siblingPosts: otherSiblingPosts,
+        allPosts: posts || [],
+      }),
+    [
+      id,
+      parentId,
+      markdown,
+      name,
+      order,
+      published,
+      slug,
+      subtitle,
+      summary,
+      title,
+      siblingPosts,
+      posts,
+    ]
+  );
 
   return (
     <Container fluid className="post-editor">
@@ -235,11 +272,7 @@ export default function PostEditor({
                     }}
                   >
                     <option value="">(No parent)</option>
-                    {posts.map((post: Partial<Post>) => (
-                      <option value={post.id} key={post.id}>
-                        {post.name}
-                      </option>
-                    ))}
+                    {selectParentOptions}
                   </Form.Select>
                   <InvalidIcon
                     id="post-parent-invalid"

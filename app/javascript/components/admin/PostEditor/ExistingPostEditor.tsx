@@ -20,7 +20,7 @@ import ButtonWithConfirmation from '../../common/ButtonWithConfirmation';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import SimpleToast from '../../common/SimpleToast';
 import PostEditor from './PostEditor';
-import validatePostForm from './validatePostForm';
+import validatePostForm, { ValidationResults } from './validatePostForm';
 
 function updatePostCallback(
   result: FetchResult<UpdatePostMutationResult['data']>,
@@ -190,20 +190,37 @@ function ExistingPostEditor({ sendToast }: Toastable): React.ReactElement {
     setParentId(post.parent?.id || null);
   }
 
-  const validationResults = validatePostForm({
-    id,
-    markdown: markdown || '',
-    name: name || '',
-    order: order || '',
-    parentId,
-    published: published || false,
-    slug: slug || '',
-    subtitle: subtitle || '',
-    summary: summary || '',
-    title: title || '',
-    siblingPosts: otherSiblingPosts,
-    allPosts: allPosts,
-  });
+  const validationResults = React.useMemo<ValidationResults>(
+    () =>
+      validatePostForm({
+        id,
+        markdown: markdown || '',
+        name: name || '',
+        order: order || '',
+        parentId,
+        published: published || false,
+        slug: slug || '',
+        subtitle: subtitle || '',
+        summary: summary || '',
+        title: title || '',
+        siblingPosts: otherSiblingPosts,
+        allPosts,
+      }),
+    [
+      id,
+      parentId,
+      markdown,
+      name,
+      order,
+      published,
+      slug,
+      subtitle,
+      summary,
+      title,
+      otherSiblingPosts,
+      allPosts,
+    ]
+  );
 
   const isPostValid = Object.values(validationResults).every(
     (validation) => validation.isValid
