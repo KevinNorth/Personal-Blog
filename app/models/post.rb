@@ -38,5 +38,5 @@ class Post < ApplicationRecord
 
   validates :order, uniqueness: { scope: :parent_id }
   validates :slug, uniqueness: true
-  validates_with ::NotAnAncestorOfItselfValidator
+  validates_with Validators::NotAnAncestorOfItselfValidator
 end
