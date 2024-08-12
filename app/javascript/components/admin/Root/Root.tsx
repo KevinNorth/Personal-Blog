@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import getAllPosts from '../../../graphql/queries/allPosts';
-import organizePostsIntoArboristTree from '../../../transforms/organizePostsIntoArboristTree';
+import organizePostsIntoArboristTree from '../../../transforms/trees/organizePostsIntoArboristTree';
 import AdminTree from './AdminTree';
 
 export default function Root(): React.ReactElement {

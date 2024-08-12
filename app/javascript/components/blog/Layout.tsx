@@ -3,7 +3,7 @@ import { Spinner } from 'react-bootstrap';
 import { Github } from 'react-bootstrap-icons';
 import getAllPosts from '../../graphql/queries/allPosts';
 import usePageContent from '../../hooks/usePageContent';
-import organizePostsIntoNavbarTree from '../../transforms/organizePostsIntoNavbarTree';
+import organizePostsIntoNavbarTree from '../../transforms/trees/organizePostsIntoNavbarTree';
 import BlogNavbar from './Navbar/BlogNavbar';
 
 export interface LayoutProps {
