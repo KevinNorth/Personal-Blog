@@ -4,7 +4,7 @@
 import React from 'react';
 import snapshotRenderer from 'react-test-renderer';
 import { act } from '@testing-library/react';
-import { allPostsAsArboristTree } from '../../../../transforms/__tests__/fixtures/allPostsAsArboristTree';
+import { allPostsAsArboristTree } from '../../../../transforms/trees/__tests__/fixtures/allPostsAsArboristTree';
 import AdminTree from '../AdminTree';
 
 describe('AdminTree', () => {

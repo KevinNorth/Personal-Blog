@@ -1,19 +1,25 @@
-import { AdminTreeVertex } from '../components/admin/Root/types';
-import Post from '../graphql/types/post';
-import sortByOrder from '../lib/sortByOrder';
+import Post from '../../graphql/types/post';
+import sortByOrder from '../../lib/sortByOrder';
 
-function buildTreeVertex({
+export interface CreateVertexArguments<Vertex> {
+  post: Partial<Post>;
+  children: Vertex[];
+}
+
+function buildTreeVertex<Vertex>({
   post,
   children,
   postIdToChildrenMap,
+  createVertex,
 }: {
   post: Partial<Post>;
   children?: Partial<Post>[];
   postIdToChildrenMap: Map<string, Partial<Post>[]>;
-}): AdminTreeVertex {
+  createVertex: (CreateVertexArguments) => Vertex;
+}): Vertex {
   const sortedChildren = children?.slice().sort(sortByOrder);
 
-  let childVerticies: AdminTreeVertex[] = [];
+  let childVerticies: Vertex[] = [];
   if (sortedChildren) {
     childVerticies = childVerticies.concat(
       sortedChildren.map((child) =>
@@ -21,17 +27,13 @@ function buildTreeVertex({
           post: child,
           children: child?.id ? postIdToChildrenMap.get(child.id) : [],
           postIdToChildrenMap,
+          createVertex,
         })
       )
     );
   }
 
-  return {
-    id: post.id,
-    title: post.title,
-    children: childVerticies,
-    graphqlObject: post,
-  };
+  return createVertex({ post, children: childVerticies });
 }
 
 /**
@@ -42,9 +44,10 @@ function buildTreeVertex({
  * @returns A tree that can be dropped directly into React Arborist's
  *  Tree component as the data prop.
  */
-function organizePostsIntoArboristTree(
-  posts: Partial<Post>[]
-): AdminTreeVertex[] {
+function organizePostsIntoTree<Vertex>(
+  posts: Partial<Post>[],
+  createVertex: (CreateVertexArguments) => Vertex
+): Vertex[] {
   const postIdToChildrenMap = new Map<string, Partial<Post>[]>();
   const rootPosts: Partial<Post>[] = [];
 
@@ -57,9 +60,9 @@ function organizePostsIntoArboristTree(
       rootPosts.push(post);
     }
 
-    const childPosts = posts.filter(
-      (childPost) => childPost.parent?.id === post.id
-    );
+    const childPosts = posts
+      .filter((childPost) => childPost.parent?.id === post.id)
+      .sort(sortByOrder);
     postIdToChildrenMap.set(post.id, childPosts);
   });
 
@@ -71,8 +74,9 @@ function organizePostsIntoArboristTree(
         post: rootPost,
         children: postIdToChildrenMap.get(rootPost.id!),
         postIdToChildrenMap,
+        createVertex,
       })
     );
 }
 
-export default organizePostsIntoArboristTree;
+export default organizePostsIntoTree;

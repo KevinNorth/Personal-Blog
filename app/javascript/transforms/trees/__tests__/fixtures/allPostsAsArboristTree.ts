@@ -1,4 +1,4 @@
-import { AdminTreeVertex } from '../../../components/admin/Root/types';
+import { AdminTreeVertex } from '../../../../components/admin/Root/types';
 
 export const allPostsAsArboristTree: AdminTreeVertex[] = [
   {

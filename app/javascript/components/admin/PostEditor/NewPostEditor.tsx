@@ -13,7 +13,7 @@ import grabErrorsFromMutationResult from '../../../transforms/grabErrorsFromMuta
 import Toastable, { SendToastFunction } from '../../../types/toastable';
 import QueryErrorToast from '../../common/QueryErrorToast';
 import PostEditor from './PostEditor';
-import validatePostForm from './validatePostForm';
+import validatePostForm, { ValidationResults } from './validatePostForm';
 
 function createPostCallback(
   result: FetchResult<CreatePostMutationResult['data']>,
@@ -97,20 +97,36 @@ function NewPostEditor({ sendToast }: Toastable): React.ReactElement {
       )
   );
 
-  const validationResults = validatePostForm({
-    id: null,
-    markdown,
-    name,
-    order,
-    parentId,
-    published,
-    slug,
-    subtitle,
-    summary,
-    title,
-    siblingPosts,
-    allPosts: allPosts,
-  });
+  const validationResults = React.useMemo<ValidationResults>(
+    () =>
+      validatePostForm({
+        id: null,
+        markdown,
+        name,
+        order,
+        parentId,
+        published,
+        slug,
+        subtitle,
+        summary,
+        title,
+        siblingPosts,
+        allPosts,
+      }),
+    [
+      parentId,
+      markdown,
+      name,
+      order,
+      published,
+      slug,
+      subtitle,
+      summary,
+      title,
+      siblingPosts,
+      allPosts,
+    ]
+  );
 
   const isPostValid = Object.values(validationResults).every(
     (validation) => validation.isValid

@@ -51,7 +51,7 @@ I decided to focus on getting my website live quickly so I could link to it - an
 - [ ] Add more tests to gain near-full code coverage. (Partially complete: https://github.com/KevinNorth/Personal-Blog/pull/13)
 - [x] Clean up the CSS on the admin editor so it's easier to use. (https://github.com/KevinNorth/Personal-Blog/pull/12)
 - [ ] Handle errors on both the frontend and the backend more gracefully.
-- [ ] Shore up the validation logic on models.
+- [x] Shore up the validation logic on models. (https://github.com/KevinNorth/Personal-Blog/pull/30)
 - [x] Refactor posts and categories into one model. I thought they'd be more different from each other when I started this project, but in retrospect, I only need posts with unique URL slugs on my site. (https://github.com/KevinNorth/Personal-Blog/pull/17, https://github.com/KevinNorth/Personal-Blog/pull/24, https://github.com/KevinNorth/Personal-Blog/pull/29)
 - [ ] Clean up the number of configuration files in the repository's root directory.
 

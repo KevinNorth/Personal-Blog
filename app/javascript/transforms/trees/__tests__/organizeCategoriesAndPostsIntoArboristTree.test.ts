@@ -1,6 +1,6 @@
-import { mockPosts } from '../../__tests__/fixtures/allPosts';
-import { AdminTreeVertex } from '../../components/admin/Root/types';
-import Post from '../../graphql/types/post';
+import { mockPosts } from '../../../__tests__/fixtures/allPosts';
+import { AdminTreeVertex } from '../../../components/admin/Root/types';
+import Post from '../../../graphql/types/post';
 import organizePostsIntoArboristTree from '../organizePostsIntoArboristTree';
 import { allPostsAsArboristTree } from './fixtures/allPostsAsArboristTree';
 
