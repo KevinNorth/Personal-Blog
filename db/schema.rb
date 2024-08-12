@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_04_022000) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_11_193500) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,15 +71,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_04_022000) do
     t.bigint "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "category_id"
     t.string "slug", null: false
     t.boolean "published", default: false, null: false
     t.bigint "parent_id"
     t.string "name", default: "", null: false
-    t.boolean "was_category", default: false, null: false
-    t.integer "previous_id_as_category"
-    t.integer "previous_parent_id_as_category"
-    t.integer "previous_order_as_category", default: 1
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["parent_id"], name: "index_posts_on_parent_id"
   end

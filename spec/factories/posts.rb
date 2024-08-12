@@ -4,25 +4,20 @@
 #
 # Table name: posts
 #
-#  id                             :bigint           not null, primary key
-#  header_image                   :binary
-#  markdown                       :text
-#  name                           :string           default(""), not null
-#  order                          :integer
-#  previous_id_as_category        :integer
-#  previous_order_as_category     :integer          default(1)
-#  previous_parent_id_as_category :integer
-#  published                      :boolean          default(FALSE), not null
-#  slug                           :string           not null
-#  subtitle                       :string
-#  summary                        :string
-#  title                          :string
-#  was_category                   :boolean          default(FALSE), not null
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  author_id                      :bigint           not null
-#  category_id                    :bigint
-#  parent_id                      :bigint
+#  id           :bigint           not null, primary key
+#  header_image :binary
+#  markdown     :text
+#  name         :string           default(""), not null
+#  order        :integer
+#  published    :boolean          default(FALSE), not null
+#  slug         :string           not null
+#  subtitle     :string
+#  summary      :string
+#  title        :string
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  author_id    :bigint           not null
+#  parent_id    :bigint
 #
 # Indexes
 #
