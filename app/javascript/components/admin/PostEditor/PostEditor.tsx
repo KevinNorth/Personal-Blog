@@ -93,18 +93,6 @@ export default function PostEditor({
       ? []
       : siblingPosts.filter((p) => p.id !== id);
 
-  if (loading) {
-    return <LoadingEditor />;
-  }
-
-  if (!calledGetPostsByParent) {
-    getPostsByParent();
-  }
-
-  if (!calledGetAllPosts) {
-    getAllPosts();
-  }
-
   const selectParentOptions = React.useMemo<ReactElement[]>(() => {
     if (!id || id === '') {
       return organizePostsIntoSelectOptions({
@@ -154,6 +142,18 @@ export default function PostEditor({
       posts,
     ]
   );
+
+  if (loading) {
+    return <LoadingEditor />;
+  }
+
+  if (!calledGetPostsByParent) {
+    getPostsByParent();
+  }
+
+  if (!calledGetAllPosts) {
+    getAllPosts();
+  }
 
   return (
     <Container fluid className="post-editor">

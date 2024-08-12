@@ -27,6 +27,22 @@ function createOptionsFromVertexAndAddToList({
   options: ReactElement[];
   postsToDisable: Partial<Post>[];
 }): void {
+  if (!vertex) {
+    return;
+  }
+
+  const disabled = !!postsToDisable.find(
+    (postToDisable) => postToDisable?.id === vertex.id
+  );
+
+  options.push(
+    <option value={vertex.id} key={vertex.id} disabled={disabled}>
+      {/* '\u00A0' is a non-breaking space, but here React renders "&nbsp;" as those characters instead of one space */}
+      {'\u00A0'.repeat(depth * 3)}
+      {vertex.title}
+    </option>
+  );
+
   vertex.children.forEach((child) => {
     createOptionsFromVertexAndAddToList({
       vertex: child,
@@ -35,17 +51,6 @@ function createOptionsFromVertexAndAddToList({
       postsToDisable,
     });
   });
-
-  const disabled = !!postsToDisable.find(
-    (postToDisable) => postToDisable.id === vertex.id
-  );
-
-  options.push(
-    <option value={vertex.id} key={vertex.id} disabled={disabled}>
-      {'&nbsp;'.repeat(depth)}
-      {vertex.title}
-    </option>
-  );
 }
 
 /**
@@ -75,7 +80,7 @@ function organizePostsIntoSelectOptions({
       vertex: root,
       depth: 0,
       options,
-      postsToDisable,
+      postsToDisable: postsToDisable || [],
     });
   });
 
