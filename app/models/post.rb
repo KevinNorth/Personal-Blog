@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'validators/not_an_ancestor_of_itself_validator'
+
 # == Schema Information
 #
 # Table name: posts
@@ -36,4 +38,5 @@ class Post < ApplicationRecord
 
   validates :order, uniqueness: { scope: :parent_id }
   validates :slug, uniqueness: true
+  validates_with ::NotAnAncestorOfItselfValidator
 end
